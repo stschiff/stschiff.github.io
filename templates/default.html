@@ -17,16 +17,23 @@
                 <a href="/">Home</a>
                 <a href="/people.html">People</a>
                 <a href="/publications.html">Publications</a>
-                <a href="/software.html">Software</a>
                 <a href="/talks.html">Talks</a>
-                <a href="/teaching.html">Teaching</a>
+                <a href="/resources.html">Resources</a>
                 <a href="/contact.html">Contact</a>
+                <a href="/blog.html">Blog</a>
             </nav>
         </header>
 
         <main role="main">
             <h1>$title$</h1>
             $body$
+            $if(isHome)$
+                <h2>Recent Blog Posts</h2>
+                $partial("templates/post-list.html")$
+                <h2>Recent Publications</h2>
+                $partial("templates/pub-list.html")$
+                <a href="blog.html">More posts</a>
+            $endif$
         </main>
 
         <footer>

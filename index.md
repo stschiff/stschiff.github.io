@@ -10,7 +10,7 @@ investigates human history by means of Genetics, and develops
 computational methods to model and analyse ancient and modern genomic
 data.
 
-## Computational Methods for Genomic Analyses
+### Computational Methods for Genomic Analyses
 
 ![](images/population-inference-methods-images.png){width="840"
 height="189"} An important part of our work consists of developing new
@@ -43,7 +43,7 @@ package](https://github.com/stschiff/sequenceTools), the
 program, and various processing tools in the
 [rarecoal-tools](https://github.com/stschiff/rarecoal-tools) package.
 
-## Human History through genetics
+### Human History through genetics
 
 ![](images/historical-genetics-images.png){width="840" height="248"} One
 important goal of genomic analysis is to reconstruct human history by
@@ -74,7 +74,7 @@ example by the
 [Washington
 Post](https://www.washingtonpost.com/news/speaking-of-science/wp/2017/05/30/dna-from-ancient-egyptian-mummies-reveals-their-ancestry/?utm_term=.b647d2170fa6).
 
-## Population Genetic Theory
+### Population Genetic Theory
 
 ![](images/theoretical-population-genetics-images.png){width="540"
 height="194"} I received my PhD from the Institute for Theoretical
@@ -93,4 +93,3 @@ and analyses of adaptive evolution under strong linkage in natural
 populations of *Drosophila melanogaster* ([Schiffels et al.
 2017)](https://www.biorxiv.org/content/early/2017/11/29/226670).
 
-## Posts

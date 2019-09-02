@@ -1,3 +1,7 @@
+---
+title: People
+---
+
 Group members
 =============
 
