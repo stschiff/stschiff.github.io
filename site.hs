@@ -15,38 +15,37 @@ main = hakyll $ do
         route   idRoute
         compile compressCssCompiler
 
-    match (fromList ["pages/contact.md", "pages/people.md", "pages/resources.md"]) $ do
+    match "pages/*" $ do
         route   $ gsubRoute "pages/" (const "") `composeRoutes` setExtension "html"
-        compile $ pandocCompiler
-            >>= loadAndApplyTemplate "templates/default.html" defaultContext
-            >>= relativizeUrls
+        compile $ do
+            baseCtx <- getBaseCtx True True Nothing
+            pandocCompiler
+                >>= loadAndApplyTemplate "templates/base.html" baseCtx
+                >>= relativizeUrls
 
     match "posts/*" $ do
         route $ setExtension "html"
-        compile $ pandocCompiler
-            >>= loadAndApplyTemplate "templates/post.html"    postCtx
-            >>= loadAndApplyTemplate "templates/default.html" postCtx
-            >>= relativizeUrls
+        compile $ do
+            baseCtx <- getBaseCtx False True Nothing
+            pandocCompiler
+                >>= loadAndApplyTemplate "templates/post.html" postCtx
+                >>= loadAndApplyTemplate "templates/base.html" baseCtx
+                >>= relativizeUrls
 
     match "publications/*" $ do
-        route $ setExtension "html"
         compile pandocCompiler
-            -- >>= loadAndApplyTemplate "templates/publication.html"    postCtx
-            -- >>= loadAndApplyTemplate "templates/default.html" postCtx
-            -- >>= relativizeUrls
         
     create ["blog.html"] $ do
         route idRoute
         compile $ do
             posts <- recentFirst =<< loadAll "posts/*"
             let blogCtx =
-                    listField "posts" postCtx (return posts) `mappend`
-                    constField "title" "Blog" `mappend`
+                    listField  "posts" postCtx (return posts) <>
                     defaultContext
-
+            baseCtx <- getBaseCtx False True (Just "Blog")
             makeItem ""
                 >>= loadAndApplyTemplate "templates/blog.html" blogCtx
-                >>= loadAndApplyTemplate "templates/default.html" blogCtx
+                >>= loadAndApplyTemplate "templates/base.html" baseCtx
                 >>= relativizeUrls
 
     create ["publications.html"] $ do
@@ -54,29 +53,12 @@ main = hakyll $ do
         compile $ do
             pubs <- recentFirst =<< loadAll "publications/*"
             let pubCtx =
-                    listField "pubs" postCtx (return pubs) `mappend`
-                    constField "title" "Publications" `mappend`
+                    listField  "pubs"  postCtx (return pubs) <>
                     defaultContext
-
+            baseCtx <- getBaseCtx True False (Just "Publications")
             makeItem ""
                 >>= loadAndApplyTemplate "templates/publications.html" pubCtx
-                >>= loadAndApplyTemplate "templates/default.html" pubCtx
-                >>= relativizeUrls
-
-    match "index.md" $ do
-        route $ setExtension "html"
-        compile $ do
-            posts <- recentFirst =<< loadAll "posts/*"
-            pubs <- recentFirst =<< loadAll "publications/*"
-            let indexCtx =
-                    listField "posts" postCtx (return posts) `mappend`
-                    listField "pubs" postCtx (return pubs)   `mappend`
-                    constField "title" "Home"                `mappend`
-                    constField "isHome" "True"               `mappend`
-                    defaultContext
-
-            pandocCompiler    
-                >>= loadAndApplyTemplate "templates/default.html" indexCtx
+                >>= loadAndApplyTemplate "templates/base.html" baseCtx
                 >>= relativizeUrls
 
     match "templates/*" $ compile templateBodyCompiler
@@ -85,3 +67,23 @@ postCtx :: Context String
 postCtx =
     dateField "date" "%B %e, %Y" `mappend`
     defaultContext
+
+getBaseCtx :: Bool -> Bool -> Maybe String -> Compiler (Context String)
+getBaseCtx withPosts withPubs maybeTitle= do
+    postField <- if withPosts
+        then do
+            posts <- recentFirst =<< loadAll "posts/*"
+            return $ listField "posts" postCtx (return posts)
+        else
+            return mempty
+    pubField <- if withPubs
+        then do
+            pubs <- recentFirst =<< loadAll "publications/*"
+            return $ listField "pubs" postCtx (return pubs)
+        else
+            return mempty
+    let titleField = case maybeTitle of
+            Nothing -> mempty
+            Just t -> constField "title" t
+    return $ postField <> pubField <> titleField <> defaultContext
+

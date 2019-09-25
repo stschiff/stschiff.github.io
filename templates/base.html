@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>My Hakyll Blog - $title$</title>
+        <link rel="stylesheet" href="/css/default.css" />
+    </head>
+    <body>
+        <header>
+            <div class="logo">
+                <h1><a href="/">Stephan Schiffels</a></h1>
+                <p>Computational Methods – Population Genetics – Human History</p>
+            </div>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/people.html">People</a>
+                <a href="/publications.html">Publications</a>
+                <a href="/talks.html">Talks</a>
+                <a href="/resources.html">Resources</a>
+                <a href="/contact.html">Contact</a>
+                <a href="/blog.html">Blog</a>
+            </nav>
+        </header>
+
+        <main role="main">
+            <h1>$title$</h1>
+            <div id="mainbox">
+                $body$
+            </div>
+            <div id="sidebar">
+                $if(posts)$
+                    <h2>Recent Blog Posts</h2>
+                    $for(posts)$
+                        
+                        <p>
+                            <a href="$url$">$title$</a> - $date$
+                        </p>
+                    $endfor$
+                    <p><a href="blog.html">more...</a></p>
+                $endif$
+                $if(pubs)$
+                    <h2>Recent Publications</h2>
+                    $for(pubs)$
+                    <div class="pub_list_item">
+                        $if(image)$
+                            <img src="$image$">
+                        $endif$
+                        <b>$title$</b> by $author$. <i>$journal$</i>. Published $date$
+                    </div>
+                    $endfor$
+                    <p><a href="publications.html">more...</a></p>
+                $endif$
+            </div>
+                    </main>
+
+        <footer>
+            Site generated with
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>. Sourcecode available on
+            <a href="https://github.com/stschiff/homepage">github</a>.
+        </footer>
+    </body>
+</html>

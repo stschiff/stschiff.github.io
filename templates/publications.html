@@ -1,2 +1,10 @@
-Here are my publications
-$partial("templates/pub-list.html")$
+$for(pubs)$
+    <p>
+        <b>$title$</b> by $author$. <i>$journal$</i>. Published $date$.
+        $body$
+        $if(image)$
+            <img src="$image$" width=30%>
+        $endif$
+    </p>
+$endfor$
+

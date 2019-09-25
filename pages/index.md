@@ -10,10 +10,9 @@ investigates human history by means of Genetics, and develops
 computational methods to model and analyse ancient and modern genomic
 data.
 
-### Computational Methods for Genomic Analyses
+## Computational Methods for Genomic Analyses
 
-![](images/population-inference-methods-images.png){width="840"
-height="189"} An important part of our work consists of developing new
+![](images/population-inference-methods-images.png){width="100%"} An important part of our work consists of developing new
 methods to analyse genomic data in order to statistically infer details
 about the underlying evolutionary dynamics. At the heart of this
 methodological work is the growing amount of data available in the field
@@ -43,9 +42,9 @@ package](https://github.com/stschiff/sequenceTools), the
 program, and various processing tools in the
 [rarecoal-tools](https://github.com/stschiff/rarecoal-tools) package.
 
-### Human History through genetics
+## Human History through genetics
 
-![](images/historical-genetics-images.png){width="840" height="248"} One
+![](images/historical-genetics-images.png){width="100%"} One
 important goal of genomic analysis is to reconstruct human history by
 mean of genetics. Up until a few years ago, this was an endeavour that
 was mostly based on modern genomic data that is became increasingly
@@ -74,10 +73,9 @@ example by the
 [Washington
 Post](https://www.washingtonpost.com/news/speaking-of-science/wp/2017/05/30/dna-from-ancient-egyptian-mummies-reveals-their-ancestry/?utm_term=.b647d2170fa6).
 
-### Population Genetic Theory
+## Population Genetic Theory
 
-![](images/theoretical-population-genetics-images.png){width="540"
-height="194"} I received my PhD from the Institute for Theoretical
+![](images/theoretical-population-genetics-images.png){width="100%"} I received my PhD from the Institute for Theoretical
 Physics in Cologne, and my
 [dissertation](http://kups.ub.uni-koeln.de/4795/) was in population
 genetic theory. Since then I have worked on a number of studies that
