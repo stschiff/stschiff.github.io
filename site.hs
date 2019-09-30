@@ -69,21 +69,20 @@ postCtx =
     defaultContext
 
 getBaseCtx :: Bool -> Bool -> Maybe String -> Compiler (Context String)
-getBaseCtx withPosts withPubs maybeTitle= do
-    postField <- if withPosts
+getBaseCtx withPosts withPubs maybeTitle = do
+    posts <- if withPosts
         then do
-            posts <- recentFirst =<< loadAll "posts/*"
-            return $ listField "posts" postCtx (return posts)
+            recentFirst =<< loadAll "posts/*"
         else
             return mempty
-    pubField <- if withPubs
+    pubs <- if withPubs
         then do
-            pubs <- recentFirst =<< loadAll "publications/*"
-            return $ listField "pubs" postCtx (return pubs)
+            recentFirst =<< loadAll "publications/*"
         else
             return mempty
-    let titleField = case maybeTitle of
+    let sidebarField = listField "sidebarItems" postCtx (return (posts <> pubs))
+        titleField = case maybeTitle of
             Nothing -> mempty
             Just t -> constField "title" t
-    return $ postField <> pubField <> titleField <> defaultContext
+    return $ sidebarField <> titleField <> defaultContext
 
