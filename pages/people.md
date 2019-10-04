@@ -1,5 +1,6 @@
 ---
 title: People
+menu_People: True
 ---
 
 Group members

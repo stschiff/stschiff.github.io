@@ -9,18 +9,18 @@
     </head>
     <body>
         <header>
-            <div class="logo">
+            <div id="logo">
                 <h1><a href="/">Stephan Schiffels</a></h1>
-                <p>Computational Methods – Population Genetics – Human History</p>
+                <div id="subtitle">Population Genetics – Computational Methods - Human History</div>
             </div>
             <nav>
-                <a href="/">Home</a>
-                <a href="/people.html">People</a>
-                <a href="/publications.html">Publications</a>
-                <a href="/talks.html">Talks</a>
-                <a href="/resources.html">Resources</a>
-                <a href="/contact.html">Contact</a>
-                <a href="/blog.html">Blog</a>
+                <a href="/" $if(menu_Home)$ class="menu_active"$endif$>Home</a>
+                <a href="/people.html"$if(menu_People)$ class="menu_active"$endif$>People</a>
+                <a href="/publications.html"$if(menu_Publications)$ class="menu_active"$endif$>Publications</a>
+                <a href="/talks.html"$if(menu_Talks)$ class="menu_active"$endif$>Talks</a>
+                <a href="/resources.html"$if(menu_Resources)$ class="menu_active"$endif$>Resources</a>
+                <a href="/contact.html"$if(menu_Contact)$ class="menu_active"$endif$>Contact</a>
+                <a href="/blog.html"$if(menu_Blog)$ class="menu_active"$endif$>Blog</a>
             </nav>
         </header>
 
@@ -30,33 +30,27 @@
                 $body$
             </div>
             <div id="sidebar">
-                $if(posts)$
-                    <h2>Recent Blog Posts</h2>
-                    $for(posts)$
-                        <p>
-                            <a href="$url$">$title$</a> - $date$
-                        </p>
-                    $endfor$
-                    <p><a href="blog.html">more...</a></p>
-                $endif$
-                $if(pubs)$
-                    <h2>Recent Publications</h2>
-                    $for(pubs)$
-                    <div class="pub_list_item">
+                <h2>News</h2>
+                $for(sidebarItems)$
+                    <div class="sidebar_item">
                         $if(image)$
                             <img src="$image$">
                         $endif$
-                        <b>$title$</b> by $author$. <i>$journal$</i>. Published $date$
+                        $if(pub)$
+                            <a href="/publications.html#$itemName$"><b><i>New Publication: </i></b>
+                            <b>$title$</b></a> by $author$. <i>$journal$</i>. Published $date$
+                        $endif$
+                        $if(post)$
+                            <a href="$url$"><b><i>New Blog Post: </i></b>$title$</a> - $date$
+                        $endif$
                     </div>
-                    $endfor$
-                    <p><a href="publications.html">more...</a></p>
-                $endif$
+                $endfor$
             </div>
-                    </main>
+        </main>
 
         <footer>
-            Site generated with
-            <a href="http://jaspervdj.be/hakyll">Hakyll</a>. Sourcecode available on
+            Powered by
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a> and custom CSS. Sourcecode available on
             <a href="https://github.com/stschiff/homepage">github</a>.
         </footer>
     </body>

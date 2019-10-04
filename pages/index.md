@@ -1,5 +1,6 @@
 ---
 title: Home
+menu_Home: True
 ---
 
 I am group leader for population genetics at the Department for

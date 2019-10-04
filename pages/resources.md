@@ -1,5 +1,6 @@
 ---
 title: Resources
+menu_Resources: True
 ---
 
 # Data
@@ -53,11 +54,11 @@ utilities package
 [rarecoal-tools](https://github.com/stschiff/rarecoal-tools) is
 available as well. Written in [Haskell](https://www.haskell.org).
 
-### [Tman](http://www.github.com/stschiff/tman)
+<!-- ### [Tman](http://www.github.com/stschiff/tman)
 
 This is a tool for running and monitoring large numbers of jobs on
 Cluster environments. The tool is still in alpha-phase. Written in
-[Haskell](https://www.haskell.org).
+[Haskell](https://www.haskell.org). -->
 
 ### [SequenceTools](http://www.github.com/stschiff/sequenceTools)
 

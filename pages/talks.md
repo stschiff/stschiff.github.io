@@ -1,5 +1,6 @@
 ---
 title: Talks
+menu_Talks: True
 ---
 
 Lecture \"Investigating the human past with ancient and modern genomes.\" at the
