@@ -9,10 +9,12 @@
     </head>
     <body>
         <header>
-            <div id="logo">
-                <h1><a href="/">Stephan Schiffels</a></h1>
-                <div id="subtitle">Population Genetics – Computational Methods - Human History</div>
-            </div>
+            <h1>
+                <a href="/">Stephan Schiffels</a>
+            </h1>
+            <h2>
+                Population Genetics – Computational Methods - Human History
+            </h2>
             <nav>
                 <a href="/" $if(menu_Home)$ class="menu_active"$endif$>Home</a>
                 <a href="/group.html"$if(menu_Group)$ class="menu_active"$endif$>Group</a>
@@ -30,20 +32,29 @@
         </main>
         <aside>
             <h2>News</h2>
-            $for(sidebarItems)$
-                <p>
-                    $if(image)$
-                        <img src="$image$">
-                    $endif$
-                    $if(pub)$
-                        <a href="/publications.html#$itemName$"><b><i>New Publication: </i></b>
-                        <b>$title$</b></a> by $author$. <i>$journal$</i>. Published $date$
-                    $endif$
-                    $if(post)$
-                        <a href="$url$"><b><i>New Blog Post: </i></b>$title$</a> - $date$
-                    $endif$
-                </p>
-            $endfor$
+            <ul>
+                $for(sidebarItems)$
+                    <li>
+                        $if(image)$
+                            <img src="$image$">
+                        $endif$
+                        $if(pub)$
+                            <a href="/publications.html#$itemName$"><b><i>New Publication: </i></b>
+                            <b>$title$</b></a> by $author$. <i>$journal$</i>. Published $date$
+                        $endif$
+                        $if(post)$
+                            <a href="$url$">
+                                <b>
+                                    $if(isBlogPost)$
+                                    <i>New Blog Post: </i>
+                                    $endif$
+                                    $title$
+                                </b>
+                            </a> - $date$
+                        $endif$
+                    </li>
+                $endfor$
+            </ul>
         </aside>
 
         <footer>

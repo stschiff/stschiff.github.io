@@ -2,7 +2,7 @@
 title: The genetic history of admixture across inner Eurasia
 author: Jeong et al.
 journal: Nat Ecol & Evol
-image: images/InnerEurasia.jpg
+image: /images/InnerEurasia.jpg
 tag: innerEurasia
 url: https://www.nature.com/articles/s41559-019-0878-2
 ---

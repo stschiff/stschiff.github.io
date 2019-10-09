@@ -7,18 +7,19 @@ body {
   font-weight: "Light";
 }
 
-#logo h1 a {
+header h1 a {
     font-weight: "Bold";
     color: inherit;
     text-decoration: none;
 }
-#logo h1 {
+header h1 {
   margin-bottom: 0.2rem;
 }
 
-#subtitle {
+header h2 {
   font-size: 0.95rem;
   margin-bottom: 2rem;
+  font-weight: normal;
 }
 
 nav {
@@ -31,11 +32,7 @@ nav {
 
 nav a {
   color: inherit;
-  /* font-size: 1.2rem; */
-  /* font-weight: bold; */
-  /* color: black; */
   text-decoration: none;
-  /* text-transform: uppercase; */
 }
 
 .menu_active {
@@ -59,17 +56,21 @@ footer {
   margin-top: 3rem;
   padding: 1.2rem 0;
   border-top: 3px solid rgb(228, 228, 228);
-  /* font-size: 1.2rem; */
   color: #555;
 }
 
-article .header {
-  /* font-size: 1.4rem; */
+article header {
   font-style: italic;
+  padding: 0;
   color: #555;
 }
 
-aside p {
+aside ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+aside li {
     margin-top: -3px;
     margin-bottom: -3px;
     padding-bottom: 10px;
@@ -80,7 +81,7 @@ aside p {
     overflow: hidden;
 }
 
-aside p img {
+aside li img {
     height: 80px;
     width: 80px;
     float: right;
@@ -90,7 +91,17 @@ aside p img {
     border: 1px solid black;
 }
 
-.portrait_gallery_item {
+main > ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+main > ul > li > ul {
+  list-style-type: disc;
+  padding: 1em;
+}
+
+main > ul > li {
   clear: both;
   margin-bottom: -3px;
   margin-top: -3px;
@@ -101,32 +112,13 @@ aside p img {
   padding-top: 10px;
 }
 
-.portrait_gallery_item img {
+main > ul > li > img {
   height: 250px;
   width: 250px;
   object-fit: cover;
 }
 
-.publication_list_item {
-  clear: both;
-  margin-bottom: -3px;
-  margin-top: -3px;
-  overflow: hidden;
-  border-bottom: 3px solid rgb(228, 228, 228);
-  border-top: 3px solid rgb(228, 228, 228);
-  padding-bottom: 10px;
-  padding-top: 10px;
-}
-
-.publication_list_item img {
-  height: 200px;
-  width: 200px;
-  object-fit: cover;
-  border-radius: 10%;
-  border: 1px solid black;
-}
-
-.fullWidthImg {
+section > h2 + img {
   width: 100%;
 }
 
@@ -181,23 +173,14 @@ aside p img {
       margin-right: 2%;
   }
  
-  /* #sidebar h2 {
-      font-size: 1.7rem;
-  } */
   main {
       width: 63%;
       float: left;
   }
   footer {
-    /* text-align: right; */
     clear: both;
   }
-  .portrait_gallery_item img {
-    float: left;
-    margin-right: 2rem;
-  }
-
-  .publication_list_item img {
+  main > ul > li > img {
     float: left;
     margin-right: 2rem;
   }

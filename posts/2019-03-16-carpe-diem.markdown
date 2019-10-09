@@ -1,5 +1,6 @@
 ---
 title: Carpe Diem
+isBlogPost: True
 ---
 
 Fusce tortor quam, egestas in posuere quis, porttitor vel turpis. Donec

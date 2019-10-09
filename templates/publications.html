@@ -3,16 +3,17 @@
 </p>
 
 <p>
-    <a href="/publications-selected.html">Show selected publications only</a>
+    <a href=$linkTarget$>$linkName$</a>
 </p>
-    
+
+<ul>
 $for(pubs)$
-    <div id="$itemName$" class="publication_list_item">
+    <li id="$itemName$">
         $if(image)$
             <img src="$image$">
         $endif$
-        <p><b><a href="$url$">$title$</a></b> by $author$. <i>$journal$</i>. Published $date$.</p>
-        $body$
-    </div>
+        <b><a href="$url$">$title$</a></b> by $author$. <i>$journal$</i>. Published $date$.
+        <p>$body$</p>
+    </li>
 $endfor$
-
+</ul>

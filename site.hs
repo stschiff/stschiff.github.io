@@ -10,6 +10,7 @@ import Data.Time (UTCTime(..), fromGregorian, secondsToDiffTime, defaultTimeLoca
 import System.FilePath.Posix (takeFileName)
 
 --------------------------------------------------------------------------------
+
 main :: IO ()
 main = hakyll $ do
     match "images/*" $ do
@@ -23,19 +24,25 @@ main = hakyll $ do
     match "pages/*" $ do
         route   $ gsubRoute "pages/" (const "") `composeRoutes` setExtension "html"
         compile $ do
-            baseCtx <- getBaseCtx True True Nothing
-            pandocCompiler
+            baseCtx <- getBaseCtx Nothing
+            ext <- getUnderlyingExtension
+            let c = if ext == ".html" then getResourceBody else pandocCompiler
+            c
                 >>= loadAndApplyTemplate "templates/base.html" baseCtx
                 >>= relativizeUrls
 
     match "posts/*" $ do
         route $ setExtension "html"
         compile $ do
-            baseCtx <- getBaseCtx False True Nothing
+            baseCtx <- getBaseCtx Nothing
             pandocCompiler
                 >>= loadAndApplyTemplate "templates/post.html" postCtx
                 >>= loadAndApplyTemplate "templates/base.html" baseCtx
                 >>= relativizeUrls
+    
+    match "posts/*" $ version "raw" $ do
+        compile getResourceString
+
 
     match "publications/*" $ do
         compile pandocCompiler
@@ -43,34 +50,42 @@ main = hakyll $ do
     create ["blog.html"] $ do
         route idRoute
         compile $ do
-            posts <- recentFirst =<< loadAll "posts/*"
+            posts <- recentFirst =<< loadAll ("posts/*" .&&. hasNoVersion)
             let blogCtx =
                     listField  "posts" postCtx (return posts) <>
                     defaultContext
-            baseCtx <- getBaseCtx False True (Just "Blog")
+            baseCtx <- getBaseCtx (Just "Blog")
             makeItem ""
                 >>= loadAndApplyTemplate "templates/blog.html" blogCtx
                 >>= loadAndApplyTemplate "templates/base.html" (baseCtx <> constField "menu_Blog" "True")
                 >>= relativizeUrls
-    
-    createPublications "publications.html" "templates/publications.html" "All Publications"
-    createPublications "publications-selected.html" "templates/publications-selected.html" "Selected Publications"
+                    
+    createPublications False "publications.html"
+    createPublications True "publications-selected.html"
 
     match "templates/*" $ compile templateBodyCompiler
 
-createPublications :: Identifier -> Identifier -> String -> Rules ()
-createPublications target template title = do
+createPublications :: Bool -> Identifier -> Rules ()
+createPublications selected target = do
+    let (f, title, linkTarget, linkName) =
+            if selected
+            then (isSelected, "Selected Publications", "/publications.html", "Show all")
+            else (const (return True), "Publications", "/publications-selected.html", "Show selected only")
     create [target] $ do
         route idRoute
         compile $ do
             pubs <- recentFirst =<< loadAll "publications/*"
+            filteredPubs <- filterM f pubs
             let pubCtx =
-                    listField  "pubs"  postCtx (return pubs) <>
+                    listField  "pubs"  postCtx (return filteredPubs) <>
                     defaultContext
-            baseCtx <- getBaseCtx True False (Just title)
+            baseCtx <- getBaseCtx (Just title)
             makeItem ""
-                >>= loadAndApplyTemplate template pubCtx
-                >>= loadAndApplyTemplate "templates/base.html" (baseCtx <> constField "menu_Publications" "True")
+                >>= loadAndApplyTemplate "templates/publications.html" (pubCtx <>
+                        constField "linkName" linkName <>
+                        constField "linkTarget" linkTarget)
+                >>= loadAndApplyTemplate "templates/base.html" (baseCtx <>
+                                                                constField "menu_Publications" "True")
                 >>= relativizeUrls
 
 
@@ -86,21 +101,13 @@ postCtx =
     isPub = (=="publications/") . take 13 . toFilePath . itemIdentifier
     itemName = return . takeFileName . toFilePath . itemIdentifier
 
-getBaseCtx :: Bool -> Bool -> Maybe String -> Compiler (Context String)
-getBaseCtx withPosts withPubs maybeTitle = do
+getBaseCtx :: Maybe String -> Compiler (Context String)
+getBaseCtx maybeTitle = do
     currentTime <- unsafeCompiler getCurrentTime
     let cutoffTime = addUTCTime ((-365) * nominalDay) currentTime
     -- let cutoffTime = UTCTime (fromGregorian 2018 1 1) (secondsToDiffTime 0)
-    posts <- if withPosts
-        then
-            loadAll "posts/*"
-        else
-            return mempty
-    pubs <- if withPubs
-        then
-            loadAll "publications/*"
-        else
-            return mempty
+    posts <- loadAll ("posts/*" .&&. hasVersion "raw")
+    pubs <- loadAll "publications/*"
     filteredPosts <- filterM (isMoreRecentThan cutoffTime) posts
     filteredPubs <- filterM (isMoreRecentThan cutoffTime) pubs
     filteredSelectedPubs <- filterM isSelected filteredPubs
@@ -114,9 +121,10 @@ getBaseCtx withPosts withPubs maybeTitle = do
     isMoreRecentThan cutoffTime i = do
         itemTime <- getItemUTC defaultTimeLocale . itemIdentifier $ i
         return (itemTime > cutoffTime)
-    isSelected :: (MonadMetadata m) => Item a -> m Bool
-    isSelected i = do
-        f <- getMetadataField (itemIdentifier i) "selected"
-        case f of
-            Just _ -> return True
-            Nothing -> return False
+
+isSelected :: (MonadMetadata m) => Item a -> m Bool
+isSelected i = do
+    f <- getMetadataField (itemIdentifier i) "selected"
+    case f of
+        Just _ -> return True
+        Nothing -> return False

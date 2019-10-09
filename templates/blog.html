@@ -1,8 +1,13 @@
 <ul>
     $for(posts)$
+        $if(isBlogPost)$
         <li>
-            <a href="$url$">$title$</a> - $date$
+            $if(image)$
+                <img src="$image$">
+            $endif$
+            <b><a href="$url$">$title$</a></b> - $date$
         </li>
+        $endif$
     $endfor$
 </ul>
-    
+        

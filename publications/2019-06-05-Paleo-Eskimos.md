@@ -1,7 +1,7 @@
 ---
 title: Paleo-Eskimo ancestry in America
 author: Flegontov et al.
-image: images/PaleoEskimoCover-small.jpg
+image: /images/PaleoEskimoCover-small.jpg
 journal: Nature
 tag: PaleoEskimo
 selected: True
