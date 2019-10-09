@@ -15,7 +15,7 @@
             </div>
             <nav>
                 <a href="/" $if(menu_Home)$ class="menu_active"$endif$>Home</a>
-                <a href="/people.html"$if(menu_People)$ class="menu_active"$endif$>People</a>
+                <a href="/group.html"$if(menu_Group)$ class="menu_active"$endif$>Group</a>
                 <a href="/publications.html"$if(menu_Publications)$ class="menu_active"$endif$>Publications</a>
                 <a href="/talks.html"$if(menu_Talks)$ class="menu_active"$endif$>Talks</a>
                 <a href="/resources.html"$if(menu_Resources)$ class="menu_active"$endif$>Resources</a>
@@ -24,29 +24,27 @@
             </nav>
         </header>
 
-        <main role="main">
+        <main>
             <h1>$title$</h1>
-            <div id="mainbox">
-                $body$
-            </div>
-            <div id="sidebar">
-                <h2>News</h2>
-                $for(sidebarItems)$
-                    <div class="sidebar_item">
-                        $if(image)$
-                            <img src="$image$">
-                        $endif$
-                        $if(pub)$
-                            <a href="/publications.html#$itemName$"><b><i>New Publication: </i></b>
-                            <b>$title$</b></a> by $author$. <i>$journal$</i>. Published $date$
-                        $endif$
-                        $if(post)$
-                            <a href="$url$"><b><i>New Blog Post: </i></b>$title$</a> - $date$
-                        $endif$
-                    </div>
-                $endfor$
-            </div>
+            $body$
         </main>
+        <aside>
+            <h2>News</h2>
+            $for(sidebarItems)$
+                <p>
+                    $if(image)$
+                        <img src="$image$">
+                    $endif$
+                    $if(pub)$
+                        <a href="/publications.html#$itemName$"><b><i>New Publication: </i></b>
+                        <b>$title$</b></a> by $author$. <i>$journal$</i>. Published $date$
+                    $endif$
+                    $if(post)$
+                        <a href="$url$"><b><i>New Blog Post: </i></b>$title$</a> - $date$
+                    $endif$
+                </p>
+            $endfor$
+        </aside>
 
         <footer>
             Powered by

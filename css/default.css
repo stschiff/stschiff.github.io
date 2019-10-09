@@ -46,12 +46,12 @@ nav a:hover {
   color: rgb(68, 119, 182);
 }
 
-main a, footer a {
+main a, aside a, footer a {
   color: rgb(68, 119, 182);
   text-decoration: none;
 }
 
-main a:hover, footer a:hover {
+main a:hover, aside a:hover, footer a:hover {
   color: #333;
 }
 
@@ -69,7 +69,7 @@ article .header {
   color: #555;
 }
 
-.sidebar_item {
+aside p {
     margin-top: -3px;
     margin-bottom: -3px;
     padding-bottom: 10px;
@@ -80,7 +80,7 @@ article .header {
     overflow: hidden;
 }
 
-.sidebar_item img {
+aside p img {
     height: 80px;
     width: 80px;
     float: right;
@@ -88,6 +88,46 @@ article .header {
     margin-left: 5px;
     border-radius: 10%;
     border: 1px solid black;
+}
+
+.portrait_gallery_item {
+  clear: both;
+  margin-bottom: -3px;
+  margin-top: -3px;
+  overflow: hidden;
+  border-bottom: 3px solid rgb(228, 228, 228);
+  border-top: 3px solid rgb(228, 228, 228);
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+.portrait_gallery_item img {
+  height: 250px;
+  width: 250px;
+  object-fit: cover;
+}
+
+.publication_list_item {
+  clear: both;
+  margin-bottom: -3px;
+  margin-top: -3px;
+  overflow: hidden;
+  border-bottom: 3px solid rgb(228, 228, 228);
+  border-top: 3px solid rgb(228, 228, 228);
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+.publication_list_item img {
+  height: 200px;
+  width: 200px;
+  object-fit: cover;
+  border-radius: 10%;
+  border: 1px solid black;
+}
+
+.fullWidthImg {
+  width: 100%;
 }
 
 @media (max-width: 799px) {
@@ -109,7 +149,7 @@ article .header {
   nav a {
     display: inline;
     margin: 0 0.6rem;
-  }
+  }  
 }
 
 @media (min-width: 800px) {
@@ -130,21 +170,21 @@ article .header {
     margin: 0 0 0 1.2rem;
     display: inline;
   }
-  #sidebar {
+  aside {
       width: 33%;
       float: right;
       font-size: 90%;
       margin-left: 2%;    
   }
 
-  #mainbox {
+  main {
       margin-right: 2%;
   }
  
   /* #sidebar h2 {
       font-size: 1.7rem;
   } */
-  #mainbox {
+  main {
       width: 63%;
       float: left;
   }
@@ -152,6 +192,16 @@ article .header {
     /* text-align: right; */
     clear: both;
   }
+  .portrait_gallery_item img {
+    float: left;
+    margin-right: 2rem;
+  }
+
+  .publication_list_item img {
+    float: left;
+    margin-right: 2rem;
+  }
+
 }
 
 @media (min-width: 1200px) {

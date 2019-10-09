@@ -3,10 +3,16 @@ title: Resources
 menu_Resources: True
 ---
 
-# Data
-...
+<section>
+## Data
 
-# Teaching Material
+* [BAM files](https://oc.gnz.mpg.de/owncloud/index.php/s/5TeIuQZpgQnfrM2) of the 10 ancient British genomes generated in [Schiffels et al. 2016](https://www.nature.com/articles/ncomms10408)
+* [BAM files](https://oc.gnz.mpg.de/owncloud/index.php/s/EgVB24wWFZiHQ9u) of the three individuals with genome-wide data analysed in [Schuenemann et al. 2017](https://www.nature.com/articles/ncomms15694)
+* [Genotype data](https://edmond.mpdl.mpg.de/imeji/collection/DZ77Fi_Dqj6TloxA) of the present-day Siberian individuals described in [Flegontov et al. 2019](https://www.nature.com/articles/s41586-019-1251-y)
+</section>
+
+<section>
+## Teaching Material
 
 -   May 2019: Six-hour practical course on \"Computational Population
     Genetics\" at the University of Jena, Germany,
@@ -14,13 +20,18 @@ menu_Resources: True
 -   January 22-24, 2019: Workshop on \"Computational Population
     Genetics\" at the MPI-SHH in Jena, Germany,
     see <https://comppopgenworkshop2019.readthedocs.io/en/latest/>
+-   December 12, 2018: Webinar with the student council of the Turkish regional group of the
+International Society for Computational Biology, Regional Group in
+Turkey: [Link to Youtube-Video](https://www.youtube.com/watch?v=qGW67OAbXD4&amp;amp=&amp;t=7s)
 -   November 2018: Workshop on \"Computational Methods to Analyse Human
     Genetic Variation\", see
      <https://compvar-workshop.readthedocs.io/en/latest/>
 -   May 2016: Workshop on Analysis of Genomic data. See
     <https://gaworkshop.readthedocs.io/en/latest/>
+</section>
 
-# Software
+<section>
+## Software
 
 All of my software can be found on github. For discussions around MSMC,
 we have a [google
@@ -71,3 +82,4 @@ into eigenstrat format. Written in [Haskell](https://www.haskell.org).
 
 A program to process raw paired-end sequencing data from ancient DNA
 libraries. Written in [Haskell](https://www.haskell.org).
+</section>

@@ -3,7 +3,10 @@
 import           Data.Monoid (mappend)
 import           Hakyll
 
+import Control.Monad (filterM)
+import Control.Monad.IO.Class (liftIO)
 import Debug.Trace (trace)
+import Data.Time (UTCTime(..), fromGregorian, secondsToDiffTime, defaultTimeLocale, getCurrentTime, addUTCTime, nominalDay)
 import System.FilePath.Posix (takeFileName)
 
 --------------------------------------------------------------------------------
@@ -49,21 +52,27 @@ main = hakyll $ do
                 >>= loadAndApplyTemplate "templates/blog.html" blogCtx
                 >>= loadAndApplyTemplate "templates/base.html" (baseCtx <> constField "menu_Blog" "True")
                 >>= relativizeUrls
+    
+    createPublications "publications.html" "templates/publications.html" "All Publications"
+    createPublications "publications-selected.html" "templates/publications-selected.html" "Selected Publications"
 
-    create ["publications.html"] $ do
+    match "templates/*" $ compile templateBodyCompiler
+
+createPublications :: Identifier -> Identifier -> String -> Rules ()
+createPublications target template title = do
+    create [target] $ do
         route idRoute
         compile $ do
             pubs <- recentFirst =<< loadAll "publications/*"
             let pubCtx =
                     listField  "pubs"  postCtx (return pubs) <>
                     defaultContext
-            baseCtx <- getBaseCtx True False (Just "Publications")
+            baseCtx <- getBaseCtx True False (Just title)
             makeItem ""
-                >>= loadAndApplyTemplate "templates/publications.html" pubCtx
+                >>= loadAndApplyTemplate template pubCtx
                 >>= loadAndApplyTemplate "templates/base.html" (baseCtx <> constField "menu_Publications" "True")
                 >>= relativizeUrls
 
-    match "templates/*" $ compile templateBodyCompiler
 
 postCtx :: Context String
 postCtx =
@@ -79,19 +88,35 @@ postCtx =
 
 getBaseCtx :: Bool -> Bool -> Maybe String -> Compiler (Context String)
 getBaseCtx withPosts withPubs maybeTitle = do
+    currentTime <- unsafeCompiler getCurrentTime
+    let cutoffTime = addUTCTime ((-365) * nominalDay) currentTime
+    -- let cutoffTime = UTCTime (fromGregorian 2018 1 1) (secondsToDiffTime 0)
     posts <- if withPosts
-        then do
-            recentFirst =<< loadAll "posts/*"
+        then
+            loadAll "posts/*"
         else
             return mempty
     pubs <- if withPubs
-        then do
-            recentFirst =<< loadAll "publications/*"
+        then
+            loadAll "publications/*"
         else
             return mempty
-    let sidebarField = listField "sidebarItems" postCtx (recentFirst (posts <> pubs))
+    filteredPosts <- filterM (isMoreRecentThan cutoffTime) posts
+    filteredPubs <- filterM (isMoreRecentThan cutoffTime) pubs
+    filteredSelectedPubs <- filterM isSelected filteredPubs
+    let sidebarField = listField "sidebarItems" postCtx (recentFirst (filteredPosts <> filteredPubs))
         titleField = case maybeTitle of
             Nothing -> mempty
             Just t -> constField "title" t
     return $ sidebarField <> titleField <> defaultContext
-
+  where
+    isMoreRecentThan :: (MonadMetadata m) => UTCTime -> Item a -> m Bool
+    isMoreRecentThan cutoffTime i = do
+        itemTime <- getItemUTC defaultTimeLocale . itemIdentifier $ i
+        return (itemTime > cutoffTime)
+    isSelected :: (MonadMetadata m) => Item a -> m Bool
+    isSelected i = do
+        f <- getMetadataField (itemIdentifier i) "selected"
+        case f of
+            Just _ -> return True
+            Nothing -> return False

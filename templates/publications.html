@@ -1,10 +1,18 @@
+<p>
+    Note: All my publications can also be found on <a href="https://scholar.google.de/citations?user=6FZPsI4AAAAJ&hl=de">Google Scholar</a>
+</p>
+
+<p>
+    <a href="/publications-selected.html">Show selected publications only</a>
+</p>
+    
 $for(pubs)$
-    <p id="$itemName$">
-        <b>$title$</b> by $author$. <i>$journal$</i>. Published $date$.
-        $body$
+    <div id="$itemName$" class="publication_list_item">
         $if(image)$
-            <img src="$image$" width=30%>
+            <img src="$image$">
         $endif$
-    </p>
+        <p><b><a href="$url$">$title$</a></b> by $author$. <i>$journal$</i>. Published $date$.</p>
+        $body$
+    </div>
 $endfor$
 
