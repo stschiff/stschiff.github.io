@@ -91,17 +91,17 @@ aside li img {
     border: 1px solid black;
 }
 
-main > ul {
+ul.portraitlist, ul.publist {
   list-style-type: none;
   padding: 0;
 }
 
-main > ul > li > ul {
+ul.portraitlist > li > ul {
   list-style-type: disc;
   padding: 1em;
 }
 
-main > ul > li {
+ul.portraitlist > li, ul.publist > li {
   clear: both;
   margin-bottom: -3px;
   margin-top: -3px;
@@ -112,11 +112,18 @@ main > ul > li {
   padding-top: 10px;
 }
 
-main > ul > li > img {
+ul.portraitlist > li > img {
   height: 250px;
   width: 250px;
   object-fit: cover;
 }
+
+ul.publist > li > img {
+  height: 150px;
+  width: 150px;
+  object-fit: cover;
+}
+
 
 section > h2 + img {
   width: 100%;
@@ -180,7 +187,7 @@ section > h2 + img {
   footer {
     clear: both;
   }
-  main > ul > li > img {
+  ul.portraitlist > li > img, ul.publist > li > img {
     float: left;
     margin-right: 2rem;
   }

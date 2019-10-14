@@ -6,14 +6,16 @@
     <a href=$linkTarget$>$linkName$</a>
 </p>
 
-<ul>
+<ul class="publist">
 $for(pubs)$
     <li id="$itemName$">
         $if(image)$
             <img src="$image$">
         $endif$
-        <b><a href="$url$">$title$</a></b> by $author$. <i>$journal$</i>. Published $date$.
-        <p>$body$</p>
+        <div>
+            <b><a href="$url$">$title$</a></b>. <i>$journal$</i>. Published <b>$date$</b>.
+            <p>$body$</p>
+        </div>
     </li>
 $endfor$
 </ul>

@@ -1,6 +1,6 @@
 ---
 title: 16 open PhD positions at the MPI-SHH
-image: /images/IMPRS-Jena-Logo.png
+image: /images/IMPRS-Jena-Logo2.jpg
 ---
 
 The International Max Planck Research School for the Science of human history is seeking up to 16 candidates for pursuing a PhD in 14 projects.
