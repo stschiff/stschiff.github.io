@@ -43,10 +43,12 @@ Erwartungswert zu jedem Zeitpunkt angeben. Hier ist der Verlauf dieses
 Erwartungswertes seit der letzten Bundestagswahl für relevante Parteien,
 zusammen mit den Umfrage-Ergebnissen:
 
+<figure>
 ![](https://cdn-images-1.medium.com/max/1600/1*9_eLdJnE45TtRT5tddRUMw.png)
-<span class="figcaption_hack">Umfrageergebnisse verschiedener Institute seit der letzten Bundestagswahl, sowie
+<figcaption>Umfrageergebnisse verschiedener Institute seit der letzten Bundestagswahl, sowie
 der Erwartungswert der Zweitstimmen-Anteile in der Bevölkerung durch unser
-Modell, angezeigt durch Kurven.</span>
+Modell, angezeigt durch Kurven.</figcaption>
+</figure>
 
 Man sieht, dass unser Modell eine Art Mittelwert durch die vielen Ergebnisse der
 Institute bildet, allerdings in gewisser Weise gewichtet durch die Anzahl der
@@ -62,9 +64,11 @@ der Aufstieg der AfD während “Flüchtlingskrise” 2015.
 Ein bekannter Effekt ist die systematische Abweichung vom mittleren
 Erwartungswert bestimmter Institute bei bestimmten Parteien:
 
+<figure>
 ![](https://cdn-images-1.medium.com/max/1600/1*hXsP-uIpd7tGlIK_2pO5Xg.png)
-<span class="figcaption_hack">Systematische Abweichungen zwischen Instituts-Schätzungen von unserer mittleren
-Schätzung in die die Umfragen aller Institute eingehen.</span>
+<figcaption>Systematische Abweichungen zwischen Instituts-Schätzungen von unserer mittleren
+Schätzung in die die Umfragen aller Institute eingehen.</figcaption>
+</figure>
 
 Man sieht, dass z.B. Insa die CDU typischerwise um 1% niedriger einschätzt als
 unser Erwartungswert, der ja sämtliche Umfragen mit in die Schätzung einfließen
@@ -85,7 +89,9 @@ Wir legen für die folgende Vorhersage die gesamten Umfragedaten seit der letzte
 Bundestagswahl bis heute (letzte Umfrage am 2.8.2017) zu Grunde. Zum Vergleich
 zeigen wir auch die Vorhersage mit Stand vom Januar 2017:
 
+<figure>
 ![](https://cdn-images-1.medium.com/max/1600/1*8N3tSTUejjrrMhnzFh_f_A.png)
+</figure>
 
 Während mit Stand vom Januar 2017 eine Vorhersage zum September noch mit einer
 sehr hohen Unsicherheit verbunden ist, lassen die zusätzlichen Umfragen seit
@@ -98,7 +104,9 @@ Die hier angegebenen Wahrscheinlichkeiten zum Wahltag lassen uns auch andere
 Fragen untersuchen. Zum Beispiel können wir fragen, mit welcher
 Wahrscheinlichkeit eine Partei die Fünfprozenthürde erreicht:
 
+<figure>
 ![](https://cdn-images-1.medium.com/max/1600/1*8mU-B_UlhiC9XcQipBD2LQ.png)
+</figure>
 
 Zum heutigen Zeitpunkt scheint es also so gut wie sicher dass alle hier
 untersuchten Parteien die Fünfprozenthürde erreichen werden. Im Januar sah das
@@ -109,7 +117,9 @@ welcher Wahrscheinlichkeit eine bestimmte Koalition nach der Wahl im Bundestag
 die absolute Mehrheit erhält, wieder als Vergleich zwischen dem Stand vom Januar
 2017 und dem Stand heute:
 
+<figure>
 ![](https://cdn-images-1.medium.com/max/1600/1*iNR9kvYop_GQBZC19EoeNQ.png)
+</figure>
 
 Diese Berechnung der Koalitionsmehrheit bezieht auch explizit die Möglichkeit
 mit ein, dass kleine Parteien unter die Fünfprozenthürde fallen, was zu teils

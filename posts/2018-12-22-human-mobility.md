@@ -5,7 +5,9 @@ isBlogPost: True
 
 ### On human mobility and language dispersal
 
-![](https://cdn-images-1.medium.com/max/1200/1*V7X1KG2_-y8l7HicNmmXhg.png)
+<figure>
+![](https://cdn-images-1.medium.com/max/1200/1*V7X1KG2_-y8l7HicNmmXhg.png){ width=50% }
+</figure>
 
 We recently advertised [16 new PhD
 positions](https://imprs.shh.mpg.de/index.php/applications/open-positions/)
@@ -54,9 +56,11 @@ they are in space *versus* time is a direct estimator for human mobility.
 Loog and colleagues used this basic idea to develop a statistical method that
 tracks human mobility *through time*. Here is their main figure:
 
-![](https://cdn-images-1.medium.com/max/1200/1*My1BLCXagcNIAVq30_huTw.png)
-<span class="figcaption_hack">from Loog et al. “Estimating mobility using sparse data: Application to human
-genetic variation”, *PNAS*, 2017 (CC BY-NC-ND)</span>
+<figure>
+![](https://cdn-images-1.medium.com/max/1200/1*My1BLCXagcNIAVq30_huTw.png){ width=80% }
+<figcaption>from Loog et al. “Estimating mobility using sparse data: Application to human
+genetic variation”, *PNAS*, 2017 (CC BY-NC-ND)</figcaption>
+</figure>
 
 This analysis covers West Eurasia, and it shows an estimate of human mobility
 from 14,000 years ago until 2,000 years ago. The yellow band in panel A

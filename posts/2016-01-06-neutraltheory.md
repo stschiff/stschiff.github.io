@@ -40,12 +40,14 @@ one of those mutations eventually becomes a substitution, so gets fixed in the
 population? For a neutral mutation, the answer is 1/2N, which can be seen from
 basic coalescence theory:
 
-![](https://cdn-images-1.medium.com/max/1200/1*-nNFT8UKFN-qNSlYoY-wOg.png)
-<span class="figcaption_hack">All 2*N* genes in the present generation (top) are derived from one ancestor who
+<figure>
+![](https://cdn-images-1.medium.com/max/1200/1*-nNFT8UKFN-qNSlYoY-wOg.png){ width=60% }
+<figcaption>All 2*N* genes in the present generation (top) are derived from one ancestor who
 lived in the past (bottom). Every gene has an equal probability to be the one
 that gets ancestral to all subsequent generations, so the fixation probability
 for a neutral mutation is 1/2N. Figure adopted from Bamshad and Wooding, Nat.
-Rev. Gen. 2003</span>
+Rev. Gen. 2003</figcaption>
+</figure>
 
 Every gene in the present generation has an equal chance of eventually becoming
 the sole ancestor for all genes many generations later, so every gene has a

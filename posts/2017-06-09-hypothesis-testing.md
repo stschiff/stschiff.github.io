@@ -31,7 +31,9 @@ another topic covered in the book). We can then compute a p-value for the
 Null-hypothesis given the observed data, which in this case turns out to be
 (Binomial tail-test)
 
+<figure>
 ![](https://cdn-images-1.medium.com/max/1600/1*cGn6PYM9BHNkPdAkAc_ZDw.png)
+</figure>
 
 So given the usual significance threshold of 0.05, we would *not* reject the
 Null hypothesis and conclude that the results of the experiment are consistent
@@ -52,14 +54,18 @@ with a yet to be defined alternative hypothesis. Let us denote the Null
 hypothesis by *H*₀ and the alternative hypothesis by *H*₁. Giving both of them
 prior probability 1/2, Bayes’ theorem for *H*₀ then reads
 
+<figure>
 ![](https://cdn-images-1.medium.com/max/1600/1*KXNLEs8NOqfRv1YAX1DTZA.png)
+</figure>
 
 (where *D* denotes the data, and *P*(*D*|*H*) denotes the sampling probability
 under hypothesis *H*). Now, we know what *P*(*D*|*H*₀) should be, it should be
 the binomial sampling probability as already used above. Specifically, for 55
 heads out of 100 trials, and a heads-probabality of 50% under *H*₀, we get
 
+<figure>
 ![](https://cdn-images-1.medium.com/max/1600/1*xg1gE7s1k60ibH-uk95aOQ.png)
+</figure>
 
 So, what type of alternative hypothesis should we consider? If you are tempted
 to say “all possible alternatives”, you run into problems. For example, it is
@@ -89,7 +95,9 @@ Therefore, we consider 𝜆=0.55, which leads to a binomial sampling probability
 of *P*(*D*|*H*₁)≈0.08. This then gives us a posterior probability for hypothesis
 *H*₀ of
 
+<figure>
 ![](https://cdn-images-1.medium.com/max/1600/1*SAxWKmmJxLLDI3gpG_nocQ.png)
+</figure>
 
 which is very close to the p-value obtained using the Binomial tail-test
 (≈0.37).
@@ -134,13 +142,17 @@ posterior probabilities for both of these hypotheses, comparing them to the best
 Bernoulli-class alternative (still denoted *H*₁). First, here are the relevant
 sampling probabilities (likelihoods), which are now of multinomial form:
 
+<figure>
 ![](https://cdn-images-1.medium.com/max/1600/1*8gav6y03Q3oUF4DS8n7hTg.png)
+</figure>
 
 So now, Ms A and Mr B both perform the Psi-test and evaluate the posterior
 probabilities for their respective hypotheses, compared with the *best*
 alternative hypothesis *H*₁. Here is what they get:
 
+<figure>
 ![](https://cdn-images-1.medium.com/max/1600/1*saodJ_Ng8JnBB8_wVfbU0w.png)
+</figure>
 
 So at this point, using the usual threshold of 5% for significance, Ms A
 concludes that the data is indeed consistent with her hypothesis. Mr B learns
@@ -159,13 +171,17 @@ simply use it as a goodness-of-fit statistic. We’d like to ask how well Ms A�
 and Mr B’s hypotheses are fitting the data. This Chi-squared statistic is
 defined as
 
+<figure>
 ![](https://cdn-images-1.medium.com/max/1600/1*P7GDefDT3QUw7rK62Xesig.png)
+</figure>
 
 where *nk* is the number of observations with outcome *k*, *n*=∑ *nk* is the
 number of trials, and *pk* is the *predicted* frequency of the *k’*th 𝜒outcome.
 Let us compute this statistic for Ms A’s and Mr B’s hypotheses:
 
+<figure>
 ![](https://cdn-images-1.medium.com/max/1600/1*PrlnDmpMoacgp8XXiL3oZQ.png)
+</figure>
 
 Amazingly, in this example Mr B obtains a lower 𝜒² value, suggesting that Mr
 B’s hypothesis is *a better fit to the data*. This clearly contradicts
@@ -184,7 +200,9 @@ We can use these values to perform an actual Chi-squared test. A p-value for
 this test can be computed from the 𝜒²-distribution, here with two degrees of
 freedom (we have three possible outcomes). We find:
 
+<figure>
 ![](https://cdn-images-1.medium.com/max/1600/1*Ceehe7Rv_Y_8ZEOA9hGJAA.png)
+</figure>
 
 So here, Ms A would strongly reject her hypothesis, and Mr B would also reject
 his hypothesis, although he would find that his hypothesis is still better
@@ -228,7 +246,9 @@ detail, but simply note that the posterior distribution for a Bernoulli-process
 with two possible outcomes is a Beta distribution. In case of the first
 experiment, here is the result:
 
-![](https://cdn-images-1.medium.com/max/1600/0*jVtI3yEL34tOg_H_.png)
+<figure>
+![](https://cdn-images-1.medium.com/max/1600/0*jVtI3yEL34tOg_H_.png){ width=75% }
+</figure>
 
 The 95% highest posterior credible interval is the region shaded in blue, and as
 one can see it comfortably includes the special value of 50%, representing a
@@ -244,7 +264,9 @@ plotted easily. And since the data is symmetric in heads and tails (both with 14
 outcomes in 29 tosses), we simply need to plot two distributions, representing
 heads (and tails), and for the rate of standing on its side:
 
-![](https://cdn-images-1.medium.com/max/1600/0*5F4N3rOYVC34lCdW.png)
+<figure>
+![](https://cdn-images-1.medium.com/max/1600/0*5F4N3rOYVC34lCdW.png){ width=75% }
+</figure>
 
 Interestingly, the posterior distribution for the rate of the coin standing on
 its side has its 95% highest credible interval from 0.8% up to 17%, so it

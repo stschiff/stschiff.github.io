@@ -1,6 +1,7 @@
 ---
 title: Tracking your time helps you stay mentally sane.
 isBlogPost: True
+image: /images/clock.jpg
 ---
 
 
@@ -8,7 +9,9 @@ isBlogPost: True
 
 #### It helps you stay mentally sane.
 
+<figure>
 ![](https://cdn-images-1.medium.com/max/1600/1*EAfCNSYgmrtJwCP_KWsN5w.jpeg)
+</figure>
 
 Working in academia comes with unique freedoms and challenges. I would argue
 that in no other job we have so much freedom to define our own work. At least at

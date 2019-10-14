@@ -31,13 +31,16 @@ University, had shown previously in a [paper in
 distinct ancestry component not shared with many other Native Americans and
 which could be related to Paleo-Eskimos.
 
-![](https://cdn-images-1.medium.com/max/800/1*_AAatBN0lVG3zKeP3FOaPw.jpeg)
-<span class="figcaption_hack">Paleo-Eskimos were known from Archaeology as the first people that inhabited the
+<figure>
+    ![](https://cdn-images-1.medium.com/max/800/1*_AAatBN0lVG3zKeP3FOaPw.jpeg)
+    <figcaption>
+        Paleo-Eskimos were known from Archaeology as the first people that inhabited the
 Arctic regions in North America and Greenland, from about 4500 until 700 years
 ago. A 4000 year old individual from the Paleo-Eskimo Saqqaq culture in
 Greenland was the first ancient human whose genome was [completely
 sequenced](https://www.nature.com/articles/nature08835). ©Illustration by Kerttu
-Majander, Design by Michelle O’Reilly</span>
+Majander, Design by Michelle O’Reilly</figcaption>
+</figure>
 
 *****
 
@@ -70,13 +73,17 @@ the fall of 2017 to a different journal with higher visibility in the field.
 This almost never happens, we normally submit somewhere, get rejected, and try a
 lower-tier journal next. Here it was the opposite direction: up!
 
+<figure>
 ![](https://cdn-images-1.medium.com/max/800/1*uN9bUHkS_G_UVlKcfYNr7g.jpeg)
-<span class="figcaption_hack">Attu Island, Aleutian Islands, Alaska. ©*Photo credit: *Jason Rogers</span>
+    <figcaption>Attu Island, Aleutian Islands, Alaska. ©*Photo credit: *Jason Rogers</figcaption>
+</figure>
 
-![](https://cdn-images-1.medium.com/max/800/1*2WMPK26LDMODa9AsE4OAtA.jpeg)
-<span class="figcaption_hack">The excavation of the Middle Dorset individual from the Buchanan site on
+<figure>
+    ![](https://cdn-images-1.medium.com/max/800/1*2WMPK26LDMODa9AsE4OAtA.jpeg)
+    <figcaption>The excavation of the Middle Dorset individual from the Buchanan site on
 southeastern Victoria Island, Nunavut, Central Canadian Arctic. ©*Photo credit:
-*T. Max Friesen</span>
+*T. Max Friesen</figcaption>
+</figure>
 
 In the mean time, this project took on a life of its own. Because David is
 uncannily well connected (and I’m pretty sure never sleeps), over the course of
@@ -96,12 +103,14 @@ ancestry present west of the Bering Straight, and why Inuit are more closely
 related to people from Chukotka than expected under the previous model. This
 breakthrough ultimately lead to the final model that is now in the paper:
 
+<figure>
 ![](https://cdn-images-1.medium.com/max/800/1*yhQoKwccaxhQEgiiXpQj2w.png)
-<span class="figcaption_hack">From Figure 2 of our [published
+<figcaption class="figcaption_hack">From Figure 2 of our [published
 paper](https://www.nature.com/articles/s41586-019-1251-y). In our final model,
 Paleo-Eskimos are involved in the founder population of Athabaskans, as well as
 Eskimo-Aleut speaking groups, although the latter mixed more recently with
-Chukotko-Kamchatkan ancestors.</span>
+Chukotko-Kamchatkan ancestors.</figcaption>
+</figure>
 
 *****
 

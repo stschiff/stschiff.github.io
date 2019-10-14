@@ -65,6 +65,23 @@ article header {
   color: #555;
 }
 
+article figure {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+article figure img {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+figcaption {
+  font-size: 90%;
+  color: #888;
+}
+
 aside ul {
   list-style-type: none;
   padding: 0;
