@@ -44,7 +44,7 @@ Erwartungswertes seit der letzten Bundestagswahl für relevante Parteien,
 zusammen mit den Umfrage-Ergebnissen:
 
 <figure>
-![](https://cdn-images-1.medium.com/max/1600/1*9_eLdJnE45TtRT5tddRUMw.png)
+![](/images/wahlblick_diffusion.jpg)
 <figcaption>Umfrageergebnisse verschiedener Institute seit der letzten Bundestagswahl, sowie
 der Erwartungswert der Zweitstimmen-Anteile in der Bevölkerung durch unser
 Modell, angezeigt durch Kurven.</figcaption>
@@ -65,7 +65,7 @@ Ein bekannter Effekt ist die systematische Abweichung vom mittleren
 Erwartungswert bestimmter Institute bei bestimmten Parteien:
 
 <figure>
-![](https://cdn-images-1.medium.com/max/1600/1*hXsP-uIpd7tGlIK_2pO5Xg.png)
+![](/images/wahlblick_biases.jpg)
 <figcaption>Systematische Abweichungen zwischen Instituts-Schätzungen von unserer mittleren
 Schätzung in die die Umfragen aller Institute eingehen.</figcaption>
 </figure>
@@ -90,7 +90,7 @@ Bundestagswahl bis heute (letzte Umfrage am 2.8.2017) zu Grunde. Zum Vergleich
 zeigen wir auch die Vorhersage mit Stand vom Januar 2017:
 
 <figure>
-![](https://cdn-images-1.medium.com/max/1600/1*8N3tSTUejjrrMhnzFh_f_A.png)
+![](/images/wahlblick_vorhersage_parteien.jpg)
 </figure>
 
 Während mit Stand vom Januar 2017 eine Vorhersage zum September noch mit einer
@@ -105,7 +105,7 @@ Fragen untersuchen. Zum Beispiel können wir fragen, mit welcher
 Wahrscheinlichkeit eine Partei die Fünfprozenthürde erreicht:
 
 <figure>
-![](https://cdn-images-1.medium.com/max/1600/1*8mU-B_UlhiC9XcQipBD2LQ.png)
+![](/images/wahlblick_fünfprozenthürde.jpg)
 </figure>
 
 Zum heutigen Zeitpunkt scheint es also so gut wie sicher dass alle hier
@@ -118,7 +118,7 @@ die absolute Mehrheit erhält, wieder als Vergleich zwischen dem Stand vom Janua
 2017 und dem Stand heute:
 
 <figure>
-![](https://cdn-images-1.medium.com/max/1600/1*iNR9kvYop_GQBZC19EoeNQ.png)
+![](/images/wahlblick_vorhersage_koalitionen.jpg)
 </figure>
 
 Diese Berechnung der Koalitionsmehrheit bezieht auch explizit die Möglichkeit

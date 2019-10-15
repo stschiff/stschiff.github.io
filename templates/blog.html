@@ -1,7 +1,11 @@
+<p>
+    Most Blog posts also appear on my <a href="https://medium.com/stephan-schiffels">Medium Blog</a>
+</p>
+
 <ul class="publist">
     $for(posts)$
         $if(isBlogPost)$
-        <li id="$itemName$">
+        <li>
             $if(image)$
                 <img src="$image$">
             $endif$

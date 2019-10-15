@@ -146,6 +146,14 @@ section > h2 + img {
   width: 100%;
 }
 
+article hr {
+  text-align: center;
+  border-top: 2px solid #999;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  width: 50px;
+}
+
 @media (max-width: 799px) {
   body {
     width: 90%;

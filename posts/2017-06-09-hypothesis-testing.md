@@ -1,6 +1,7 @@
 ---
 title: Hypothesis testing without Alternatives
 isBlogPost: True
+needsMathJax: True
 ---
 
 ### Hypothesis testing without Alternatives
@@ -31,9 +32,8 @@ another topic covered in the book). We can then compute a p-value for the
 Null-hypothesis given the observed data, which in this case turns out to be
 (Binomial tail-test)
 
-<figure>
-![](https://cdn-images-1.medium.com/max/1600/1*cGn6PYM9BHNkPdAkAc_ZDw.png)
-</figure>
+$$p=2 \sum_{k=55}^{100}\binom{100}{k}\left(\frac{1}{2}\right)^k
+    \left(\frac{1}{2}\right)^{100-k}\approx 0.37$$
 
 So given the usual significance threshold of 0.05, we would *not* reject the
 Null hypothesis and conclude that the results of the experiment are consistent
@@ -54,18 +54,15 @@ with a yet to be defined alternative hypothesis. Let us denote the Null
 hypothesis by *H*₀ and the alternative hypothesis by *H*₁. Giving both of them
 prior probability 1/2, Bayes’ theorem for *H*₀ then reads
 
-<figure>
-![](https://cdn-images-1.medium.com/max/1600/1*KXNLEs8NOqfRv1YAX1DTZA.png)
-</figure>
+$$P(H_0|D)=\frac{P(D|H_0)}{P(D|H_0)+P(D|H_1)}$$
 
 (where *D* denotes the data, and *P*(*D*|*H*) denotes the sampling probability
 under hypothesis *H*). Now, we know what *P*(*D*|*H*₀) should be, it should be
 the binomial sampling probability as already used above. Specifically, for 55
 heads out of 100 trials, and a heads-probabality of 50% under *H*₀, we get
 
-<figure>
-![](https://cdn-images-1.medium.com/max/1600/1*xg1gE7s1k60ibH-uk95aOQ.png)
-</figure>
+$$P(D|H_0)=\binom{100}{55}\left(\frac{1}{2}\right)^{55}
+\left(\frac{1}{2}\right)^{100-55}\approx 0.048$$
 
 So, what type of alternative hypothesis should we consider? If you are tempted
 to say “all possible alternatives”, you run into problems. For example, it is
@@ -95,9 +92,8 @@ Therefore, we consider 𝜆=0.55, which leads to a binomial sampling probability
 of *P*(*D*|*H*₁)≈0.08. This then gives us a posterior probability for hypothesis
 *H*₀ of
 
-<figure>
-![](https://cdn-images-1.medium.com/max/1600/1*SAxWKmmJxLLDI3gpG_nocQ.png)
-</figure>
+$$P(H_0|D)=\frac{P(D|H_0)}{P(D|H_0)+P(D|H_1)}=
+\frac{0.048}{0.08+0.048}\approx 0.38,$$
 
 which is very close to the p-value obtained using the Binomial tail-test
 (≈0.37).
@@ -142,17 +138,22 @@ posterior probabilities for both of these hypotheses, comparing them to the best
 Bernoulli-class alternative (still denoted *H*₁). First, here are the relevant
 sampling probabilities (likelihoods), which are now of multinomial form:
 
-<figure>
-![](https://cdn-images-1.medium.com/max/1600/1*8gav6y03Q3oUF4DS8n7hTg.png)
-</figure>
+$$\begin{align}
+    P(D|H_A)&=\frac{29!}{14!14!1!}0.499^{28}\times 0.002\approx 0.0082\\
+  P(D|H_B)&=\frac{29!}{14!14!1!}\left(\frac{1}{3}\right)^{29}\approx 0.000017\\
+  P(D|H_1)&=\frac{29!}{14!14!1!}\left(\frac{14}{29}\right)^{28}
+\times\frac{1}{29}\approx 0.027
+  \end{align} 
+    $$
 
 So now, Ms A and Mr B both perform the Psi-test and evaluate the posterior
 probabilities for their respective hypotheses, compared with the *best*
 alternative hypothesis *H*₁. Here is what they get:
 
-<figure>
-![](https://cdn-images-1.medium.com/max/1600/1*saodJ_Ng8JnBB8_wVfbU0w.png)
-</figure>
+$$\begin{align}
+P(H_A|D)&=\frac{P(D|H_A)}{P(D|H_A)+P(D|H_1)}=\frac{0.0082}{0.0082+0.027}\approx 0.23\\
+P(H_B|D)&=\frac{P(D|H_B)}{P(D|H_B)+P(D|H_1)}=\frac{0.000017}{0.000017+0.027}\approx 0.00063
+\end{align}$$
 
 So at this point, using the usual threshold of 5% for significance, Ms A
 concludes that the data is indeed consistent with her hypothesis. Mr B learns
@@ -171,17 +172,18 @@ simply use it as a goodness-of-fit statistic. We’d like to ask how well Ms A�
 and Mr B’s hypotheses are fitting the data. This Chi-squared statistic is
 defined as
 
-<figure>
-![](https://cdn-images-1.medium.com/max/1600/1*P7GDefDT3QUw7rK62Xesig.png)
-</figure>
+$$\chi^2=\sum_k \frac{(n_k-np_k)^2}{p_k}$$
 
 where *nk* is the number of observations with outcome *k*, *n*=∑ *nk* is the
 number of trials, and *pk* is the *predicted* frequency of the *k’*th 𝜒outcome.
 Let us compute this statistic for Ms A’s and Mr B’s hypotheses:
 
-<figure>
-![](https://cdn-images-1.medium.com/max/1600/1*PrlnDmpMoacgp8XXiL3oZQ.png)
-</figure>
+$$\begin{align}
+\chi_A^2&=2\left(\frac{(14-29\times0.499)^2}{29\times0.499}\right)
++\frac{(1-29\times 0.002)^2}{29\times0.002}=15.33\\
+\chi_B^2&=2\left(\frac{(14-29\times0.333)^2}{29\times0.333}\right)
++\frac{(1-29\times 0.333)^2}{29\times0.333}=11.66
+\end{align}$$
 
 Amazingly, in this example Mr B obtains a lower 𝜒² value, suggesting that Mr
 B’s hypothesis is *a better fit to the data*. This clearly contradicts
@@ -200,9 +202,8 @@ We can use these values to perform an actual Chi-squared test. A p-value for
 this test can be computed from the 𝜒²-distribution, here with two degrees of
 freedom (we have three possible outcomes). We find:
 
-<figure>
-![](https://cdn-images-1.medium.com/max/1600/1*Ceehe7Rv_Y_8ZEOA9hGJAA.png)
-</figure>
+$$\begin{align}p_A&=0.00047\\
+p_B&=0.0029\end{align}$$
 
 So here, Ms A would strongly reject her hypothesis, and Mr B would also reject
 his hypothesis, although he would find that his hypothesis is still better
@@ -247,7 +248,7 @@ with two possible outcomes is a Beta distribution. In case of the first
 experiment, here is the result:
 
 <figure>
-![](https://cdn-images-1.medium.com/max/1600/0*jVtI3yEL34tOg_H_.png){ width=75% }
+![](/images/hypTest2.jpg){ width=75% }
 </figure>
 
 The 95% highest posterior credible interval is the region shaded in blue, and as
@@ -265,7 +266,7 @@ outcomes in 29 tosses), we simply need to plot two distributions, representing
 heads (and tails), and for the rate of standing on its side:
 
 <figure>
-![](https://cdn-images-1.medium.com/max/1600/0*5F4N3rOYVC34lCdW.png){ width=75% }
+![](/images/hypTest1.jpg){ width=75% }
 </figure>
 
 Interestingly, the posterior distribution for the rate of the coin standing on
@@ -306,9 +307,3 @@ widely used in Science, that it is often easier to claim rejection or
 consistency of a model with a single p-value, rather than presenting credible
 intervals of entire distributions. For these cases, I would consider using the
 Psi-test in the future.
-
-*****
-
-*Originally published at
-*[stschiff.github.com](http://stschiff.github.io/probability%20theory/statistics/2017/06/09/Hypothesis-testing.html)*
-on June 9, 2017.*

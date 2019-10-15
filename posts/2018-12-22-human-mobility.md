@@ -6,7 +6,7 @@ isBlogPost: True
 ### On human mobility and language dispersal
 
 <figure>
-![](https://cdn-images-1.medium.com/max/1200/1*V7X1KG2_-y8l7HicNmmXhg.png){ width=50% }
+![](/images/IMPRS-Jena-Logo3.jpg){ width=50% }
 </figure>
 
 We recently advertised [16 new PhD
@@ -57,7 +57,7 @@ Loog and colleagues used this basic idea to develop a statistical method that
 tracks human mobility *through time*. Here is their main figure:
 
 <figure>
-![](https://cdn-images-1.medium.com/max/1200/1*My1BLCXagcNIAVq30_huTw.png){ width=80% }
+![](/images/loog_et_al.jpg){ width=80% }
 <figcaption>from Loog et al. “Estimating mobility using sparse data: Application to human
 genetic variation”, *PNAS*, 2017 (CC BY-NC-ND)</figcaption>
 </figure>
@@ -99,7 +99,7 @@ languages and genes is often correlated, it doesn’t have to. Takes as an examp
 England: While England has undergone a 100% Language replacement in the early
 Medieval times (from Celtic to Germanic), there certainly was not a 100%
 replacement of people ([our estimate of admixture is
-40%](https://medium.com/stephan-schiffels/how-rare-genetic-mutations-help-us-understand-human-history-part-i-19895ec4d87a),
+40%](/posts/2016-01-22-raremut1.html),
 and that is actually already much higher than what many other scholars believe).
 
 So how can we combine linguistic and genetic data in a combined model inspired

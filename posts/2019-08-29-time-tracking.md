@@ -10,7 +10,7 @@ image: /images/clock.jpg
 #### It helps you stay mentally sane.
 
 <figure>
-![](https://cdn-images-1.medium.com/max/1600/1*EAfCNSYgmrtJwCP_KWsN5w.jpeg)
+![](/images/clock_image.jpg)
 </figure>
 
 Working in academia comes with unique freedoms and challenges. I would argue

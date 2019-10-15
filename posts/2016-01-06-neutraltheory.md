@@ -41,7 +41,7 @@ population? For a neutral mutation, the answer is 1/2N, which can be seen from
 basic coalescence theory:
 
 <figure>
-![](https://cdn-images-1.medium.com/max/1200/1*-nNFT8UKFN-qNSlYoY-wOg.png){ width=60% }
+![](/images/neutralTheory.jpg){ width=60% }
 <figcaption>All 2*N* genes in the present generation (top) are derived from one ancestor who
 lived in the past (bottom). Every gene has an equal probability to be the one
 that gets ancestral to all subsequent generations, so the fixation probability

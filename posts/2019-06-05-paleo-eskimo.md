@@ -21,7 +21,7 @@ researcher, Pavel Flegontov, from Ostrava University in Czech Republic. Pavel is
 a computational biologist who a few years ago got himself interested in human
 population genetics and prehistory. I was at the time about to publish our paper
 on [Anglo-Saxon ancient DNA from
-England](https://medium.com/stephan-schiffels/how-rare-genetic-mutations-help-us-understand-human-history-part-i-19895ec4d87a),
+England](/posts/2016-01-22-raremut1.html),
 for which we developed new methodology to investigate fine-scale population
 structure based on rare genetic variation. Pavel wanted to apply this new
 methodology to an open genetic question in the literature about Athabaskans, an
@@ -32,7 +32,7 @@ distinct ancestry component not shared with many other Native Americans and
 which could be related to Paleo-Eskimos.
 
 <figure>
-    ![](https://cdn-images-1.medium.com/max/800/1*_AAatBN0lVG3zKeP3FOaPw.jpeg)
+    ![](/images/PaleoEskimoCover-wide.jpg)
     <figcaption>
         Paleo-Eskimos were known from Archaeology as the first people that inhabited the
 Arctic regions in North America and Greenland, from about 4500 until 700 years
@@ -74,12 +74,12 @@ This almost never happens, we normally submit somewhere, get rejected, and try a
 lower-tier journal next. Here it was the opposite direction: up!
 
 <figure>
-![](https://cdn-images-1.medium.com/max/800/1*uN9bUHkS_G_UVlKcfYNr7g.jpeg)
+![](/images/attu_island.jpg)
     <figcaption>Attu Island, Aleutian Islands, Alaska. ©*Photo credit: *Jason Rogers</figcaption>
 </figure>
 
 <figure>
-    ![](https://cdn-images-1.medium.com/max/800/1*2WMPK26LDMODa9AsE4OAtA.jpeg)
+    ![](/images/middle_dorset.jpg)
     <figcaption>The excavation of the Middle Dorset individual from the Buchanan site on
 southeastern Victoria Island, Nunavut, Central Canadian Arctic. ©*Photo credit:
 *T. Max Friesen</figcaption>
@@ -104,7 +104,7 @@ related to people from Chukotka than expected under the previous model. This
 breakthrough ultimately lead to the final model that is now in the paper:
 
 <figure>
-![](https://cdn-images-1.medium.com/max/800/1*yhQoKwccaxhQEgiiXpQj2w.png)
+![](/images/Paleo-Eskimo-model.jpg)
 <figcaption class="figcaption_hack">From Figure 2 of our [published
 paper](https://www.nature.com/articles/s41586-019-1251-y). In our final model,
 Paleo-Eskimos are involved in the founder population of Athabaskans, as well as
