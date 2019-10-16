@@ -115,7 +115,12 @@ ul.portraitlist, ul.publist {
 
 ul.portraitlist > li > ul {
   list-style-type: disc;
+  font-size: 80%;
   padding: 1em;
+}
+
+ul.publist > li > div > p {
+  font-size: 80%;
 }
 
 ul.portraitlist > li, ul.publist > li {
@@ -130,8 +135,8 @@ ul.portraitlist > li, ul.publist > li {
 }
 
 ul.portraitlist > li > img {
-  height: 250px;
-  width: 250px;
+  height: 200px;
+  width: 200px;
   object-fit: cover;
 }
 

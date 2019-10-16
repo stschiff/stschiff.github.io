@@ -1,6 +1,7 @@
 ---
 title: Und nun die Wahlvorhersage...
 isBlogPost: True
+image: /images/wahlblick_diffusion.jpg
 ---
 
 ### Und nun die Wahlvorhersage…
@@ -16,7 +17,7 @@ Die Ergebnisse dieser Umfragen sind eine recht umfangreiche Menge Daten, die
 zusammengenommen einen Einblick in die Stimmung im Land geben und auch in
 gewissem Maße eine Vorhersage für ein Wahlergebnis geben.
 
-Solche Vorhersagen sind jedoch nur seriös wenn sie a) sämtliche Umfragen zu Rate
+Eine echte Vorhersage sollte unsere Meinung nach zwei Dinge erfüllen. Sie sollte a) sämtliche Umfragen zu Rate
 ziehen die zum aktuellen Zeitpunkt verfügbar sind, und b) ein Maß über die
 Unsicherheit einer solchen Vorhersage angeben. Zum Beispiel sollte eine gute
 Vorhersage sämtliche Umfragen aller Institute der letzten Jahre, und nicht nur
@@ -143,4 +144,4 @@ sich die Stimmung in der Bevölkerung nur so schnell verändert wie sie das
 Wir werden sehen, ob die hiergemachten Vorhersagen eintreten oder nicht. In
 jedem Fall kann das Modell an verschiedenen Stellen noch verbessert werden, und
 weitere Umfragen in den nächsten Wochen lassen uns unsere Vorhersagen weiter
-einengen. *Stay tuned *für weitere Updates!
+einengen.

@@ -1,6 +1,7 @@
 ---
 title: A brief introduction to neutral theory
 isBlogPost: True
+image: /images/neutralTheory.jpg
 ---
 
 ### A brief introduction to neutral theory

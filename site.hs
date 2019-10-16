@@ -7,7 +7,7 @@ import Control.Monad (filterM)
 import Control.Monad.IO.Class (liftIO)
 import Debug.Trace (trace)
 import Data.Time (UTCTime(..), fromGregorian, secondsToDiffTime, defaultTimeLocale, getCurrentTime, addUTCTime, nominalDay)
-import System.FilePath.Posix (takeFileName)
+import System.FilePath.Posix (takeFileName, replaceExtension)
 
 --------------------------------------------------------------------------------
 
@@ -94,12 +94,14 @@ postCtx =
     boolField "pub" isPub <>
     boolField "post" isPost <>
     field "itemName" itemName <>
+    field "post_url" postUrl <>
     dateField "date" "%B %e, %Y" <>
     defaultContext
   where
     isPost = (=="posts/") . take 6 . toFilePath . itemIdentifier
     isPub = (=="publications/") . take 13 . toFilePath . itemIdentifier
     itemName = return . takeFileName . toFilePath . itemIdentifier
+    postUrl = return . ("/"<>) . (\fp -> replaceExtension fp "html") . toFilePath . itemIdentifier
 
 getBaseCtx :: Maybe String -> Compiler (Context String)
 getBaseCtx maybeTitle = do

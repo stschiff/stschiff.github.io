@@ -1,6 +1,7 @@
 ---
 title: On human mobility and language dispersal
 isBlogPost: True
+image: /images/loog_et_al.jpg
 ---
 
 ### On human mobility and language dispersal

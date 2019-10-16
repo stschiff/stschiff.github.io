@@ -2,6 +2,7 @@
 title: Hypothesis testing without Alternatives
 isBlogPost: True
 needsMathJax: True
+image: /images/hypTest2.jpg
 ---
 
 ### Hypothesis testing without Alternatives
