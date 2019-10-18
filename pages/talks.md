@@ -3,6 +3,8 @@ title: Talks
 menu_Talks: True
 ---
 
+(upcoming) Lecture on "Exploring deep human population history with genomic data: New methods and new insights" at the [MPI-SHH](https://www.shh.mpg.de), **December 19, 2019, Jena, Germany**
+
 (upcoming) TEDxTHBrandenburg _tba_ **December 6, 2019, Brandenburg, Germany.**
 
 Lecture \"Investigating the human past with ancient and modern genomes.\" at the
