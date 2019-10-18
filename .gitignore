@@ -3,3 +3,4 @@ _site/
 .stack-work/
 .vscode/
 *.lock
+deploy.sh
