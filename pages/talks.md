@@ -3,9 +3,15 @@ title: Talks
 menu_Talks: True
 ---
 
-(upcoming) Lecture on "Exploring deep human population history with genomic data: New methods and new insights" at the [MPI-SHH](https://www.shh.mpg.de), **December 19, 2019, Jena, Germany**
+(Upcoming) Vortrag "Neue Erkenntnisse aus der Archäogenetik zur Populationsgeschichte Englands und Europas im ersten Millennium AD" auf dem *53. Deutscher Historikertag, Ludwig-Maximilians-Universität München*, **September 8-11, 2020, München, Germany**
 
-(upcoming) TEDxTHBrandenburg _tba_ **December 6, 2019, Brandenburg, Germany.**
+(Upcoming) Teilnahme an einer Podiumsdiskussion auf der Tagung *Genealogie in der Moderne: Akteure – Praktiken – Perspektiven*, **March 20-22, 2020, Münster, Germany**
+
+(Upcoming) Vortrag "Neue Methoden und Erkenntnisse zur Europäischen Eisenzeit und Frühmittelalter aus der Genetik" im Rahmen eines *Round Table* des MPI für Menschheitsgeschichte und des Historischen Instituts der Universität Jena. **January 9, 2020, Jena, Germany**
+
+Lecture on "Exploring deep human population history with genomic data: New methods and new insights" at the [MPI-SHH](https://www.shh.mpg.de), **December 19, 2019, Jena, Germany**
+
+Vortrag auf der [TEDxTHBrandenburg](https://www.tedxthbrandenburg.de) zum Thema *Aufbruch*: "Eine kurze Geschichte Deiner DNA und ihrer bewegten Vergangenheit" **December 6, 2019, Brandenburg, Germany.**
 
 Lecture \"Investigating the human past with ancient and modern genomes.\" at the
 University Hospital Würzburg, **August 27, 2019, Würzburg, Germany.**
