@@ -1,5 +1,5 @@
 ---
-title: Paleo-Eskimo ancestry in America
+title: Palaeo-Eskimo genetic ancestry and the peopling of Chukotka and North America
 author: Flegontov et al.
 image: /images/PaleoEskimoCover-small.jpg
 journal: Nature

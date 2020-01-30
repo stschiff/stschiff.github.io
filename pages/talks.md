@@ -7,7 +7,7 @@ menu_Talks: True
 
 (Upcoming) Teilnahme an einer Podiumsdiskussion auf der Tagung *Genealogie in der Moderne: Akteure – Praktiken – Perspektiven*, **March 20-22, 2020, Münster, Germany**
 
-(Upcoming) Vortrag "Neue Methoden und Erkenntnisse zur Europäischen Eisenzeit und Frühmittelalter aus der Genetik" im Rahmen eines *Round Table* des MPI für Menschheitsgeschichte und des Historischen Instituts der Universität Jena. **January 9, 2020, Jena, Germany**
+Vortrag "Neue Methoden und Erkenntnisse zur Europäischen Eisenzeit und Frühmittelalter aus der Genetik" im Rahmen eines *Round Table* des MPI für Menschheitsgeschichte und des Historischen Instituts der Universität Jena. **January 9, 2020, Jena, Germany**
 
 Lecture on "Exploring deep human population history with genomic data: New methods and new insights" at the [MPI-SHH](https://www.shh.mpg.de), **December 19, 2019, Jena, Germany**
 
@@ -18,87 +18,79 @@ University Hospital Würzburg, **August 27, 2019, Würzburg, Germany.**
 
 Talk \"Genetic history -- What ancient and modern genomes tell us about our human past\" at the
 *[Jena Center for Bioinformatics, Friedrich-Schiller-Universität
-Jena](http://www.jcb-jena.de/2019/04/seminar-23-may-2019-stephan-schiffels/), ***May
-23, 2019, Jena, Germany.**
+Jena](http://www.jcb-jena.de/2019/04/seminar-23-may-2019-stephan-schiffels/), ***May 23, 2019, Jena, Germany.**
 
 Vortrag auf der Tagung
 „Diversität in der Archäologie: erforschen, ausstellen, vermitteln" im
-Staatlichen Museum für Archäologie Chemnitz. **May 16, 2019, Chemnitz,
-Germany.**
+Staatlichen Museum für Archäologie Chemnitz.
+**May 16, 2019, Chemnitz, Germany.**
 
 Talk by Joscha Gretzinger
 \"The Anglo-Saxon migration and formation of the early English gene
 pool\" at the *[EMBO \| EMBL Symposium on Reconstructing the Human Past
 - Using Ancient and Modern
-Genomics](https://www.embo-embl-symposia.org/symposia/2019/EES19-02/speakers_organiser_gallery/index.html)*, **March
-31 -- April 3, 2019, EMBL Heidelberg, Germany.**
+Genomics](https://www.embo-embl-symposia.org/symposia/2019/EES19-02/speakers_organiser_gallery/index.html)*, **March 31 -- April 3, 2019, EMBL Heidelberg, Germany.**
 
 Talk by Ke Wang \"Reconstructing
 population separation history from whole genome sequences\" at the
 *[EMBO \| EMBL Symposium on Reconstructing the Human Past - Using
 Ancient and Modern
-Genomics](https://www.embo-embl-symposia.org/symposia/2019/EES19-02/speakers_organiser_gallery/index.html)*, **March
-31 -- April 3, 2019, EMBL Heidelberg, Germany.**
+Genomics](https://www.embo-embl-symposia.org/symposia/2019/EES19-02/speakers_organiser_gallery/index.html)*, **March 31 -- April 3, 2019, EMBL Heidelberg, Germany.**
 
 Invited Talk at
 the *[EMBO \| EMBL Symposium on Reconstructing the Human Past - Using
 Ancient and Modern
-Genomics](https://www.embo-embl-symposia.org/symposia/2019/EES19-02/speakers_organiser_gallery/index.html),* **March
-31 -- April 3, 2019, EMBL Heidelberg, Germany.**
+Genomics](https://www.embo-embl-symposia.org/symposia/2019/EES19-02/speakers_organiser_gallery/index.html),* **March 31 -- April 3, 2019, EMBL Heidelberg, Germany.**
 
 Workshop on
-\"Computational Population Genetics\", **January 22-24, 2019,  MPI-SHH
-in Jena, Germany.**
+\"Computational Population Genetics\",
+**January 22-24, 2019,  MPI-SHH in Jena, Germany.**
 
 Webinar with the student council of the Turkish regional group of the
 International Society for Computational Biology, Regional Group in
 Turkey. [Link to
-Youtube-Video](https://www.youtube.com/watch?v=qGW67OAbXD4&amp;amp=&amp;t=7s). **December
-12, 3pm (CET), 5pm (Istanbul).**
+Youtube-Video](https://www.youtube.com/watch?v=qGW67OAbXD4&amp;amp=&amp;t=7s).
+**December 12, 3pm (CET), 5pm (Istanbul).**
 
-Seminar and Evening
-Lecture, **November 28, 2018, Römisch-Germanisches Zentralmuseum, Mainz,
-Germany*[S Schiffels:]{style="text-decoration: underline;"}
-\"Computational Methods for Analysing Human Genetic Variation\",
-Workshop, **October 25-26, 2018, University of Helsinki, Finland.*[S
-Schiffels:]{style="text-decoration: underline;"} \"What genomes tell us
-about human history: New methods and insights from ancient and modern
-DNA\", Invited Talk at the *Symposium for Next Generation
-Genomics, ***October 23-24, 2018, University of Helsinki, Finland.**
+Seminar and Evening Lecture, **November 28, 2018, Römisch-Germanisches Zentralmuseum, Mainz, Germany**
 
-\"[Genetic history:
+Workshop \"Computational Methods for Analysing Human Genetic Variation\",
+**October 25-26, 2018, University of Helsinki, Finland.**
+
+Invited Talk at the *Symposium for Next Generation Genomics* \"What genomes tell us about human history: New methods and insights from ancient and modern
+DNA\", **October 23-24, 2018, University of Helsinki, Finland.**
+
+Invited Lecture \"[Genetic history:
 What ancient and modern DNA tells us about our human
 past.](https://www.embl.de/aboutus/science_society/forum/forums_2018/09-11/index.html)\"
 Lecture, **September 11, 2018, EMBL, Heidelberg, Germany.**
 
-\"Computational methods
+Invited seminar talk \"Computational methods
 for inference of population history from ancient and modern genome
-sequences.\" Lecture, **July 4, 2018, MPI for Developmental Biology,
-Tübingen, Germany.**
+sequences.\" Lecture, **July 4, 2018, MPI for Developmental Biology, Tübingen, Germany.**
 
-\"Unlocking human history - Computational methods for inference of past
-demography and population structure from genome sequences.\" Lecture,
+Lecture \"Unlocking human history - Computational methods for inference of past
+demography and population structure from genome sequences.\",
 **April 4, 2018, MPI for Plant Breeding Research, Cologne, Germany.**
 
 Talk by Thiseas Lamnidis \"The origin and spread
 of Siberian ancestry in north-eastern Europe.\" Workshop
 on *Linguistics, Archaeology and Genetics: The origin and expansions of
-Uralic speaking populations,**November 29* *- December 1 2017, MPI
-Jena, Germany.**
+Uralic speaking populations,**November 29 - December 1 2017, MPI Jena, Germany.**
 
-\"Inferring Population history from whole genome sequences.\" Workshop
+Workshop
 on *Unleashing the power of full genome polymorphism data for inference:
-new developments of the Ancestral Recombination Graph,**September 27
-2017*, *MPI for evolutionary Biology, Plön, Germany.**
+new developments of the Ancestral Recombination Graph*
+\"Inferring Population history from whole genome sequences.\" ,**September 27 2017, MPI for evolutionary Biology, Plön, Germany.**
 
-\"What genomes tell us
+Seminar talk \"What genomes tell us
 about human history: New methods and insights from ancient and modern
-DNA.\" Seminar talk, **July 19 2017, University of Cologne, Germany.**
+DNA.\", **July 19 2017, University of Cologne, Germany.**
 
-\"Modelling rare
+Invited speaker at the *Annual Meeting of the society for
+Molecular Biology and Evolution*: \"Modelling rare
 genetic variation in modern and ancient genomes to study recent human
-history.\" Invited speaker at the *Annual Meeting of the society for
-Molecular Biology and Evolution*, **July 2-7 2017, Austin, Texas, USA.**
+history.\", **July 2-7 2017, Austin, Texas, USA.**
 
 \"Analysing
 Australian genomes to learn about early modern human dispersal out of
