@@ -3,9 +3,27 @@ title: Talks
 menu_Talks: True
 ---
 
-(Upcoming) Vortrag "Neue Erkenntnisse aus der Archäogenetik zur Populationsgeschichte Englands und Europas im ersten Millennium AD" auf dem *53. Deutscher Historikertag, Ludwig-Maximilians-Universität München*, **September 8-11, 2020, München, Germany**
+## Videos
 
-(Upcoming) Teilnahme an einer Podiumsdiskussion auf der Tagung *Genealogie in der Moderne: Akteure – Praktiken – Perspektiven*, **March 20-22, 2020, Münster, Germany**
+Talk (in german) @TEDxTHBrandenburg, Germany recorded on December 6 2020:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/lPTuXosgUik" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+---
+
+Webinar for the International Society for Computational Biology, Regional Group in
+Turkey, recorded on December 12, 2018:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/qGW67OAbXD4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+---
+## All talks
+
+(Cancelled) Vortrag "Neue Erkenntnisse aus der Archäogenetik zur Populationsgeschichte Englands und Europas im ersten Millennium AD" auf dem *53. Deutscher Historikertag, Ludwig-Maximilians-Universität München*, **September 8-11, 2020, München, Germany**
+
+(Cancelled) Teilnahme an einer Podiumsdiskussion auf der Tagung *Genealogie in der Moderne: Akteure – Praktiken – Perspektiven*, **March 20-22, 2020, Münster, Germany**
+
+Vortrag "Eine kurze Geschichte Deiner DNA und ihrer bewegten Vergangenheit" at the Eichsfeld-Gymnasium (High School), **January 17, 2020, Duderstadt, Germany**
 
 Vortrag "Neue Methoden und Erkenntnisse zur Europäischen Eisenzeit und Frühmittelalter aus der Genetik" im Rahmen eines *Round Table* des MPI für Menschheitsgeschichte und des Historischen Instituts der Universität Jena. **January 9, 2020, Jena, Germany**
 
@@ -50,7 +68,7 @@ Webinar with the student council of the Turkish regional group of the
 International Society for Computational Biology, Regional Group in
 Turkey. [Link to
 Youtube-Video](https://www.youtube.com/watch?v=qGW67OAbXD4&amp;amp=&amp;t=7s).
-**December 12, 3pm (CET), 5pm (Istanbul).**
+**December 12, 2018, 3pm (CET), 5pm (Istanbul).**
 
 Seminar and Evening Lecture, **November 28, 2018, Römisch-Germanisches Zentralmuseum, Mainz, Germany**
 
