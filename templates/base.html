@@ -43,18 +43,26 @@ $endif$
                             <img src="$image$">
                         $endif$
                         $if(pub)$
-                            <a href="/publications.html#$itemName$"><b><i>New Publication: </i></b>
-                            <b>$title$</b></a> by $author$. <i>$journal$</i>. Published $date$
+                            <b><i><u>New Publication:</u> </i></b>
+                            <a href="/publications.html#$itemName$">
+                                <b>$title$</b>
+                            </a> by $author$. <i>$journal$</i>. Published $date$
                         $endif$
                         $if(post)$
-                            <a href="$post_url$">
-                                <b>
-                                    $if(isBlogPost)$
-                                    <i>New Blog Post: </i>
-                                    $endif$
-                                    $title$
-                                </b>
-                            </a> - $date$
+                            $if(isBlogPost)$
+                                <b><i><u>New Blog Post:</u> </i></b>
+                                <a href="$post_url$">    
+                                    <b>$title$</b>
+                                </a>
+                            $else$
+                                <b><i><u>Announcement:</u> </i></b>
+                                $if(link)$
+                                    <a href="$link$">$title$</a>
+                                $else$
+                                    <a href="$post_url$">$title$</a>
+                                $endif$
+                            $endif$
+                            - $date$
                         $endif$
                     </li>
                 $endfor$
