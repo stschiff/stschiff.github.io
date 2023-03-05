@@ -110,19 +110,19 @@ getBaseCtx maybeTitle = do
     -- let cutoffTime = UTCTime (fromGregorian 2018 1 1) (secondsToDiffTime 0)
     posts <- loadAll ("posts/*" .&&. hasVersion "raw")
     pubs <- loadAll "publications/*"
-    filteredPosts <- filterM (isMoreRecentThan cutoffTime) posts
-    filteredPubs <- filterM (isMoreRecentThan cutoffTime) pubs
+    let filteredPosts = posts -- filterM (isMoreRecentThan cutoffTime) posts
+    let filteredPubs = pubs -- filterM (isMoreRecentThan cutoffTime) pubs
     filteredSelectedPubs <- filterM isSelected filteredPubs
-    let sidebarField = listField "sidebarItems" postCtx (recentFirst (filteredPosts <> filteredPubs))
+    let sidebarField = listField "sidebarItems" postCtx (fmap (take 5) . recentFirst $ filteredPosts <> filteredPubs)
         titleField = case maybeTitle of
             Nothing -> mempty
             Just t -> constField "title" t
     return $ sidebarField <> titleField <> defaultContext
   where
     isMoreRecentThan :: (MonadMetadata m) => UTCTime -> Item a -> m Bool
-    isMoreRecentThan cutoffTime i = do
-        itemTime <- getItemUTC defaultTimeLocale . itemIdentifier $ i
-        return (itemTime > cutoffTime)
+    isMoreRecentThan cutoffTime i = return True -- do
+        -- itemTime <- getItemUTC defaultTimeLocale . itemIdentifier $ i
+        -- return (itemTime > cutoffTime)
 
 isSelected :: (MonadMetadata m) => Item a -> m Bool
 isSelected i = do
