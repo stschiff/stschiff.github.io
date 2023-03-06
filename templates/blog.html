@@ -5,11 +5,15 @@
 <ul class="publist">
     $for(posts)$
         $if(isBlogPost)$
-        <li>
-            $if(image)$
-                <img src="$image$">
-            $endif$
-            <b><a href="$url$">$title$</a></b><br>$date$
+        <li class="columns">
+            <div class="column is-one-quarter">
+                $if(image)$
+                    <img src="$image$">
+                $endif$
+            </div>
+            <div class="column">
+                <b><a href="$url$">$title$</a></b><br>$date$
+            </div>
         </li>
         $endif$
     $endfor$

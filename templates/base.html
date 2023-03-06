@@ -50,32 +50,36 @@ $endif$
                 <h2 class="title is-5">News</h2>
                 <ul>
                     $for(sidebarItems)$
-                        <li>
-                            $if(image)$
-                                <img src="$image$">
-                            $endif$
-                            $if(pub)$
-                                <b><i><u>New Publication:</u> </i></b>
-                                <a href="/publications.html#$itemName$">
-                                    <b>$title$</b>
-                                </a> by $author$. <i>$journal$</i>. Published $date$
-                            $endif$
-                            $if(post)$
-                                $if(isBlogPost)$
-                                    <b><i><u>New Blog Post:</u> </i></b>
-                                    <a href="$post_url$">    
-                                        <b>$title$</b>
-                                    </a>
-                                $else$
-                                    <b><i><u>Announcement:</u> </i></b>
-                                    $if(link)$
-                                        <a href="$link$">$title$</a>
-                                    $else$
-                                        <a href="$post_url$">$title$</a>
-                                    $endif$
+                        <li class="columns">
+                            <div class="column is-one-third">
+                                $if(image)$
+                                    <img src="$image$">
                                 $endif$
-                                - $date$
-                            $endif$
+                            </div>
+                            <div class="column">
+                                $if(pub)$
+                                    <b><i><u>New Publication:</u> </i></b>
+                                    <a href="/publications.html#$itemName$">
+                                        <b>$title$</b>
+                                    </a> by $author$. <i>$journal$</i>. Published $date$
+                                $endif$
+                                $if(post)$
+                                    $if(isBlogPost)$
+                                        <b><i><u>New Blog Post:</u> </i></b>
+                                        <a href="$post_url$">    
+                                            <b>$title$</b>
+                                        </a>
+                                    $else$
+                                        <b><i><u>Announcement:</u> </i></b>
+                                        $if(link)$
+                                            <a href="$link$">$title$</a>
+                                        $else$
+                                            <a href="$post_url$">$title$</a>
+                                        $endif$
+                                    $endif$
+                                    - $date$
+                                $endif$
+                            </div>
                         </li>
                     $endfor$
                 </ul>
