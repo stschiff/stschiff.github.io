@@ -1,0 +1,32 @@
+- name: Stephan Schiffels
+  role: PI
+  image: images/stephan-portrait.jpg
+  url: https://eva.mpg.de
+  bio:
+  - dates: since 2015
+    what: Group leader at the <a href="http://www.shh.mpg.de"> MPI for the Science of Human History</a>, Jena, Germany.
+  - dates: 2012-2015
+    what: Postdoctoral Fellow in the group of Richard Durbin at the Wellcome Trust Sanger Institute, Hinxton, Cambridge, UK. <i>EMBO-Longterm Fellow</i> from 2012 through 2014.
+  - dates: 2008-2011
+    what: PhD in Theoretical Physics at the University of Cologne, funded by the <i>Deutsche Studienstiftung</i> (German National Merit Foundation).
+- name: Joscha Gretzinger
+  role: Postdoc
+  image: images/joscha-portrait.jpg
+  url: http://www.shh.mpg.de/person/91521/25500
+  bio:
+  - dates: Since 2018
+    what: PhD student at the MPI Jena
+  - dates: 2016-2018
+    what: Master Student in <i>Naturwissenschaftliche Archäologie</i>, University of Tübingen, Master-thesis co-supervised by <a href="http://www.iem.uzh.ch/en/people/abg/VerenaSchuenemann-.html">Verena Schünemann</a> and Stephan Schiffels
+  - dates: 2013-2016
+    what: B.A. in Prehistory and Archaeology of the Middle Ages, University of Tübingen
+- name: Laura Lacher
+  role: PhD student
+  image: images/laura_lacher.jpg
+  url: https://www.shh.mpg.de/person/99004
+  bio:
+  - dates: since 2020
+    what: PhD student at the MPI Jena
+  - dates: 2018
+    what: Master of Science in <i>Naturwissenschaftliche Archäologie</i>, Eberhardt-Karls University, Tuebingen. Supervised by <a href="https://www.shh.mpg.de/3006/johanneskrause">Johannes Krause</a>, <a href="http://www.iem.uzh.ch/en/people/abg/VerenaSchuenemann-.html">Verena Schünemann</a> and <a href="https://uni-tuebingen.de/fakultaeten/mathematisch-naturwissenschaftliche-fakultaet/fachbereiche/geowissenschaften/arbeitsgruppen/urgeschichte-naturwissenschaftliche-archaeologie/forschungsbereich/palaeoanthropologie/mitarbeiter/wahl-joachim/">Joachim Wahl</a></li>
+  - dates: B.A. Archaeologie - Europa und vorderer Orient, Ludwig-Maximilians University, Munich
