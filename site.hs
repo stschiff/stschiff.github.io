@@ -1,4 +1,3 @@
---------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
 import           Data.Monoid (mappend)
 import           Hakyll
@@ -8,8 +7,10 @@ import Control.Monad.IO.Class (liftIO)
 import Debug.Trace (trace)
 import Data.Time (UTCTime(..), fromGregorian, secondsToDiffTime, defaultTimeLocale, getCurrentTime, addUTCTime, nominalDay)
 import System.FilePath.Posix (takeFileName, replaceExtension)
-
---------------------------------------------------------------------------------
+import Text.Pandoc.Definition (Pandoc(..), lookupMeta)
+import Text.Pandoc.Readers.BibTeX (readBibTeX)
+import Text.Pandoc.Options (def)
+import Text.Pandoc.Class (runIO)
 
 main :: IO ()
 main = hakyll $ do
@@ -31,6 +32,19 @@ main = hakyll $ do
                 >>= loadAndApplyTemplate "templates/base.html" baseCtx
                 >>= relativizeUrls
 
+    match "group_members/*" $ do
+        compile pandocCompiler
+    
+    create ["group.html"] $ do
+        route idRoute
+        compile $ do
+            let groupCtx = listField "members" defaultContext (loadAll "group_members/*")
+            baseCtx <- getBaseCtx Nothing
+            makeItem "MemberPage" >>=
+                loadAndApplyTemplate "templates/group.html" groupCtx >>=
+                loadAndApplyTemplate "templates/base.html" baseCtx >>=
+                relativizeUrls
+
     match "posts/*" $ do
         route $ setExtension "html"
         compile $ do
@@ -43,16 +57,29 @@ main = hakyll $ do
     match "posts/*" $ version "raw" $ do
         compile getResourceString
 
-
-    match "publications/*" $ do
-        compile pandocCompiler
+    match "data/publications.bib" $ do
+        compile $ do
+            Biblio referenceBS <- itemBody <$> biblioCompiler
+            Right (Pandoc meta _) <- unsafeCompiler . runIO $ readBibTeX def referenceBS
+            let Just references = lookupMeta "references" meta
+            unsafeCompiler (print references)
+            pandocCompiler
+            -- return ""
+            -- refItems <- mapM makeItem references
+            -- let pubCtx =
+            --         field "title" (show . title . itemBody) <>
+            --         field "journal" (show . source . itemBody)
+            --     ctx = listField "publications" pubCtx (return refItems)
+            -- makeItem ""
+            --     >>= loadAndApplyTemplate "templates/publications.html" ctx
+            --     >>= loadAndApplyTemplate "templates/base.html"
         
     create ["blog.html"] $ do
         route idRoute
         compile $ do
             posts <- recentFirst =<< loadAll ("posts/*" .&&. hasNoVersion)
             let blogCtx =
-                    listField  "posts" postCtx (return posts) <>
+                    listField "posts" postCtx (return posts) <>
                     defaultContext
             baseCtx <- getBaseCtx (Just "Blog")
             makeItem ""
@@ -60,34 +87,7 @@ main = hakyll $ do
                 >>= loadAndApplyTemplate "templates/base.html" (baseCtx <> constField "menu_Blog" "True")
                 >>= relativizeUrls
                     
-    createPublications False "publications.html"
-    createPublications True "publications-selected.html"
-
     match "templates/*" $ compile templateBodyCompiler
-
-createPublications :: Bool -> Identifier -> Rules ()
-createPublications selected target = do
-    let (f, title, linkTarget, linkName) =
-            if selected
-            then (isSelected, "Selected Publications", "/publications.html", "Show all")
-            else (const (return True), "Publications", "/publications-selected.html", "Show selected only")
-    create [target] $ do
-        route idRoute
-        compile $ do
-            pubs <- recentFirst =<< loadAll "publications/*"
-            filteredPubs <- filterM f pubs
-            let pubCtx =
-                    listField  "pubs"  postCtx (return filteredPubs) <>
-                    defaultContext
-            baseCtx <- getBaseCtx (Just title)
-            makeItem ""
-                >>= loadAndApplyTemplate "templates/publications.html" (pubCtx <>
-                        constField "linkName" linkName <>
-                        constField "linkTarget" linkTarget)
-                >>= loadAndApplyTemplate "templates/base.html" (baseCtx <>
-                                                                constField "menu_Publications" "True")
-                >>= relativizeUrls
-
 
 postCtx :: Context String
 postCtx =

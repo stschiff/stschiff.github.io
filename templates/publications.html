@@ -2,24 +2,10 @@
     Note: All my publications can also be found on <a href="https://scholar.google.de/citations?user=6FZPsI4AAAAJ&hl=de">Google Scholar</a>
 </p>
 
-<p>
-    <a href=$linkTarget$>$linkName$</a>
-</p>
-
 <ul class="publist">
-$for(pubs)$
-    <li id="$itemName$">
-        <div class="columns">
-            <div class="column is-one-quarter">
-                $if(image)$
-                    <img src="$image$">
-                $endif$
-            </div>
-            <div class="column">
-                <b><a href="$url$">$title$</a></b>. <i>$journal$</i>. Published <b>$date$</b>.
-                <p>$body$</p>
-            </div>
-        </div>
+$for(publications)$
+    <li>
+        $title$, $journal$
     </li>
 $endfor$
 </ul>
