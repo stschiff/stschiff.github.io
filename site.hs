@@ -64,7 +64,7 @@ main = hakyll $ do
     match "posts/*" $ version "raw" $ do
         compile getResourceString
 
-    match "data/publications_short.bib" $ do
+    match "data/publications.bib" $ do
         route $ constRoute "publications.html"
         compile $ do
             bibFileStr <- itemBody <$> getResourceString
