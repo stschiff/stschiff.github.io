@@ -2,3 +2,6 @@ resolver: lts-20.17
 
 packages:
 - .
+extra-deps:
+- git: https://github.com/stschiff/bibtex-hs
+  commit: a9223a60d8e21750b4a258d7f3a21b36fb714154

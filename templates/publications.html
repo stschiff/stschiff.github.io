@@ -2,10 +2,13 @@
     Note: All my publications can also be found on <a href="https://scholar.google.de/citations?user=6FZPsI4AAAAJ&hl=de">Google Scholar</a>
 </p>
 
-<ul class="publist">
 $for(publications)$
-    <li>
-        $title$, $journal$
-    </li>
+<div class="columns">
+    <div class="column is-one-third">
+        <img src="images/publications/$citekey$.jpg">
+    </div>
+    <div class="column">
+        <b>$title$</b>. <i>$journal$</i>
+    </div>
+</div>
 $endfor$
-</ul>
