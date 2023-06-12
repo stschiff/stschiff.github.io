@@ -1,10 +1,11 @@
 {-# LANGUAGE OverloadedStrings #-}
-import           BibTeX                 (bibFileParser, BibEntry(..))
+import           BibTeX                 (BibEntry (..), bibFileParser)
 import           Data.Monoid            (mappend)
 import           Hakyll
 
 import           Control.Monad          (filterM)
 import           Control.Monad.IO.Class (liftIO)
+import           Data.List              (intercalate)
 import           Data.Maybe             (fromMaybe)
 import           Data.Time              (UTCTime (..), addUTCTime,
                                          defaultTimeLocale, fromGregorian,
@@ -19,7 +20,7 @@ main = hakyll $ do
     match "images/*" $ do
         route   idRoute
         compile copyFileCompiler
-    
+
     match "images/publications/*" $ do
         route   idRoute
         compile copyFileCompiler
@@ -75,6 +76,8 @@ main = hakyll $ do
             let pubCtx =
                     field "title" (return . fromMaybe "" . lookup "title" . bibEntryFields . itemBody) <>
                     field "journal" (return . fromMaybe "" . lookup "journal" . bibEntryFields . itemBody) <>
+                    field "published" (return . makeBibTexDateField . itemBody) <>
+                    field "authors" (return . fromMaybe "" . lookup "author" . bibEntryFields . itemBody) <>
                     field "citekey" (return . bibEntryId . itemBody)
                 ctx = listField "publications" pubCtx (return refItems)
             makeItem ""
@@ -95,6 +98,31 @@ main = hakyll $ do
                 >>= relativizeUrls
 
     match "templates/*" $ compile templateBodyCompiler
+
+makeBibTexDateField :: BibEntry -> String
+makeBibTexDateField bibEntry =
+    let maybeDateFields = [lookup f (bibEntryFields bibEntry) | f <- ["year", "month", "day"]]
+    in  case sequence maybeDateFields of
+            Just [year, month, day] -> bibTexMonthToStr month ++ " " ++ day ++ ", " ++ year
+            Nothing ->
+                case sequence (take 2 maybeDateFields) of
+                    Just [year, month] -> bibTexMonthToStr month ++ ", " ++ year
+                    Nothing -> error $ "could not find date information in BibEntry " ++ bibEntryId bibEntry
+  where
+    bibTexMonthToStr m = case m of
+        "jan" -> "January"
+        "feb" -> "February"
+        "mar" -> "March"
+        "apr" -> "April"
+        "may" -> "May"
+        "jun" -> "June"
+        "jul" -> "July"
+        "aug" -> "August"
+        "sep" -> "September"
+        "oct" -> "October"
+        "nov" -> "November"
+        "dec" -> "December"
+        _     -> error $ "Could not parse BibTex month" ++ m
 
 postCtx :: Context String
 postCtx =
