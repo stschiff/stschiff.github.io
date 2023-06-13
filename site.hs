@@ -25,6 +25,10 @@ main = hakyll $ do
         route   idRoute
         compile copyFileCompiler
 
+    match "data/pdfs/*" $ do
+        route idRoute
+        compile copyFileCompiler
+
     match "css/*" $ do
         route   idRoute
         compile compressCssCompiler
@@ -78,7 +82,9 @@ main = hakyll $ do
                     field "journal" (return . fromMaybe "" . lookup "journal" . bibEntryFields . itemBody) <>
                     field "published" (return . makeBibTexDateField . itemBody) <>
                     field "authors" (return . fromMaybe "" . lookup "author" . bibEntryFields . itemBody) <>
-                    field "citekey" (return . bibEntryId . itemBody)
+                    field "citekey" (return . bibEntryId . itemBody) <>
+                    field "url" (return . fromMaybe "" . lookup "url" . bibEntryFields . itemBody) <>
+                    field "file" (return . fromMaybe "" . lookup "file" . bibEntryFields . itemBody)
                 ctx = listField "publications" pubCtx (return refItems)
             makeItem ""
                 >>= loadAndApplyTemplate "templates/publications.html" ctx
