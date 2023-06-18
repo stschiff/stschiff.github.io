@@ -1,12 +1,12 @@
 {-# LANGUAGE OverloadedStrings #-}
-import           BibTeX                 (BibEntry (..), bibFileParser)
+import           BibTeX                 (BibTeX, BibEntry (..), readBibFile)
 import           Data.Monoid            (mappend)
 import           Hakyll
 
 import           Control.Monad          (filterM)
 import           Control.Monad.IO.Class (liftIO)
 import           Data.List              (intercalate)
-import           Data.Maybe             (fromMaybe)
+import           Data.Maybe             (fromJust)
 import           Data.Time              (UTCTime (..), addUTCTime,
                                          defaultTimeLocale, fromGregorian,
                                          getCurrentTime, nominalDay,
@@ -16,7 +16,10 @@ import           System.FilePath.Posix  (replaceExtension, takeFileName)
 import           Text.Parsec            (parse)
 
 main :: IO ()
-main = hakyll $ do
+main = readBibFile "data/publications.bib" >>= runHakyll
+
+runHakyll :: BibTeX -> IO ()
+runHakyll bibEntries = hakyll $ do
     match "images/*" $ do
         route   idRoute
         compile copyFileCompiler
@@ -51,7 +54,7 @@ main = hakyll $ do
         compile $ do
             let groupCtx = listField "members" defaultContext (loadAll "group_members/*")
             baseCtx <- getBaseCtx (Just "Group")
-            makeItem "MemberPage" >>=
+            makeItem "" >>=
                 loadAndApplyTemplate "templates/group.html" groupCtx >>=
                 loadAndApplyTemplate "templates/base.html" baseCtx >>=
                 relativizeUrls
@@ -68,24 +71,22 @@ main = hakyll $ do
     match "posts/*" $ version "raw" $ do
         compile getResourceString
 
-    match "data/publications.bib" $ do
-        route $ constRoute "publications.html"
+    create (map (fromFilePath . bibEntryId) bibEntries) $ do
+        route $ customRoute (\i -> "pub/" ++ toFilePath i ++ ".html")
         compile $ do
-            bibFileStr <- itemBody <$> getResourceString
-            let bibEntries = case parse bibFileParser "" bibFileStr of
-                    Left err -> error $ "cannot parse Bib file: " ++ show err
-                    Right b  -> b
-            refItems <- mapM makeItem bibEntries
+            id_ <- getUnderlying
+            let [bibEntry] = filter ((== toFilePath id_) . bibEntryId) bibEntries
+                abstract = fromJust . lookup "abstract" . bibEntryFields $ bibEntry 
+            baseCtx <- getBaseCtx (Just "")
+            makeItem bibEntry
+                >>= loadAndApplyTemplate "templates/publication.html" getPubCtx
+                >>= loadAndApplyTemplate "templates/base.html" baseCtx
+
+    create ["publications.html"] $ do
+        route idRoute
+        compile $ do
             baseCtx <- getBaseCtx (Just "Publications")
-            let pubCtx =
-                    field "title" (return . fromMaybe "" . lookup "title" . bibEntryFields . itemBody) <>
-                    field "journal" (return . fromMaybe "" . lookup "journal" . bibEntryFields . itemBody) <>
-                    field "published" (return . makeBibTexDateField . itemBody) <>
-                    field "authors" (return . fromMaybe "" . lookup "author" . bibEntryFields . itemBody) <>
-                    field "citekey" (return . bibEntryId . itemBody) <>
-                    field "url" (return . fromMaybe "" . lookup "url" . bibEntryFields . itemBody) <>
-                    field "file" (return . fromMaybe "" . lookup "file" . bibEntryFields . itemBody)
-                ctx = listField "publications" pubCtx (return refItems)
+            let ctx = listField "publications" getPubCtx (mapM makeItem bibEntries)
             makeItem ""
                 >>= loadAndApplyTemplate "templates/publications.html" ctx
                 >>= loadAndApplyTemplate "templates/base.html" baseCtx
@@ -104,6 +105,32 @@ main = hakyll $ do
                 >>= relativizeUrls
 
     match "templates/*" $ compile templateBodyCompiler
+
+getPubCtx :: Context BibEntry
+getPubCtx = 
+    makeBibField "title" <>
+    makeSourceField "source" <>
+    field "published" (return . makeBibTexDateField . itemBody) <>
+    makeBibField "author" <>
+    field "citekey" (return . bibEntryId . itemBody) <>
+    makeBibField "url" <>
+    makeBibField "abstract"
+  where
+    makeBibField :: String -> Context BibEntry
+    makeBibField key = field key (maybeCompiler key)
+    makeSourceField :: String -> Context BibEntry
+    makeSourceField key = field key (\item -> 
+        case lookup "journal" . bibEntryFields . itemBody $ item of
+            Just j -> return j
+            Nothing -> case lookup "booktitle" . bibEntryFields . itemBody $ item of
+                Just b -> return b
+                Nothing -> noResult $ "bibEntry " ++ (bibEntryId . itemBody $ item) ++
+                    " does not have fields journal or booktitle ")
+    maybeCompiler :: String -> Item BibEntry -> Compiler String
+    maybeCompiler key item =
+        case lookup key . bibEntryFields . itemBody $ item of
+            Just res -> return res
+            Nothing -> noResult $ "bibEntry " ++ (bibEntryId . itemBody $ item) ++ " does not have field " ++ key
 
 makeBibTexDateField :: BibEntry -> String
 makeBibTexDateField bibEntry =

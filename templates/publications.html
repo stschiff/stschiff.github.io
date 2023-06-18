@@ -5,14 +5,15 @@
 $for(publications)$
 <div class="columns">
     <div class="column is-one-third">
-        <img src="images/publications/$citekey$.jpg">
+        <a href="pub/$citekey$.html"><img src="images/publications/$citekey$.jpg"></a>
     </div>
     <div class="column">
-        <b>$title$</b>. <i>$journal$</i>. Published $published$.
-        <p>Authors: $authors$</p>
+        <a href="pub/$citekey$.html"><b>$title$</b>.</a> <i>$source$</i>. Published $published$.
+        <p>Authors: $author$</p>
         <p>
             <a href="$url$">[Website]</a>
             <a href="data/pdfs/$citekey$.pdf">[PDF]</a>
+            <a href="pub/$citekey$.html">[Details]</a>
         </p>
     </div>
 </div>
