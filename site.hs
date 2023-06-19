@@ -46,19 +46,6 @@ runHakyll bibEntries = hakyll $ do
                 >>= loadAndApplyTemplate "templates/base.html" baseCtx
                 >>= relativizeUrls
 
-    match "group_members/*" $ do
-        compile pandocCompiler
-
-    create ["group.html"] $ do
-        route idRoute
-        compile $ do
-            let groupCtx = listField "members" defaultContext (loadAll "group_members/*")
-            baseCtx <- getBaseCtx (Just "Group")
-            makeItem "" >>=
-                loadAndApplyTemplate "templates/group.html" groupCtx >>=
-                loadAndApplyTemplate "templates/base.html" baseCtx >>=
-                relativizeUrls
-
     match "posts/*" $ do
         route $ setExtension "html"
         compile $ do
