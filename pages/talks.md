@@ -20,7 +20,35 @@ Turkey, recorded on December 12, 2018:
 
 # All talks
 
-(Cancelled) Vortrag "Neue Erkenntnisse aus der Archäogenetik zur Populationsgeschichte Englands und Europas im ersten Millennium AD" auf dem *53. Deutscher Historikertag, Ludwig-Maximilians-Universität München*, **September 8-11, 2020, München, Germany**
+Participation in panel discussion and evening on "What is saxonian?" at the *Deutsches Hygiene-Museum Dresden*, **March 16, 2023**
+
+Colloquium at *Humboldt University, Berlin* "Eine neue archäogenetische Studie zur angelsächsischen Migration im Frühmittelalter", **Jan 23, 2023**
+
+Zoom-Lecture at the *University of Jena* on "Human demographic history - From African origins to recent population structure", **Dec 8, 2022**
+
+Virtual seminar talk at the *Cologne Center for Genomics*, Cologne, Germany, **Nov 29, 2022**
+
+Talk by Stephan Schiffels at the *Mitteldeutscher Archäologentag* at the State Museum for prehistory in Halle, Germany, **Oct 6-8, 2022**.
+
+Talk by Postdoc Thiseas Lamnidis at the upcoming EMBO conference "Reconstructing the Human Past" in Heidelberg, Germany, **September 13-16, 2022**
+
+Joint virtual lecture "Die Prähistorie aus dem Blickwinkel der Gegenwart" with Dr. Alexander Herbig and Dr. Oliver Hochadel at the Master's course "Integrative Wissensperspektiven" at the University of Bielefeld, **January 10, 2022, Bielefeld, Germany**
+
+Virtual talk "Die Archäogenetik als neue Quelle zur Untersuchung menschlicher Mobilität am Beispiel der Populationsgeschichte Europas" within discussion section "Die Herausforderung der Genetic History" at the *Deutscher Historikertag*, **October 6, 2021, Munich, Germany**
+
+Participation in virtual Roundtable Discussion "Genetics, Genealogy, History" at the *University of Münster*, **March 21, 2021, Münster, Germany**
+
+Virtual Seminar "Die frühmittelalterliche Bevölkerungsgeschichte Europas aus Sicht der Paläogenetik." at *State Museum Hannover*, **February 11, 2021, Hannover, Germany**
+
+Virtual Seminar at *Stony Brook University*, **September 9, 2020, Stony Brook, NY, USA**
+
+Clemens Schmid will present a talk titled "Spatiotemporal interpolation based on bulk radiocarbon data: Two case studies from archaeology and archaeogenetics" at the [26th EAA Virtual Annual Meeting](https://www.e-a-a.org/EAA2020virtual), **24-30 August 2020**
+
+Joscha Gretzinger will present a talk titled "The Anglo-Saxon migration and formation of the early English gene pool" at the [26th EAA Virtual Annual Meeting](https://www.e-a-a.org/EAA2020virtual), **24-30 August 2020**
+
+Virtual Seminar talk at the *UCL Genetics Institute*, **June 17, 2020, London, UK**
+
+Virtual Seminar talk "Structure runs deep: Inference of human separation dynamics from whole genome sequences." at the *International Laboratory of Statistical and Computational Genomics, Higher School of Economics*, **May 5, 2020, Moscow, Russia**
 
 (Cancelled) Teilnahme an einer Podiumsdiskussion auf der Tagung *Genealogie in der Moderne: Akteure – Praktiken – Perspektiven*, **March 20-22, 2020, Münster, Germany**
 
