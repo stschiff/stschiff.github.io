@@ -4,8 +4,6 @@ isBlogPost: True
 image: /images/loog_et_al.jpg
 ---
 
-### On human mobility and language dispersal
-
 <figure>
 ![](/images/IMPRS-Jena-Logo3.jpg){ width=50% }
 </figure>

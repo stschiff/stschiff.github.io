@@ -4,14 +4,7 @@ isBlogPost: True
 image: /images/clock.jpg
 ---
 
-
-### You should track your time when working
-
-#### It helps you stay mentally sane.
-
-<figure>
 ![](/images/clock_image.jpg)
-</figure>
 
 Working in academia comes with unique freedoms and challenges. I would argue
 that in no other job we have so much freedom to define our own work. At least at

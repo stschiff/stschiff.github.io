@@ -5,8 +5,6 @@ needsMathJax: True
 image: /images/hypTest2.jpg
 ---
 
-### Hypothesis testing without Alternatives
-
 #### P-values for Bayesians
 
 *This post originally appeared on

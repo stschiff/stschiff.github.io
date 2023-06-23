@@ -4,8 +4,6 @@ isBlogPost: True
 image: /images/wahlblick_diffusion.jpg
 ---
 
-### Und nun die Wahlvorhersage…
-
 von Stephan Schiffels und Andrej Fischer
 
 Vorhersagen von Wahlergebnissen aufgrund von Umfragen gehören zum

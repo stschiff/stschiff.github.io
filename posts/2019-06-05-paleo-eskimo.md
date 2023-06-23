@@ -4,10 +4,6 @@ isBlogPost: True
 image: images/PaleoEskimoCover-small.jpg
 ---
 
-### Behind the paper: Paleo-Eskimo ancestry in North America
-
-#### or How to grow a paper from 6 to 35 authors
-
 *This post appeared originally on the *[Nature Ecology & Evolution Community
 blog](https://natureecoevocommunity.nature.com/users/253326-stephan-schiffels/posts/49657-paleo-eskimo-ancestry-in-north-america-or-how-to-grow-a-paper-from-6-to-35-authors)*.*
 
