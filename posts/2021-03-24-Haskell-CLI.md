@@ -1,7 +1,7 @@
 ---
 title: Designing Command Line Interfaces in Haskell
 isBlogPost: True
-image: images/controller.jpg
+image: /images/controller.jpg
 ---
 
 ![](../images/controller.jpg)

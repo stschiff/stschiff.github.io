@@ -15,6 +15,16 @@ import           Debug.Trace            (trace)
 import           System.FilePath.Posix  (replaceExtension, takeFileName)
 import           Text.Parsec            (parse)
 
+data SidebarType = SbAnnouncement | SbPost | SbPub
+
+data SideBarItem = SidebarItem {
+    sbType :: SidebarType,
+    sbDate :: UTCTime,
+    sbTitle :: String,
+    sbImageFile :: FilePath,
+    sbLink :: String
+}
+
 main :: IO ()
 main = readBibFile "data/publications.bib" >>= runHakyll
 
@@ -31,10 +41,13 @@ runHakyll bibEntries = hakyll $ do
     match "data/pdfs/*" $ do
         route idRoute
         compile copyFileCompiler
+    
+    create ["sidebar"] . compile $ do
+        posts <- loadAll "posts/*"
+        let sbItems = sortSbItems $ map post2sbItem posts <> map pub2sbItem bibEntries
+            sidebarField = listField "sidebarItems" sbItemContext sbItems
+        makeItem "" >>= loadAndApplyTemplate "templates/sidebar.html" sidebarField
 
-    match "css/*" $ do
-        route   idRoute
-        compile compressCssCompiler
 
     match "pages/*" $ do
         route   $ gsubRoute "pages/" (const "") `composeRoutes` setExtension "html"
@@ -55,8 +68,8 @@ runHakyll bibEntries = hakyll $ do
                 >>= loadAndApplyTemplate "templates/base.html" baseCtx
                 >>= relativizeUrls
 
-    match "posts/*" $ version "raw" $ do
-        compile getResourceString
+    -- match "posts/*" $ version "raw" $ do
+    --     compile getResourceString
 
     create (map (fromFilePath . bibEntryId) bibEntries) $ do
         route $ customRoute (\i -> "pub/" ++ toFilePath i ++ ".html")
@@ -158,17 +171,13 @@ postCtx =
     itemName = return . takeFileName . toFilePath . itemIdentifier
     postUrl = return . ("/"<>) . (\fp -> replaceExtension fp "html") . toFilePath . itemIdentifier
 
-getBaseCtx :: Maybe String -> Compiler (Context String)
-getBaseCtx maybeTitle = do
+getBaseCtx :: BibTeX -> Maybe String -> Compiler (Context String)
+getBaseCtx bibEntries maybeTitle = do
     currentTime <- unsafeCompiler getCurrentTime
-    let cutoffTime = addUTCTime ((-365) * nominalDay) currentTime
-    -- let cutoffTime = UTCTime (fromGregorian 2018 1 1) (secondsToDiffTime 0)
     posts <- loadAll ("posts/*" .&&. hasVersion "raw")
-    pubs <- loadAll "publications/*"
-    let filteredPosts = posts -- filterM (isMoreRecentThan cutoffTime) posts
-    let filteredPubs = pubs -- filterM (isMoreRecentThan cutoffTime) pubs
-    filteredSelectedPubs <- filterM isSelected filteredPubs
-    let sidebarField = listField "sidebarItems" postCtx (fmap (take 5) . recentFirst $ filteredPosts <> filteredPubs)
+    let pubs = bibEntries
+    filteredSelectedPubs <- filterM isSelected pubs
+    let sidebarField = listField "sidebarItems" postCtx (recentFirst $ posts <> pubs)
         titleField = case maybeTitle of
             Nothing -> mempty
             Just t  -> constField "title" t
