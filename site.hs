@@ -5,7 +5,7 @@ import           Hakyll
 
 import           Control.Monad          (filterM)
 import           Control.Monad.IO.Class (liftIO)
-import           Data.List              (intercalate)
+import           Data.List              (intercalate, sortOn)
 import           Data.Maybe             (fromJust)
 import           Data.Time              (UTCTime (..), addUTCTime,
                                          defaultTimeLocale, fromGregorian,
@@ -45,31 +45,25 @@ runHakyll bibEntries = hakyll $ do
     create ["sidebar"] . compile $ do
         posts <- loadAll "posts/*"
         let sbItems = sortSbItems $ map post2sbItem posts <> map pub2sbItem bibEntries
-            sidebarField = listField "sidebarItems" sbItemContext sbItems
+            sidebarField = listField "sidebarItems" sbItemContext (return sbItems)
         makeItem "" >>= loadAndApplyTemplate "templates/sidebar.html" sidebarField
-
 
     match "pages/*" $ do
         route   $ gsubRoute "pages/" (const "") `composeRoutes` setExtension "html"
         compile $ do
-            baseCtx <- getBaseCtx Nothing
-            ext <- getUnderlyingExtension
-            let c = if ext == ".html" then getResourceBody else pandocCompiler
-            c
-                >>= loadAndApplyTemplate "templates/base.html" baseCtx
+            sidebarCtx <- loadSidebarContext 
+            pandocCompiler
+                >>= loadAndApplyTemplate "templates/base.html" sidebarCtx
                 >>= relativizeUrls
 
     match "posts/*" $ do
         route $ setExtension "html"
         compile $ do
-            baseCtx <- getBaseCtx Nothing
+            sidebarCtx <- loadSidebarContext
             pandocCompiler
                 >>= loadAndApplyTemplate "templates/post.html" postCtx
-                >>= loadAndApplyTemplate "templates/base.html" baseCtx
+                >>= loadAndApplyTemplate "templates/base.html" sidebarCtx
                 >>= relativizeUrls
-
-    -- match "posts/*" $ version "raw" $ do
-    --     compile getResourceString
 
     create (map (fromFilePath . bibEntryId) bibEntries) $ do
         route $ customRoute (\i -> "pub/" ++ toFilePath i ++ ".html")
@@ -77,19 +71,19 @@ runHakyll bibEntries = hakyll $ do
             id_ <- getUnderlying
             let [bibEntry] = filter ((== toFilePath id_) . bibEntryId) bibEntries
                 abstract = fromJust . lookup "abstract" . bibEntryFields $ bibEntry 
-            baseCtx <- getBaseCtx (Just "")
+            sidebarCtx <- loadSidebarContext
             makeItem bibEntry
                 >>= loadAndApplyTemplate "templates/publication.html" getPubCtx
-                >>= loadAndApplyTemplate "templates/base.html" baseCtx
+                >>= loadAndApplyTemplate "templates/base.html" sidebarCtx
 
     create ["publications.html"] $ do
         route idRoute
         compile $ do
-            baseCtx <- getBaseCtx (Just "Publications")
+            sidebarCtx <- loadSidebarContext
             let ctx = listField "publications" getPubCtx (mapM makeItem bibEntries)
             makeItem ""
                 >>= loadAndApplyTemplate "templates/publications.html" ctx
-                >>= loadAndApplyTemplate "templates/base.html" baseCtx
+                >>= loadAndApplyTemplate "templates/base.html" sidebarCtx
 
     create ["blog.html"] $ do
         route idRoute
@@ -98,13 +92,34 @@ runHakyll bibEntries = hakyll $ do
             let blogCtx =
                     listField "posts" postCtx (return posts) <>
                     defaultContext
-            baseCtx <- getBaseCtx (Just "Blog")
+            sidebarCtx <- loadSidebarContext
             makeItem ""
                 >>= loadAndApplyTemplate "templates/blog.html" blogCtx
-                >>= loadAndApplyTemplate "templates/base.html" (baseCtx <> constField "menu_Blog" "True")
+                >>= loadAndApplyTemplate "templates/base.html" (sidebarCtx <> constField "menu_Blog" "True")
                 >>= relativizeUrls
 
     match "templates/*" $ compile templateBodyCompiler
+
+sortSbItems :: [Item SideBarItem] -> [Item SideBarItem]
+sortSbItems = sortOn (sbDate . itemBody)
+
+post2sbItem :: (MonadMetadata m) => Item String -> m (Item SideBarItem)
+post2sbItem a = do
+    let id_ = itemIdentifier a
+    t <- getMetadataField' id_ "title"
+    date <- getMetadataField' id_ "published"
+    image <- get
+
+pub2sbItem :: BibEntry -> Item SideBarItem
+pub2sbItem = undefined
+
+sbItemContext :: Context SideBarItem
+sbItemContext = undefined
+
+loadSidebarContext :: Compiler (Context String)
+loadSidebarContext = do
+    sidebar <- itemBody <$> load "sidebar"
+    return $ constField "sidebar" sidebar <> defaultContext
 
 getPubCtx :: Context BibEntry
 getPubCtx = 
@@ -170,27 +185,3 @@ postCtx =
     isPub = (=="publications/") . take 13 . toFilePath . itemIdentifier
     itemName = return . takeFileName . toFilePath . itemIdentifier
     postUrl = return . ("/"<>) . (\fp -> replaceExtension fp "html") . toFilePath . itemIdentifier
-
-getBaseCtx :: BibTeX -> Maybe String -> Compiler (Context String)
-getBaseCtx bibEntries maybeTitle = do
-    currentTime <- unsafeCompiler getCurrentTime
-    posts <- loadAll ("posts/*" .&&. hasVersion "raw")
-    let pubs = bibEntries
-    filteredSelectedPubs <- filterM isSelected pubs
-    let sidebarField = listField "sidebarItems" postCtx (recentFirst $ posts <> pubs)
-        titleField = case maybeTitle of
-            Nothing -> mempty
-            Just t  -> constField "title" t
-    return $ sidebarField <> titleField <> defaultContext
-  where
-    isMoreRecentThan :: (MonadMetadata m) => UTCTime -> Item a -> m Bool
-    isMoreRecentThan cutoffTime i = return True -- do
-        -- itemTime <- getItemUTC defaultTimeLocale . itemIdentifier $ i
-        -- return (itemTime > cutoffTime)
-
-isSelected :: (MonadMetadata m) => Item a -> m Bool
-isSelected i = do
-    f <- getMetadataField (itemIdentifier i) "selected"
-    case f of
-        Just _  -> return True
-        Nothing -> return False
