@@ -103,12 +103,22 @@ runHakyll bibEntries = hakyll $ do
 sortSbItems :: [Item SideBarItem] -> [Item SideBarItem]
 sortSbItems = sortOn (sbDate . itemBody)
 
-post2sbItem :: (MonadMetadata m) => Item String -> m (Item SideBarItem)
+post2sbItem :: Item String -> Compiler (Item SideBarItem)
 post2sbItem a = do
     let id_ = itemIdentifier a
     t <- getMetadataField' id_ "title"
-    date <- getMetadataField' id_ "published"
-    image <- get
+    date <- getItemUTC defaultTimeLocale id_
+    i <- getMetadataField' id_ "image"
+    l <- getMetadataField' id_ "url"
+    isBlogPost <- getMetadataField' id_ "isBlogPost"
+    let type_ = case isBlogPost of
+            "True" -> SbPost
+            _ -> SbAnnouncement
+    maybeRoute <- getRoute id_
+    url <- case maybeRoute of
+        Nothing -> fail $ "No route url found for item " ++ show id_
+        Just r -> return r
+    return $ SidebarItem type_ date t i l
 
 pub2sbItem :: BibEntry -> Item SideBarItem
 pub2sbItem = undefined
