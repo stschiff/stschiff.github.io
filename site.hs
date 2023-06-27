@@ -19,9 +19,9 @@ data SidebarType = SbAnnouncement | SbPost | SbPub
 
 data SideBarItem = SidebarItem {
     sbType :: SidebarType,
-    sbDate :: UTCTime,
+    sbDate :: Either (Int, Int) (Int, Int, Int),
     sbTitle :: String,
-    sbImageFile :: FilePath,
+    sbImageFile :: Maybe FilePath,
     sbLink :: String
 }
 
@@ -44,7 +44,8 @@ runHakyll bibEntries = hakyll $ do
     
     create ["sidebar"] . compile $ do
         posts <- loadAll "posts/*"
-        let sbItems = sortSbItems $ map post2sbItem posts <> map pub2sbItem bibEntries
+        postSbItems <- mapM post2sbItem posts
+        let sbItems = sortSbItems $ postSbItems ++ map pub2sbItem bibEntries
             sidebarField = listField "sidebarItems" sbItemContext (return sbItems)
         makeItem "" >>= loadAndApplyTemplate "templates/sidebar.html" sidebarField
 
@@ -107,21 +108,32 @@ post2sbItem :: Item String -> Compiler (Item SideBarItem)
 post2sbItem a = do
     let id_ = itemIdentifier a
     t <- getMetadataField' id_ "title"
-    date <- getItemUTC defaultTimeLocale id_
-    i <- getMetadataField' id_ "image"
+    UTCTime date _ <- getItemUTC defaultTimeLocale id_
+    i <- getMetadataField id_ "image"
     l <- getMetadataField' id_ "url"
-    isBlogPost <- getMetadataField' id_ "isBlogPost"
+    isBlogPost <- getMetadataField id_ "isBlogPost"
     let type_ = case isBlogPost of
-            "True" -> SbPost
+            Just "True" -> SbPost
             _ -> SbAnnouncement
     maybeRoute <- getRoute id_
     url <- case maybeRoute of
         Nothing -> fail $ "No route url found for item " ++ show id_
         Just r -> return r
-    return $ SidebarItem type_ date t i l
+    makeItem $ SidebarItem type_ (Right (toGregorian date)) t i l
 
-pub2sbItem :: BibEntry -> Item SideBarItem
-pub2sbItem = undefined
+pub2sbItem :: BibEntry -> Compiler (Item SideBarItem)
+pub2sbItem b = do
+    let t = fromJust . lookup "title" . bibEntryFields $ b
+        y = fromJust . lookup "year" . bibEntryFields $ b
+        m = fromJust . lookup "month" . bibEntryFields $ b
+        md = lookup "day" . bibEntryFields $ b
+        date = case md of
+            Nothing -> Left (y, m)
+            Right d -> Right (y, m, d)
+        citekey = bibEntryId b
+        i = "images/publications/" ++ citekey ++ ".jpg"
+        url = "pub/" ++ citekey ++ ".html"
+    makeItem $ SidebarItem SbPub date t i url
 
 sbItemContext :: Context SideBarItem
 sbItemContext = undefined
@@ -157,6 +169,18 @@ getPubCtx =
             Just res -> return res
             Nothing -> noResult $ "bibEntry " ++ (bibEntryId . itemBody $ item) ++ " does not have field " ++ key
 
+makeBibTexDate :: BibEntry -> UTCTime
+makeBibTexDate b =
+    let y = fromJust . lookup "year" . bibEntryFields $ b
+        m = fromJust . lookup "month" . bibEntryFields $ b
+        d = maybe 1 . lookup "day" . bibEntryFields $ b
+        date = UTCTime (fromGregorian y (bibTexMonthToNum m) d) 0
+  where
+    bibTexMonthToNum m = fromJust . lookup m $ monthNums
+    monthNums = zip ["jan", "feb", "mar", "apr", "may", "jun",
+                     "jul", "aug", "sep", "oct", "nov", "dec"] (1..)
+        
+        
 makeBibTexDateField :: BibEntry -> String
 makeBibTexDateField bibEntry =
     let maybeDateFields = [lookup f (bibEntryFields bibEntry) | f <- ["year", "month", "day"]]
