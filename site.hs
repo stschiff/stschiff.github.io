@@ -1,35 +1,29 @@
+{-# LANGUAGE DeriveGeneric     #-}
 {-# LANGUAGE OverloadedStrings #-}
-import           BibTeX                 (BibTeX, BibEntry (..), bibFileParser)
+
+import           BibTeX                 (BibEntry (..), BibTeX, readBibFile)
 import           Data.Monoid            (mappend)
 import           Hakyll
 
-import           Control.Monad          (filterM)
+import           Control.Monad          (filterM, forM)
 import           Control.Monad.IO.Class (liftIO)
+import           Data.Binary            (Binary)
 import           Data.List              (intercalate, sortOn)
-import           Data.Maybe             (fromJust)
+import           Data.Maybe             (fromJust, fromMaybe)
 import           Data.Time              (UTCTime (..), addUTCTime,
                                          defaultTimeLocale, fromGregorian,
                                          getCurrentTime, nominalDay,
                                          secondsToDiffTime)
 import           Debug.Trace            (trace)
+import           GHC.Generics           (Generic)
 import           System.FilePath.Posix  (replaceExtension, takeFileName)
 import           Text.Parsec            (parse)
-
-data SidebarType = SbAnnouncement | SbPost | SbPub
-
-data SideBarItem = SidebarItem {
-    sbType :: SidebarType,
-    sbDate :: Either (Int, Int) (Int, Int, Int),
-    sbTitle :: String,
-    sbImageFile :: Maybe FilePath,
-    sbOriginalItem :: Item String
-}
 
 main :: IO ()
 main = readBibFile "data/publications.bib" >>= runHakyll
 
 runHakyll :: BibTeX -> IO ()
-runHakyll bibEntries = hakyll $ do            
+runHakyll bibEntries = hakyll $ do
 
     match "images/*" $ do
         route   idRoute
@@ -42,18 +36,18 @@ runHakyll bibEntries = hakyll $ do
     match "data/pdfs/*" $ do
         route idRoute
         compile copyFileCompiler
-    
+
     create ["sidebar"] . compile $ do
-        posts <- loadAll "posts/*"
-        postSbItems <- mapM post2sbItem posts
-        let sbItems = sortSbItems $ postSbItems ++ map pub2sbItem bibEntries
-            sidebarField = listField "sidebarItems" sbItemContext (return sbItems)
+        posts <- loadAllSnapshots "posts/*" "raw"
+        pubs <- loadAllSnapshots "pubs/*" "raw"
+        
+        let sidebarField = listField "sidebarItems" postCtx (return posts)
         makeItem "" >>= loadAndApplyTemplate "templates/sidebar.html" sidebarField
 
     match "pages/*" $ do
         route   $ gsubRoute "pages/" (const "") `composeRoutes` setExtension "html"
         compile $ do
-            sidebarCtx <- loadSidebarContext 
+            sidebarCtx <- loadSidebarContext
             pandocCompiler
                 >>= loadAndApplyTemplate "templates/base.html" sidebarCtx
                 >>= relativizeUrls
@@ -61,31 +55,38 @@ runHakyll bibEntries = hakyll $ do
     match "posts/*" $ do
         route $ setExtension "html"
         compile $ do
+            -- this Snapshot is necessary to break a dependency cycle: sidebar requires posts which require sidebar.
+            getResourceBody >>= saveSnapshot "raw"
             sidebarCtx <- loadSidebarContext
             pandocCompiler
                 >>= loadAndApplyTemplate "templates/post.html" postCtx
                 >>= loadAndApplyTemplate "templates/base.html" sidebarCtx
                 >>= relativizeUrls
 
-    create (map (fromFilePath . bibEntryId) bibEntries) $ do
-        route $ customRoute (\i -> "pub/" ++ toFilePath i ++ ".html")
+    create [fromFilePath . ("pubs/"++) . bibEntryId $ b | b <- bibEntries] $ do
+        route $ setExtension "html"
         compile $ do
             id_ <- getUnderlying
-            let [bibEntry] = filter ((== toFilePath id_) . bibEntryId) bibEntries
-                abstract = fromJust . lookup "abstract" . bibEntryFields $ bibEntry 
+            let citekey = drop 5 . toFilePath $ id_
+            let [bibEntry] = filter ((== citekey) . bibEntryId) bibEntries
+            makeItem (bibEntryType bibEntry, bibEntryId bibEntry, bibEntryFields bibEntry) >>= saveSnapshot "bibEntry"
             sidebarCtx <- loadSidebarContext
             makeItem bibEntry
                 >>= loadAndApplyTemplate "templates/publication.html" getPubCtx
+                >>= saveSnapshot "raw"
                 >>= loadAndApplyTemplate "templates/base.html" sidebarCtx
+                >>= relativizeUrls
 
     create ["publications.html"] $ do
         route idRoute
         compile $ do
+            allPubEntries <- loadPubs 
             sidebarCtx <- loadSidebarContext
-            let ctx = listField "publications" getPubCtx (mapM makeItem bibEntries)
+            let ctx = listField "publications" getPubCtx (return allPubEntries)
             makeItem ""
                 >>= loadAndApplyTemplate "templates/publications.html" ctx
-                >>= loadAndApplyTemplate "templates/base.html" sidebarCtx
+                >>= loadAndApplyTemplate "templates/base.html" (constField "title" "Publications" <> constField "menu_Publications" "True" <> sidebarCtx)
+                >>= relativizeUrls
 
     create ["blog.html"] $ do
         route idRoute
@@ -97,58 +98,17 @@ runHakyll bibEntries = hakyll $ do
             sidebarCtx <- loadSidebarContext
             makeItem ""
                 >>= loadAndApplyTemplate "templates/blog.html" blogCtx
-                >>= loadAndApplyTemplate "templates/base.html" (sidebarCtx <> constField "menu_Blog" "True")
+                >>= loadAndApplyTemplate "templates/base.html" (constField "title" "Blog" <> constField "menu_Blog" "True" <> sidebarCtx)
                 >>= relativizeUrls
 
     match "templates/*" $ compile templateBodyCompiler
 
-sortSbItems :: [Item SideBarItem] -> [Item SideBarItem]
-sortSbItems = sortOn (fillDay . sbDate . itemBody)
-  where
-    fillDay (m, y) = (1, m, y)
-    fillDay d = d 
-
-post2sbItem :: Item String -> Compiler (Item SideBarItem)
-post2sbItem a = do
-    let id_ = itemIdentifier a
-    t <- getMetadataField' id_ "title"
-    UTCTime date _ <- getItemUTC defaultTimeLocale id_
-    i <- getMetadataField id_ "image"
-    l <- getMetadataField' id_ "url"
-    isBlogPost <- getMetadataField id_ "isBlogPost"
-    let type_ = case isBlogPost of
-            Just "True" -> SbPost
-            _ -> SbAnnouncement
-    makeItem $ SidebarItem type_ (Right (toGregorian date)) t i a
-
-pub2sbItem :: BibEntry -> Compiler (Item SideBarItem)
-pub2sbItem b = do
-    let t = fromJust . lookup "title" . bibEntryFields $ b
-        y = fromJust . lookup "year" . bibEntryFields $ b
-        m = fromJust . lookup "month" . bibEntryFields $ b
-        md = lookup "day" . bibEntryFields $ b
-        date = case md of
-            Nothing -> Left (y, m)
-            Right d -> Right (y, m, d)
-        citekey = bibEntryId b
-        i = "images/publications/" ++ citekey ++ ".jpg"
-    pubItem <- load citekey
-    makeItem $ SidebarItem SbPub date t i pubItem
-
-sbItemContext :: Context SideBarItem
-sbItemContext =
-    boolField "isPub" ((==SbPub) . sbType . itemBody) <>
-    boolField "isPost" ((==SbPost) . sbType . itemBody) <>
-    boolField "isAnnouncement" ((==SbAnnouncement) . sbType . itemBody) <>
-    field "title" (return . sbTitle . itemBody) <>
-    field "date" (showDate . sbDate . itemBody) <>
-    field "url" getItemUrl <>
-    field "image" getImageUrl
-  where
-    getItemUrl i = let id = itemIdentifier i
-                       empty' = fail $ "No route url found for item " ++ show id
-                   in  fmap (maybe empty' toUrl) $ getRoute id
-    getImageUrl i = 
+loadPubs :: Compiler [Item BibEntry]
+loadPubs = do
+    allPubEntryTupleItems <- loadAllSnapshots "pub/*" "bibEntry"
+    forM allPubEntryTupleItems $ \ti -> do 
+        let (t, i, f) = itemBody ti
+        makeItem $ BibEntry t i f
 
 loadSidebarContext :: Compiler (Context String)
 loadSidebarContext = do
@@ -156,7 +116,7 @@ loadSidebarContext = do
     return $ constField "sidebar" sidebar <> defaultContext
 
 getPubCtx :: Context BibEntry
-getPubCtx = 
+getPubCtx =
     makeBibField "title" <>
     makeSourceField "source" <>
     field "published" (return . makeBibTexDateField . itemBody) <>
@@ -168,7 +128,7 @@ getPubCtx =
     makeBibField :: String -> Context BibEntry
     makeBibField key = field key (maybeCompiler key)
     makeSourceField :: String -> Context BibEntry
-    makeSourceField key = field key (\item -> 
+    makeSourceField key = field key (\item ->
         case lookup "journal" . bibEntryFields . itemBody $ item of
             Just j -> return j
             Nothing -> case lookup "booktitle" . bibEntryFields . itemBody $ item of
@@ -183,16 +143,15 @@ getPubCtx =
 
 makeBibTexDate :: BibEntry -> UTCTime
 makeBibTexDate b =
-    let y = fromJust . lookup "year" . bibEntryFields $ b
+    let y = read . fromJust . lookup "year" . bibEntryFields $ b
         m = fromJust . lookup "month" . bibEntryFields $ b
-        d = maybe 1 . lookup "day" . bibEntryFields $ b
-        date = UTCTime (fromGregorian y (bibTexMonthToNum m) d) 0
+        d = maybe 1 read . lookup "day" . bibEntryFields $ b
+    in  UTCTime (fromGregorian y (bibTexMonthToNum m) d) 0
   where
     bibTexMonthToNum m = fromJust . lookup m $ monthNums
     monthNums = zip ["jan", "feb", "mar", "apr", "may", "jun",
-                     "jul", "aug", "sep", "oct", "nov", "dec"] (1..)
-        
-        
+                     "jul", "aug", "sep", "oct", "nov", "dec"] [1..]
+
 makeBibTexDateField :: BibEntry -> String
 makeBibTexDateField bibEntry =
     let maybeDateFields = [lookup f (bibEntryFields bibEntry) | f <- ["year", "month", "day"]]
