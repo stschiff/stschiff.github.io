@@ -1,5 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
-import           BibTeX                 (BibTeX, BibEntry (..), readBibFile)
+import           BibTeX                 (BibTeX, BibEntry (..), bibFileParser)
 import           Data.Monoid            (mappend)
 import           Hakyll
 
@@ -29,7 +29,8 @@ main :: IO ()
 main = readBibFile "data/publications.bib" >>= runHakyll
 
 runHakyll :: BibTeX -> IO ()
-runHakyll bibEntries = hakyll $ do
+runHakyll bibEntries = hakyll $ do            
+
     match "images/*" $ do
         route   idRoute
         compile copyFileCompiler
