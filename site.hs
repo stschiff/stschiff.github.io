@@ -22,7 +22,7 @@ data SideBarItem = SidebarItem {
     sbDate :: Either (Int, Int) (Int, Int, Int),
     sbTitle :: String,
     sbImageFile :: Maybe FilePath,
-    sbLink :: String
+    sbOriginalItem :: Item String
 }
 
 main :: IO ()
@@ -103,7 +103,10 @@ runHakyll bibEntries = hakyll $ do
     match "templates/*" $ compile templateBodyCompiler
 
 sortSbItems :: [Item SideBarItem] -> [Item SideBarItem]
-sortSbItems = sortOn (sbDate . itemBody)
+sortSbItems = sortOn (fillDay . sbDate . itemBody)
+  where
+    fillDay (m, y) = (1, m, y)
+    fillDay d = d 
 
 post2sbItem :: Item String -> Compiler (Item SideBarItem)
 post2sbItem a = do
@@ -116,11 +119,7 @@ post2sbItem a = do
     let type_ = case isBlogPost of
             Just "True" -> SbPost
             _ -> SbAnnouncement
-    maybeRoute <- getRoute id_
-    url <- case maybeRoute of
-        Nothing -> fail $ "No route url found for item " ++ show id_
-        Just r -> return r
-    makeItem $ SidebarItem type_ (Right (toGregorian date)) t i l
+    makeItem $ SidebarItem type_ (Right (toGregorian date)) t i a
 
 pub2sbItem :: BibEntry -> Compiler (Item SideBarItem)
 pub2sbItem b = do
@@ -133,11 +132,23 @@ pub2sbItem b = do
             Right d -> Right (y, m, d)
         citekey = bibEntryId b
         i = "images/publications/" ++ citekey ++ ".jpg"
-        url = "pub/" ++ citekey ++ ".html"
-    makeItem $ SidebarItem SbPub date t i url
+    pubItem <- load citekey
+    makeItem $ SidebarItem SbPub date t i pubItem
 
 sbItemContext :: Context SideBarItem
-sbItemContext = undefined
+sbItemContext =
+    boolField "isPub" ((==SbPub) . sbType . itemBody) <>
+    boolField "isPost" ((==SbPost) . sbType . itemBody) <>
+    boolField "isAnnouncement" ((==SbAnnouncement) . sbType . itemBody) <>
+    field "title" (return . sbTitle . itemBody) <>
+    field "date" (showDate . sbDate . itemBody) <>
+    field "url" getItemUrl <>
+    field "image" getImageUrl
+  where
+    getItemUrl i = let id = itemIdentifier i
+                       empty' = fail $ "No route url found for item " ++ show id
+                   in  fmap (maybe empty' toUrl) $ getRoute id
+    getImageUrl i = 
 
 loadSidebarContext :: Compiler (Context String)
 loadSidebarContext = do
