@@ -18,6 +18,7 @@ import           Debug.Trace            (trace)
 import           GHC.Generics           (Generic)
 import           System.FilePath.Posix  (replaceExtension, takeFileName)
 import           Text.Parsec            (parse)
+import Text.Read (Lexeme(String))
 
 main :: IO ()
 main = readBibFile "data/publications.bib" >>= runHakyll
@@ -40,8 +41,9 @@ runHakyll bibEntries = hakyll $ do
     create ["sidebar"] . compile $ do
         posts <- loadAllSnapshots "posts/*" "raw"
         pubs <- loadAllSnapshots "pubs/*" "raw"
+        items <- recentFirst' (posts <> pubs)
         
-        let sidebarField = listField "sidebarItems" postCtx (return posts)
+        let sidebarField = listField "sidebarItems" jointPubPostContext (return items)
         makeItem "" >>= loadAndApplyTemplate "templates/sidebar.html" sidebarField
 
     match "pages/*" $ do
@@ -103,43 +105,48 @@ runHakyll bibEntries = hakyll $ do
 
     match "templates/*" $ compile templateBodyCompiler
 
-loadPubs :: Compiler [Item BibEntry]
-loadPubs = do
-    allPubEntryTupleItems <- loadAllSnapshots "pub/*" "bibEntry"
-    forM allPubEntryTupleItems $ \ti -> do 
-        let (t, i, f) = itemBody ti
-        makeItem $ BibEntry t i f
+recentFirst' :: [Item String] -> Compiler [Item String]
+recentFirst' = undefined
+
+jointPubPostContext :: Context String
+jointPubPostContext = undefined
 
 loadSidebarContext :: Compiler (Context String)
 loadSidebarContext = do
     sidebar <- itemBody <$> load "sidebar"
     return $ constField "sidebar" sidebar <> defaultContext
 
-getPubCtx :: Context BibEntry
-getPubCtx =
+pubCtx :: Context String
+pubCtx =
+    constField "is_pub" "True" <>
     makeBibField "title" <>
     makeSourceField "source" <>
-    field "published" (return . makeBibTexDateField . itemBody) <>
+    field "published" (fmap makeBibTexDateField . getBibEntry) <>
     makeBibField "author" <>
-    field "citekey" (return . bibEntryId . itemBody) <>
+    field "citekey" (fmap bibEntryId . getBibEntry) <>
     makeBibField "url" <>
     makeBibField "abstract"
   where
-    makeBibField :: String -> Context BibEntry
-    makeBibField key = field key (maybeCompiler key)
-    makeSourceField :: String -> Context BibEntry
-    makeSourceField key = field key (\item ->
-        case lookup "journal" . bibEntryFields . itemBody $ item of
-            Just j -> return j
-            Nothing -> case lookup "booktitle" . bibEntryFields . itemBody $ item of
-                Just b -> return b
-                Nothing -> noResult $ "bibEntry " ++ (bibEntryId . itemBody $ item) ++
-                    " does not have fields journal or booktitle ")
-    maybeCompiler :: String -> Item BibEntry -> Compiler String
-    maybeCompiler key item =
-        case lookup key . bibEntryFields . itemBody $ item of
+    getBibEntry :: Item String -> Compiler BibEntry
+    getBibEntry item = do
+        let citekey = drop 5 . toFilePath . itemIdentifier $ item
+        (bibType, bibKey, bibFields) <- itemBody <$> loadSnapshot (itemIdentifier item) "bibEntry"
+        return $ BibEntry bibType bibKey bibFields
+    makeBibField :: String -> Context String
+    makeBibField key = field key (\item -> do
+        BibEntry _ citekey bibFields <- getBibEntry item
+        case lookup key bibFields of
             Just res -> return res
-            Nothing -> noResult $ "bibEntry " ++ (bibEntryId . itemBody $ item) ++ " does not have field " ++ key
+            Nothing -> noResult $ "bibEntry for " ++ citekey ++ " does not have field " ++ key)
+    makeSourceField :: String -> Context String
+    makeSourceField key = field key (\item -> do
+        BibEntry _ citekey bibFields <- getBibEntry item
+        case lookup "journal" bibFields of
+            Just j -> return j
+            Nothing -> case lookup "booktitle" bibFields of
+                Just b -> return b
+                Nothing -> noResult $ "bibEntry for " ++ citekey ++
+                    " does not have fields journal or booktitle")
 
 makeBibTexDate :: BibEntry -> UTCTime
 makeBibTexDate b =
@@ -179,7 +186,6 @@ makeBibTexDateField bibEntry =
 
 postCtx :: Context String
 postCtx =
-    boolField "pub" isPub <>
     boolField "post" isPost <>
     field "itemName" itemName <>
     field "post_url" postUrl <>
