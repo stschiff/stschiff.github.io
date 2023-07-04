@@ -85,7 +85,7 @@ runHakyll bibEntries = hakyll $ do
     create ["publications.html"] $ do
         route idRoute
         compile $ do
-            allPubs <- loadAll ("pubs/*" .&&. hasVersion "raw")
+            allPubs <- recentFirst' =<< loadAll ("pubs/*" .&&. hasVersion "raw")
             sidebarCtx <- loadSidebarContext
             let ctx = listField "publications" pubCtx (return allPubs)
             makeItem ""
@@ -138,7 +138,13 @@ pubCtx =
     field "published" (fmap makeBibTexDateField . getBibEntry) <>
     makeBibField "author" <>
     field "citekey" (fmap bibEntryId . getBibEntry) <>
-    makeImageField <>
+    field "image" (\item -> do
+        citekey <- bibEntryId <$> getBibEntry item
+        -- imgItem <- getImage citekey
+        -- mr <- getRoute . itemIdentifier $ imgItem
+        debugCompiler . show . fromFilePath $ "images/publications/" ++ citekey ++ ".jpg"
+        return "Hello") <>
+        -- return $ fromJust mr) <>
     makeBibField "url" <>
     makeBibField "abstract"
   where
@@ -152,7 +158,9 @@ pubCtx =
     makeImageField = field "image" (\item -> do
         citekey <- bibEntryId <$> getBibEntry item
         imgItem <- getImage citekey
-        fmap fromJust . getRoute . itemIdentifier $ imgItem)
+        mr <- getRoute . itemIdentifier $ imgItem
+        unsafeCompiler $ print mr
+        return $ fromJust mr)
     getImage :: String -> Compiler (Item String)
     getImage ck = load . fromFilePath $ "images/publications/" ++ ck ++ ".jpg"
     makeSourceField :: String -> Context String
