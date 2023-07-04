@@ -1,23 +1,16 @@
 {-# LANGUAGE DeriveGeneric     #-}
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE TupleSections     #-}
 
 import           BibTeX                 (BibEntry (..), BibTeX, readBibFile)
-import           Data.Monoid            (mappend)
 import           Hakyll
 
-import           Control.Monad          (filterM, forM)
-import           Control.Monad.IO.Class (liftIO)
-import           Data.Binary            (Binary)
-import           Data.List              (intercalate, sortOn)
-import           Data.Maybe             (fromJust, fromMaybe)
-import           Data.Time              (UTCTime (..), addUTCTime,
-                                         defaultTimeLocale, fromGregorian,
-                                         getCurrentTime, nominalDay,
-                                         secondsToDiffTime)
-import           Debug.Trace            (trace)
-import           GHC.Generics           (Generic)
+import           Control.Monad          (liftM, void)
+import           Data.List              (sortBy)
+import           Data.Maybe             (fromJust)
+import           Data.Ord               (comparing)
+import           Data.Time              (UTCTime (..), defaultTimeLocale, fromGregorian)
 import           System.FilePath.Posix  (replaceExtension, takeFileName)
-import           Text.Parsec            (parse)
 import Text.Read (Lexeme(String))
 
 main :: IO ()
@@ -39,10 +32,10 @@ runHakyll bibEntries = hakyll $ do
         compile copyFileCompiler
 
     create ["sidebar"] . compile $ do
-        posts <- loadAllSnapshots "posts/*" "raw"
-        pubs <- loadAllSnapshots "pubs/*" "raw"
+        posts <- loadAll ("posts/*" .&&. hasVersion "raw")
+        pubs <- loadAll ("pubs/*" .&&. hasVersion "raw")
         items <- recentFirst' (posts <> pubs)
-        
+
         let sidebarField = listField "sidebarItems" jointPubPostContext (return items)
         makeItem "" >>= loadAndApplyTemplate "templates/sidebar.html" sidebarField
 
@@ -53,38 +46,48 @@ runHakyll bibEntries = hakyll $ do
             pandocCompiler
                 >>= loadAndApplyTemplate "templates/base.html" sidebarCtx
                 >>= relativizeUrls
-
+    
+    -- preparing posts pages
+    match "posts/*" $ version "raw" $
+        compile $ do
+            pandocCompiler >>= loadAndApplyTemplate "templates/post.html" postCtx
+ 
+    -- finalising posts including navigation and sidebar
     match "posts/*" $ do
         route $ setExtension "html"
         compile $ do
-            -- this Snapshot is necessary to break a dependency cycle: sidebar requires posts which require sidebar.
-            getResourceBody >>= saveSnapshot "raw"
             sidebarCtx <- loadSidebarContext
+            id_ <- getUnderlying
             pandocCompiler
                 >>= loadAndApplyTemplate "templates/post.html" postCtx
                 >>= loadAndApplyTemplate "templates/base.html" sidebarCtx
                 >>= relativizeUrls
 
-    create [fromFilePath . ("pubs/"++) . bibEntryId $ b | b <- bibEntries] $ do
-        route $ setExtension "html"
+    -- preparing publication pages
+    create [fromFilePath . ("pubs/"++) . bibEntryId $ b | b <- bibEntries] $ version "raw" $ do
         compile $ do
             id_ <- getUnderlying
             let citekey = drop 5 . toFilePath $ id_
             let [bibEntry] = filter ((== citekey) . bibEntryId) bibEntries
             makeItem (bibEntryType bibEntry, bibEntryId bibEntry, bibEntryFields bibEntry) >>= saveSnapshot "bibEntry"
+            makeItem ("" :: String)
+
+    -- finalising publication pages including navigation and sidebar
+    create [fromFilePath . ("pubs/"++) . bibEntryId $ b | b <- bibEntries] $ do
+        route $ setExtension "html"
+        compile $ do
             sidebarCtx <- loadSidebarContext
-            makeItem bibEntry
-                >>= loadAndApplyTemplate "templates/publication.html" getPubCtx
-                >>= saveSnapshot "raw"
+            makeItem ""
+                >>= loadAndApplyTemplate "templates/publication.html" pubCtx
                 >>= loadAndApplyTemplate "templates/base.html" sidebarCtx
                 >>= relativizeUrls
 
     create ["publications.html"] $ do
         route idRoute
         compile $ do
-            allPubEntries <- loadPubs 
+            allPubs <- loadAll ("pubs/*" .&&. hasVersion "raw")
             sidebarCtx <- loadSidebarContext
-            let ctx = listField "publications" getPubCtx (return allPubEntries)
+            let ctx = listField "publications" pubCtx (return allPubs)
             makeItem ""
                 >>= loadAndApplyTemplate "templates/publications.html" ctx
                 >>= loadAndApplyTemplate "templates/base.html" (constField "title" "Publications" <> constField "menu_Publications" "True" <> sidebarCtx)
@@ -93,23 +96,34 @@ runHakyll bibEntries = hakyll $ do
     create ["blog.html"] $ do
         route idRoute
         compile $ do
-            posts <- recentFirst =<< loadAll ("posts/*" .&&. hasNoVersion)
-            let blogCtx =
-                    listField "posts" postCtx (return posts) <>
-                    defaultContext
+            posts <- recentFirst =<< loadAll ("posts/*" .&&. hasVersion "raw")
             sidebarCtx <- loadSidebarContext
+            let ctx = listField "posts" postCtx (return posts)
             makeItem ""
-                >>= loadAndApplyTemplate "templates/blog.html" blogCtx
+                >>= loadAndApplyTemplate "templates/blog.html" ctx
                 >>= loadAndApplyTemplate "templates/base.html" (constField "title" "Blog" <> constField "menu_Blog" "True" <> sidebarCtx)
                 >>= relativizeUrls
 
     match "templates/*" $ compile templateBodyCompiler
 
 recentFirst' :: [Item String] -> Compiler [Item String]
-recentFirst' = undefined
+recentFirst' = liftM reverse . chronological'
+  where
+    chronological' :: [Item String] -> Compiler [Item String]
+    chronological' = sortByM $ \i -> do
+        if (take 5 . toFilePath . itemIdentifier $ i) == "pubs/" then
+            makeBibTexDate <$> getBibEntry i
+        else
+            getItemUTC defaultTimeLocale . itemIdentifier $ i
+    sortByM :: (Monad m, Ord k) => (a -> m k) -> [a] -> m [a]
+    sortByM f xs = liftM (map fst . sortBy (comparing snd)) $
+                   mapM (\x -> liftM (x,) (f x)) xs
 
 jointPubPostContext :: Context String
-jointPubPostContext = undefined
+jointPubPostContext = Context $ \k a i -> do
+    let Context f = pubCtx
+        Context g = postCtx
+    if (take 5 . toFilePath . itemIdentifier $ i) == "pubs/" then f k a i else g k a i
 
 loadSidebarContext :: Compiler (Context String)
 loadSidebarContext = do
@@ -124,20 +138,23 @@ pubCtx =
     field "published" (fmap makeBibTexDateField . getBibEntry) <>
     makeBibField "author" <>
     field "citekey" (fmap bibEntryId . getBibEntry) <>
+    makeImageField <>
     makeBibField "url" <>
     makeBibField "abstract"
   where
-    getBibEntry :: Item String -> Compiler BibEntry
-    getBibEntry item = do
-        let citekey = drop 5 . toFilePath . itemIdentifier $ item
-        (bibType, bibKey, bibFields) <- itemBody <$> loadSnapshot (itemIdentifier item) "bibEntry"
-        return $ BibEntry bibType bibKey bibFields
     makeBibField :: String -> Context String
     makeBibField key = field key (\item -> do
         BibEntry _ citekey bibFields <- getBibEntry item
         case lookup key bibFields of
             Just res -> return res
             Nothing -> noResult $ "bibEntry for " ++ citekey ++ " does not have field " ++ key)
+    makeImageField :: Context String
+    makeImageField = field "image" (\item -> do
+        citekey <- bibEntryId <$> getBibEntry item
+        imgItem <- getImage citekey
+        fmap fromJust . getRoute . itemIdentifier $ imgItem)
+    getImage :: String -> Compiler (Item String)
+    getImage ck = load . fromFilePath $ "images/publications/" ++ ck ++ ".jpg"
     makeSourceField :: String -> Context String
     makeSourceField key = field key (\item -> do
         BibEntry _ citekey bibFields <- getBibEntry item
@@ -147,6 +164,11 @@ pubCtx =
                 Just b -> return b
                 Nothing -> noResult $ "bibEntry for " ++ citekey ++
                     " does not have fields journal or booktitle")
+
+getBibEntry :: Item String -> Compiler BibEntry
+getBibEntry item = do
+    (bibType, bibKey, bibFields) <- itemBody <$> loadSnapshot (setVersion (Just "raw") $ itemIdentifier item) "bibEntry"
+    return $ BibEntry bibType bibKey bibFields
 
 makeBibTexDate :: BibEntry -> UTCTime
 makeBibTexDate b =
@@ -186,13 +208,9 @@ makeBibTexDateField bibEntry =
 
 postCtx :: Context String
 postCtx =
-    boolField "post" isPost <>
-    field "itemName" itemName <>
-    field "post_url" postUrl <>
+    boolField "is_post" isPost <>
     dateField "date" "%B %e, %Y" <>
+    field "url" (fmap fromJust . getRoute . setVersion Nothing . itemIdentifier) <>
     defaultContext
   where
     isPost = (=="posts/") . take 6 . toFilePath . itemIdentifier
-    isPub = (=="publications/") . take 13 . toFilePath . itemIdentifier
-    itemName = return . takeFileName . toFilePath . itemIdentifier
-    postUrl = return . ("/"<>) . (\fp -> replaceExtension fp "html") . toFilePath . itemIdentifier

@@ -9,16 +9,16 @@
                     $endif$
                 </div>
                 <div class="column">
-                    $if(pub)$
+                    $if(is_pub)$
                         <b><i><u>New Publication:</u> </i></b>
-                        <a href="/publications.html#$itemName$">
+                        <a href="/pubs/$citekey$.html">
                             <b>$title$</b>
-                        </a> by $author$. <i>$journal$</i>. Published $date$
+                        </a> by $author$. <i>$source$</i>. Published $published$
                     $endif$
-                    $if(post)$
+                    $if(is_post)$
                         $if(isBlogPost)$
                             <b><i><u>New Blog Post:</u> </i></b>
-                            <a href="$post_url$">    
+                            <a href="$url$">    
                                 <b>$title$</b>
                             </a>
                         $else$
@@ -26,7 +26,7 @@
                             $if(link)$
                                 <a href="$link$">$title$</a>
                             $else$
-                                <a href="$post_url$">$title$</a>
+                                <a href="$url$">$title$</a>
                             $endif$
                         $endif$
                         - $date$
