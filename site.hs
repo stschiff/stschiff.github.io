@@ -5,10 +5,11 @@
 import           BibTeX                        (BibEntry (..), BibTeX,
                                                 readBibFile)
 import           Hakyll
-import           Hakyll.Core.Compiler.Internal (compilerTry)
+import           Hakyll.Core.Compiler.Internal (compilerTry, compilerThrow)
 
-import           Control.Monad                 (liftM, void)
-import           Data.List                     (sortBy)
+import           Control.Monad                 (liftM, void, forM)
+import           Data.List                     (intercalate, sortBy)
+import           Data.List.Split               (splitOn)
 import           Data.Maybe                    (fromJust)
 import           Data.Ord                      (comparing)
 import           Data.Time                     (UTCTime (..), defaultTimeLocale,
@@ -139,7 +140,7 @@ pubCtx =
     makeBibField "title" <>
     makeSourceField "source" <>
     field "published" (fmap makeBibTexDateField . getBibEntry) <>
-    makeBibField "author" <>
+    makeAuthorField <>
     field "citekey" (fmap bibEntryId . getBibEntry) <>
     makeImageField <>
     makeBibField "url" <>
@@ -171,6 +172,29 @@ pubCtx =
                 Just b -> return b
                 Nothing -> noResult $ "bibEntry for " ++ citekey ++
                     " does not have fields journal or booktitle")
+    makeAuthorField :: Context String
+    makeAuthorField = functionField "authors" (\args item -> do
+        BibEntry _ citekey bibFields <- getBibEntry item
+        case lookup "author" bibFields of
+            Just allAuthorsStr -> do
+                authorTuples <- forM (splitOn " and " allAuthorsStr) $ \singleAuthorStr -> do
+                    case splitOn ", " singleAuthorStr of
+                        [lastName, firstName] -> return (firstName, lastName)
+                        _ -> compilerThrow $ ["cannot parse author" ++ singleAuthorStr]
+                case authorTuples of
+                    [firstAuthor] -> return $ fst firstAuthor ++ " " ++ snd firstAuthor
+                    [firstAuthor, secondAuthor] -> return $
+                        fst firstAuthor ++ " " ++ snd firstAuthor ++ " and " ++ 
+                        fst secondAuthor ++ " " ++ snd secondAuthor
+                    (firstAuthor : _)  ->
+                        case args of
+                            ["short"] -> return $ fst firstAuthor ++ " " ++ snd firstAuthor ++ " et al."
+                            ["full"] -> return $ intercalate ", " [fst a ++ " " ++ snd a | a <- init authorTuples] ++ " and " ++
+                                            fst (last authorTuples) ++ " " ++ snd (last authorTuples)
+            Nothing -> noResult $ "bibEntry for " ++ citekey ++
+                    " does not have fields journal or booktitle"
+        )
+
 
 getBibEntry :: Item String -> Compiler BibEntry
 getBibEntry item = do
