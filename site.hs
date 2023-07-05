@@ -2,16 +2,19 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TupleSections     #-}
 
-import           BibTeX                 (BibEntry (..), BibTeX, readBibFile)
+import           BibTeX                        (BibEntry (..), BibTeX,
+                                                readBibFile)
 import           Hakyll
+import           Hakyll.Core.Compiler.Internal (compilerTry)
 
-import           Control.Monad          (liftM, void)
-import           Data.List              (sortBy)
-import           Data.Maybe             (fromJust)
-import           Data.Ord               (comparing)
-import           Data.Time              (UTCTime (..), defaultTimeLocale, fromGregorian)
-import           System.FilePath.Posix  (replaceExtension, takeFileName)
-import Text.Read (Lexeme(String))
+import           Control.Monad                 (liftM, void)
+import           Data.List                     (sortBy)
+import           Data.Maybe                    (fromJust)
+import           Data.Ord                      (comparing)
+import           Data.Time                     (UTCTime (..), defaultTimeLocale,
+                                                fromGregorian)
+import           System.FilePath.Posix         (replaceExtension, takeFileName)
+import           Text.Read                     (Lexeme (String))
 
 main :: IO ()
 main = readBibFile "data/publications.bib" >>= runHakyll
@@ -26,7 +29,7 @@ runHakyll bibEntries = hakyll $ do
     match "images/publications/*" $ do
         route   idRoute
         compile copyFileCompiler
-    
+
     match "data/pdfs/*" $ do
         route idRoute
         compile copyFileCompiler
@@ -46,12 +49,12 @@ runHakyll bibEntries = hakyll $ do
             pandocCompiler
                 >>= loadAndApplyTemplate "templates/base.html" sidebarCtx
                 >>= relativizeUrls
-    
+
     -- preparing posts pages
     match "posts/*" $ version "raw" $
         compile $ do
             pandocCompiler >>= loadAndApplyTemplate "templates/post.html" postCtx
- 
+
     -- finalising posts including navigation and sidebar
     match "posts/*" $ do
         route $ setExtension "html"
@@ -151,9 +154,12 @@ pubCtx =
     makeImageField :: Context String
     makeImageField = field "image" (\item -> do
         citekey <- bibEntryId <$> getBibEntry item
-        imgItem <- getImage citekey
-        mr <- getRoute . itemIdentifier $ imgItem
-        return $ fromJust mr)
+        imgItem <- compilerTry (getImage citekey)
+        case imgItem of
+            Left e -> noResult $ "no image for " ++ citekey
+            Right i -> do
+                mr <- getRoute . itemIdentifier $ i
+                return $ fromJust mr)
     getImage :: String -> Compiler (Item CopyFile)
     getImage ck = load . fromFilePath $ "images/publications/" ++ ck ++ ".jpg"
     makeSourceField :: String -> Context String
