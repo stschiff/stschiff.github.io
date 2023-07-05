@@ -26,7 +26,7 @@ runHakyll bibEntries = hakyll $ do
     match "images/publications/*" $ do
         route   idRoute
         compile copyFileCompiler
-
+    
     match "data/pdfs/*" $ do
         route idRoute
         compile copyFileCompiler
@@ -138,13 +138,7 @@ pubCtx =
     field "published" (fmap makeBibTexDateField . getBibEntry) <>
     makeBibField "author" <>
     field "citekey" (fmap bibEntryId . getBibEntry) <>
-    field "image" (\item -> do
-        citekey <- bibEntryId <$> getBibEntry item
-        -- imgItem <- getImage citekey
-        -- mr <- getRoute . itemIdentifier $ imgItem
-        debugCompiler . show . fromFilePath $ "images/publications/" ++ citekey ++ ".jpg"
-        return "Hello") <>
-        -- return $ fromJust mr) <>
+    makeImageField <>
     makeBibField "url" <>
     makeBibField "abstract"
   where
@@ -159,9 +153,8 @@ pubCtx =
         citekey <- bibEntryId <$> getBibEntry item
         imgItem <- getImage citekey
         mr <- getRoute . itemIdentifier $ imgItem
-        unsafeCompiler $ print mr
         return $ fromJust mr)
-    getImage :: String -> Compiler (Item String)
+    getImage :: String -> Compiler (Item CopyFile)
     getImage ck = load . fromFilePath $ "images/publications/" ++ ck ++ ".jpg"
     makeSourceField :: String -> Context String
     makeSourceField key = field key (\item -> do
