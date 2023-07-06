@@ -81,10 +81,10 @@ runHakyll bibEntries = hakyll $ do
     create [fromFilePath . ("pubs/"++) . bibEntryId $ b | b <- bibEntries] $ do
         route $ setExtension "html"
         compile $ do
-            sidebarCtx <- loadSidebarContext
+            sidebarCtx <- loadSidebarContext            
             makeItem ""
                 >>= loadAndApplyTemplate "templates/publication.html" pubCtx
-                >>= loadAndApplyTemplate "templates/base.html" sidebarCtx
+                >>= loadAndApplyTemplate "templates/base.html" (boolField "showNoTitle" (const True) <> sidebarCtx)
                 >>= relativizeUrls
 
     create ["publications.html"] $ do
@@ -144,16 +144,14 @@ pubCtx =
     makeImageField <>
     makePDFfield <>
     makeUrlField <>
-    makeBibField "title" "title" <>
-    makeBibField "url" "ext_url" <>
-    makeBibField "abstract" "abstract"
+    makeBibFields
   where
-    makeBibField :: String -> String -> Context String
-    makeBibField bibEntryKey contextKey = field contextKey (\item -> do
-        BibEntry _ citekey bibFields <- getBibEntry item
-        case lookup bibEntryKey bibFields of
-            Just res -> return res
-            Nothing -> noResult $ "bibEntry for " ++ citekey ++ " does not have field " ++ bibEntryKey)
+    makeBibFields :: Context String
+    makeBibFields = Context $ \k _ i -> do
+        BibEntry _ citekey bibFields <- getBibEntry i
+        case lookup k bibFields of
+            Just res -> return $ StringField res
+            Nothing -> noResult $ "bibEntry for " ++ citekey ++ " does not have field " ++ k
     makeImageField :: Context String
     makeImageField = field "image" (\item -> do
         citekey <- bibEntryId <$> getBibEntry item
@@ -173,7 +171,7 @@ pubCtx =
                 mr <- getRoute . itemIdentifier $ i
                 return $ fromJust mr)
     makeUrlField :: Context String
-    makeUrlField = field "url" (return . (++ ".html") . toFilePath . itemIdentifier)
+    makeUrlField = field "internal_url" (return . (++ ".html") . toFilePath . itemIdentifier)
     getImage :: String -> Compiler (Item CopyFile)
     getImage ck = load . fromFilePath $ "images/publications/" ++ ck ++ ".jpg"
     getPDF :: String -> Compiler (Item CopyFile)
@@ -197,19 +195,22 @@ pubCtx =
                         [lastName, firstName] -> return (firstName, lastName)
                         [firstName] -> return (firstName, "") -- in some cultures there are single first names, e.g. "Nini"
                         _ -> compilerThrow $ ["cannot parse author" ++ singleAuthorStr]
-                case authorTuples of
-                    [firstAuthor] -> return $ renderAuthor firstAuthor
-                    [firstAuthor, secondAuthor] -> return $ renderAuthor firstAuthor ++ " and " ++ renderAuthor secondAuthor
-                    (firstAuthor : _)  ->
-                        case args of
-                            ["short"] -> return $ renderAuthor firstAuthor ++ " et al."
-                            ["full"] -> return $ intercalate ", " [renderAuthor a | a <- init authorTuples] ++ " and " ++
-                                            renderAuthor (last authorTuples)
+                case args of
+                    ["short"] -> case authorTuples of
+                        [firstAuthor] -> return $ snd firstAuthor
+                        [firstAuthor, secondAuthor] -> return $ snd firstAuthor ++ " and " ++ snd secondAuthor
+                        (firstAuthor : _) -> return $ snd firstAuthor ++ " et al."
+                    ["full"] -> case authorTuples of
+                        [firstAuthor] -> return $ renderAuthor firstAuthor
+                        [firstAuthor, secondAuthor] -> return $ renderAuthor firstAuthor ++ " and " ++ renderAuthor secondAuthor
+                        (firstAuthor : _)  ->
+                            return $ intercalate ", " [renderAuthor a | a <- init authorTuples] ++ " and " ++
+                                    renderAuthor (last authorTuples)
             Nothing -> noResult $ "bibEntry for " ++ citekey ++
                     " does not have fields journal or booktitle")
+    renderAuthor :: (String, String) -> String
     renderAuthor ("Stephan", "Schiffels") = "<u>Stephan Schiffels</u>"
     renderAuthor (firstName, lastName) = firstName ++ " " ++ lastName
-
 
 getBibEntry :: Item String -> Compiler BibEntry
 getBibEntry item = do

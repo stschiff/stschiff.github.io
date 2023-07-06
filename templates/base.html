@@ -55,7 +55,7 @@ $endif$
             <div class="columns">
                 <div class="column is-two-thirds">
                     <main class="section">
-                        <h1 class="title is-2">$title$</h1>
+                        $if(showNoTitle)$ $else$<h1 class="title is-2">$title$</h1>$endif$
                         <div class="content">
                             $body$
                         </div>
