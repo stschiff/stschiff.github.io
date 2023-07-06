@@ -5,13 +5,14 @@
 import           BibTeX                        (BibEntry (..), BibTeX,
                                                 readBibFile)
 import           Hakyll
-import           Hakyll.Core.Compiler.Internal (compilerTry, compilerThrow)
+import           Hakyll.Core.Compiler.Internal (compilerThrow, compilerTry)
 
-import           Control.Monad                 (liftM, void, forM)
+import           Control.Monad                 (forM, liftM, void)
 import           Data.List                     (intercalate, sortBy)
 import           Data.List.Split               (splitOn)
 import           Data.Maybe                    (fromJust)
 import           Data.Ord                      (comparing)
+import           Data.String.Utils             (replace, strip)
 import           Data.Time                     (UTCTime (..), defaultTimeLocale,
                                                 fromGregorian)
 import           System.FilePath.Posix         (replaceExtension, takeFileName)
@@ -177,23 +178,23 @@ pubCtx =
         BibEntry _ citekey bibFields <- getBibEntry item
         case lookup "author" bibFields of
             Just allAuthorsStr -> do
-                authorTuples <- forM (splitOn " and " allAuthorsStr) $ \singleAuthorStr -> do
+                authorTuples <- forM (splitOn " and " (intercalate " " . map strip . lines $ allAuthorsStr)) $ \singleAuthorStr -> do
                     case splitOn ", " singleAuthorStr of
                         [lastName, firstName] -> return (firstName, lastName)
+                        [firstName] -> return (firstName, "") -- in some cultures there are single first names, e.g. "Nini"
                         _ -> compilerThrow $ ["cannot parse author" ++ singleAuthorStr]
                 case authorTuples of
-                    [firstAuthor] -> return $ fst firstAuthor ++ " " ++ snd firstAuthor
-                    [firstAuthor, secondAuthor] -> return $
-                        fst firstAuthor ++ " " ++ snd firstAuthor ++ " and " ++ 
-                        fst secondAuthor ++ " " ++ snd secondAuthor
+                    [firstAuthor] -> return $ renderAuthor firstAuthor
+                    [firstAuthor, secondAuthor] -> return $ renderAuthor firstAuthor ++ " and " ++ renderAuthor secondAuthor
                     (firstAuthor : _)  ->
                         case args of
-                            ["short"] -> return $ fst firstAuthor ++ " " ++ snd firstAuthor ++ " et al."
-                            ["full"] -> return $ intercalate ", " [fst a ++ " " ++ snd a | a <- init authorTuples] ++ " and " ++
-                                            fst (last authorTuples) ++ " " ++ snd (last authorTuples)
+                            ["short"] -> return $ renderAuthor firstAuthor ++ " et al."
+                            ["full"] -> return $ intercalate ", " [renderAuthor a | a <- init authorTuples] ++ " and " ++
+                                            renderAuthor (last authorTuples)
             Nothing -> noResult $ "bibEntry for " ++ citekey ++
-                    " does not have fields journal or booktitle"
-        )
+                    " does not have fields journal or booktitle")
+    renderAuthor ("Stephan", "Schiffels") = "<u>Stephan Schiffels</u>"
+    renderAuthor (firstName, lastName) = firstName ++ " " ++ lastName
 
 
 getBibEntry :: Item String -> Compiler BibEntry

@@ -3,33 +3,34 @@
     <ul>
         $for(sidebarItems)$
             <li class="columns">
-                <div class="column is-one-third">
-                    $if(image)$
-                        <img src="$image$">
-                    $endif$
-                </div>
-                <div class="column">
+                <div class="column is-two-third">
                     $if(is_pub)$
-                        <b><i><u>New Publication:</u> </i></b>
+                        <u>$published$</u><br />
+                        <span class="tag is-success">New Publication</span><br />
                         <a href="/pubs/$citekey$.html">
                             <b>$title$</b>
-                        </a> by $authors("short")$. <i>$source$</i>. Published $published$
+                        </a> by $authors("short")$. <i>$source$</i>.
                     $endif$
                     $if(is_post)$
+                        <u>$date$</u><br />
                         $if(isBlogPost)$
-                            <b><i><u>New Blog Post:</u> </i></b>
+                            <span class="tag is-info">New Blog Post</span><br />
                             <a href="$url$">    
                                 <b>$title$</b>
                             </a>
                         $else$
-                            <b><i><u>Announcement:</u> </i></b>
+                            <span class="tag is-warning">New Announcement</span><br />
                             $if(link)$
                                 <a href="$link$">$title$</a>
                             $else$
                                 <a href="$url$">$title$</a>
                             $endif$
                         $endif$
-                        - $date$
+                    $endif$
+                </div>
+                <div class="column">
+                    $if(image)$
+                        <img src="$image$">
                     $endif$
                 </div>
             </li>
