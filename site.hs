@@ -52,7 +52,7 @@ runHakyll bibEntries = hakyll $ do
                 >>= loadAndApplyTemplate "templates/base.html" sidebarCtx
                 >>= relativizeUrls
 
-    -- preparing posts pages
+    -- dummy pages to have raw layouted blog posts for loading.
     match "posts/*" $ version "raw" $
         compile $ do
             pandocCompiler >>= loadAndApplyTemplate "templates/post.html" postCtx
@@ -68,7 +68,7 @@ runHakyll bibEntries = hakyll $ do
                 >>= loadAndApplyTemplate "templates/base.html" sidebarCtx
                 >>= relativizeUrls
 
-    -- preparing publication pages
+    -- Dummy entities to save bibEntries
     create [fromFilePath . ("pubs/"++) . bibEntryId $ b | b <- bibEntries] $ version "raw" $ do
         compile $ do
             id_ <- getUnderlying
@@ -77,7 +77,7 @@ runHakyll bibEntries = hakyll $ do
             makeItem (bibEntryType bibEntry, bibEntryId bibEntry, bibEntryFields bibEntry) >>= saveSnapshot "bibEntry"
             makeItem ("" :: String)
 
-    -- finalising publication pages including navigation and sidebar
+    -- creating publication pages including navigation and sidebar
     create [fromFilePath . ("pubs/"++) . bibEntryId $ b | b <- bibEntries] $ do
         route $ setExtension "html"
         compile $ do
@@ -138,21 +138,22 @@ loadSidebarContext = do
 pubCtx :: Context String
 pubCtx =
     constField "is_pub" "True" <>
-    makeBibField "title" <>
-    makeSourceField "source" <>
     field "published" (fmap makeBibTexDateField . getBibEntry) <>
+    makeSourceField "source" <>
     makeAuthorField <>
-    field "citekey" (fmap bibEntryId . getBibEntry) <>
     makeImageField <>
-    makeBibField "url" <>
-    makeBibField "abstract"
+    makePDFfield <>
+    makeUrlField <>
+    makeBibField "title" "title" <>
+    makeBibField "url" "ext_url" <>
+    makeBibField "abstract" "abstract"
   where
-    makeBibField :: String -> Context String
-    makeBibField key = field key (\item -> do
+    makeBibField :: String -> String -> Context String
+    makeBibField bibEntryKey contextKey = field contextKey (\item -> do
         BibEntry _ citekey bibFields <- getBibEntry item
-        case lookup key bibFields of
+        case lookup bibEntryKey bibFields of
             Just res -> return res
-            Nothing -> noResult $ "bibEntry for " ++ citekey ++ " does not have field " ++ key)
+            Nothing -> noResult $ "bibEntry for " ++ citekey ++ " does not have field " ++ bibEntryKey)
     makeImageField :: Context String
     makeImageField = field "image" (\item -> do
         citekey <- bibEntryId <$> getBibEntry item
@@ -162,8 +163,21 @@ pubCtx =
             Right i -> do
                 mr <- getRoute . itemIdentifier $ i
                 return $ fromJust mr)
+    makePDFfield :: Context String
+    makePDFfield = field "pdf" (\item -> do
+        citekey <- bibEntryId <$> getBibEntry item
+        pdfItem <- compilerTry (getPDF citekey)
+        case pdfItem of
+            Left e -> noResult $ "no PDF for " ++ citekey
+            Right i -> do
+                mr <- getRoute . itemIdentifier $ i
+                return $ fromJust mr)
+    makeUrlField :: Context String
+    makeUrlField = field "url" (return . (++ ".html") . toFilePath . itemIdentifier)
     getImage :: String -> Compiler (Item CopyFile)
     getImage ck = load . fromFilePath $ "images/publications/" ++ ck ++ ".jpg"
+    getPDF :: String -> Compiler (Item CopyFile)
+    getPDF ck = load . fromFilePath $ "data/pdfs/" ++ ck ++ ".pdf"
     makeSourceField :: String -> Context String
     makeSourceField key = field key (\item -> do
         BibEntry _ citekey bibFields <- getBibEntry item
