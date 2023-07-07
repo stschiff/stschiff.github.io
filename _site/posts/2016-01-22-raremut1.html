@@ -1,0 +1,519 @@
+<!doctype html>
+
+<script src="https://kit.fontawesome.com/d7cf9532bd.js" crossorigin="anonymous"></script>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Stephan Schiffels - How rare genetic mutations help us understand human history (Part I)</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+        <!-- <link rel="stylesheet" href="/css/default.css" /> -->
+    </head>
+    <body>
+        <div class="container">
+        <header class="section">
+            <h1 class="title is-1">
+                <a href="../">Stephan Schiffels</a>
+            </h1>
+            <h2 class="subtitle">
+                Population Genetics – Computational Methods - Human History
+            </h2>
+            <nav class="navbar">
+                <div class="navbar-brand">
+                    <a role="button" class="navbar-burger">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+                <div class="navbar-menu">
+                    <div class="navbar-start">
+                        <a href="../" class="navbar-item">Home</a>
+                        <a href="../research.html" class="navbar-item">Research</a>
+                        <a href="../publications.html" class="navbar-item">Publications</a>
+                        <a href="../talks.html" class="navbar-item">Talks</a>
+                        <a href="../resources.html" class="navbar-item">Resources</a>
+                        <a href="../contact.html" class="navbar-item">Contact</a>
+                        <a href="../blog.html" class="navbar-item">Blog</a>
+                    </div>
+                    <div class="navbar end">
+                        <a class="navbar-item" href="https://www.eva.mpg.de/archaeogenetics/staff/stephan-schiffels/"><img src="../images/mpi_logo.jpg"></a>
+                        <a class="navbar-item" href="https://twitter.com/stschiff"><span class="icon is-large"><i class="fa-brands fa-twitter fa-2xl"></i></span></a>
+                        <a class="navbar-item" href="https://github.com/stschiff"><span class="icon is-large"><i class="fa-brands fa-github fa-2xl"></i></span></a>
+                        <a class="navbar-item" href="https://medium.com/stephan-schiffels"><span class="icon is-large"><i class="fa-brands fa-medium fa-2xl"></i></span></a>
+                        <a class="navbar-item" href="https://www.researchgate.net/profile/Stephan_Schiffels"><span class="icon is-large"><i class="fa-brands fa-researchgate fa-2xl"></i></span></a>
+                        <a class="navbar-item" rel="me" href="https://ecoevo.social/@stschiff"><span class="icon is-large"><i class="fa-brands fa-mastodon fa-2xl"></i></span></a>
+                    </div>
+                </div>
+            </nav>
+
+        </header>
+
+            <div class="columns">
+                <div class="column is-two-thirds">
+                    <main class="section">
+                        <h1 class="title is-2">How rare genetic mutations help us understand human history (Part I)</h1>
+                        <div class="content">
+                            <div class="mb-5"><a href="../blog.html"><i>← All Blog Posts</i></a></div>
+<article>
+    <header>
+        Posted on January 22, 2016
+        
+    </header>
+    <p><em>This post originally appeared on
+</em><a href="http://www.stephanschiffels.de">www.stephanschiffels.de</a><em>.</em></p>
+<figure>
+<img src="../images/anglo-saxon-skeleton.jpg" />
+<figcaption>
+Who were the Anglo-Saxons? This skeleton from a 5th-6th century graveyard in
+Oakington, East England, was one of 10 samples from which we extracted and
+sequenced DNA to learn about English population history. Photo ©Duncan Sayer
+</figcaption>
+</figure>
+<p>Human history is deeply imprinted in our genomes, through patterns of common
+ancestry. These patterns can be studied by looking at mutations that are shared
+between people living in different times in different places. In this post I
+will summarize our <a href="http://www.nature.com/ncomms/2016/160119/ncomms10408/full/ncomms10408.html">recent genetic
+study</a>
+on Anglo-Saxon immigration history in Britain, and in doing so,will describe
+some new methodology that we have developed for this project, which is based on
+rare mutations.</p>
+<hr />
+<p>A large majority of the inhabitants of Great Britain and Ireland today speak
+English, a language related to Dutch and German. Going back 2,000 years, their
+native tongue was a Celtic language, related to Welsh, Gaelic and Irish, which
+are spoken by relatively few people today compared to English.</p>
+<p>This change of language is a striking example for the large cultural impact of
+the Anglo-Saxon migration period, which started around 400AD with peoples from
+the continental coast (mainly Jutes, Angles, Saxons and Frisians) migrating into
+the South and East of England. From archaeology, we know that during this period
+burial practices, jewellery industry, religious rituals and many aspects of
+communal life, changed.</p>
+<p>Who were the Anglo-Saxons? How did they interact with the local population?
+Today, we can find answers to these questions from Genetics, in particular with
+the help of ancient DNA.</p>
+<hr />
+<p>We collected teeth from 8 female and 2 male individuals who lived in villages
+near Cambridge at various times between 2,000 and 1,200 years ago. From the
+teeth we drilled bone powder, extracted hundreds of millions of short fragments
+of DNA and by sequencing these fragments we reconstructed the first complete
+ancient genomes from Great Britain to date (<a href="http://www.nature.com/ncomms/2016/160119/ncomms10326/full/ncomms10326.html">another
+study</a>
+with ancient British genomes came out at the same time).</p>
+<p>From precise carbon-dating, we know that the ten ancient genomes can be divided
+into two groups: Three individuals are from the late Iron Age, around
+100BC-50AD, and 7 samples are from the Early and Middle Anglo-Saxon period
+(450–750AD). We were eager to see whether there were systematic genetic
+differences between these two age groups and between each of them and modern
+English individuals.</p>
+<p>The first thing we noticed is that all ten individuals are genetically
+relatively similar, and that they all looked relatively “English”, similar to
+modern English individuals. This was expected, because the indigenous (Celtic)
+population in Britain and the immigrating (Germanic) population were very
+closely related, with a common ancestor perhaps a few hundred generations back
+in time. Most methods to analyse population relationships are based common
+mutations, most of which are shared between all populations in the world today,
+so it is hard to use them to distinguish two recently diverged populations in
+small Europe.</p>
+<hr />
+<p>We therefore decided to look for rare mutations that are shared by only a few
+people out of hundreds of people. The general idea is that if we see a mutation
+that is shared among two isolated populations, this mutation must have occurred
+at a time when those two populations were still together, so before their
+isolation. The longer two populations have been isolated, the fewer shared
+mutations between these two populations we should see. This effect is most
+pronounced for rare mutations, because rare mutations are relatively younger
+than common mutations, so are more informative about recent population
+separations.</p>
+<p>To find these rare mutations, we analysed the genomes of hundreds of people
+living today in Europe and selected mutations that were found in not more than
+0.5% of all chromosomes. Because we were interested in finding
+“Anglo-Saxon-specific” mutations, we especially looked for genetic variants
+found in modern-day Dutch people (who live closest to where the Anglo-Saxons
+supposedly came from). We then looked at how many of those rare “Dutch
+mutations” were shared by our ancient samples and by modern British people. Here
+is a figure showing the results:</p>
+<figure>
+<img src="../images/anglo-saxon-ras-model.jpg" />
+<figcaption>
+This figure shows the relative number of rare mutations that each ancient sample
+(coloured dots) shares with modern Dutch individuals. The number has been
+normalized by sharing with modern Spanish individuals. Anglo-Saxon immigrants
+(red and orange) have more rare “Dutch mutations” than modern English people
+(black) and people who lived in England in the Iron Age (in green and blue),
+before the Anglo-Saxons came. Figure from our article (License: CC BY 4.0)
+</figcaption>
+</figure>
+<p>Note that the absolute numbers shown below the plot are normalized and without
+absolute meaning. Only the relative positioning of the samples matters. First,
+we can see that most of the Anglo-Saxon samples (in red and orange) carry about
+50% <em>more</em> rare Dutch mutations than the Iron Age samples do (in blue and
+green), which is quite a strong signal. Second, we find that modern English
+samples carry an intermediate number of rare Dutch mutations, compared to Iron
+Age and Anglo-Saxon samples. More precisely, the modern English samples place at
+38% on average between the Iron Age and the Anglo-Saxon samples (100% would be
+all the way to the right at the Anglo-Saxons, 0% would be all the way left to
+the Iron Age samples). And because allele sharing is linear under admixture, we
+conclude that modern English can be modelled as a two-way mixture of 38%
+Anglo-Saxon ancestry, and 62% Iron Age ancestry.</p>
+<p>When I say “most of the Anglo-Saxon samples”, I meant that we had two
+exceptions. Two samples, labeled O3 and O4 in the figure above stand out: Sample
+O3 places somewhere in between the Anglo-Saxon and Iron Age samples, while
+sample O4 falls completely within the range of the Iron Age samples. This
+suggested to us that O3 and O4 carry 50% and 100% indigenous ancestry,
+respectively.</p>
+<p>At this point it is worth pointing out that O1, O2, O3 and O4 are four female
+samples excavated in Oakington (East England), on a large Anglo-Saxon cemetery
+with remains from over 120 individuals. Archaeologically, that cemetery is
+clearly of Anglo-Saxon culture. So the two suspicous women (O3 and O4) were
+buried with Anglo-Saxon grave goods and alongside other Anglo-Saxons (O1 and
+O2). It was therefore very surprising for us to find that two out of four
+individuals that we looked at where of (partial) indigenous British ancestry. It
+suggests that at least in this one cemetery, mixing and inter-marriage between
+immigrants and Natives occured already at the very first phase of the
+Anglo-Saxon period.</p>
+<p>There is one important caveat to our way of modelling modern England as a
+two-way mixture: We assume that the Iron-Age samples represent “Pre-Anglo-Saxon”
+England, although there were about 400 years between the Iron Age and until the
+Anglo-Saxons came. And this was the time period where the Roman empire ruled the
+country. However, any external genetic contribution from Roman time would only
+influence our mixture estimate if it was equally close to the Dutch as the
+Anglo-Saxons were. We think that any such contribution was — if at all — small.
+A similar argument holds for other later continental contributions from the
+Vikings or Normans. Fortunately, <a href="http://www.nature.com/ncomms/2016/160119/ncomms10326/full/ncomms10326.html">another ancient DNA
+study</a>
+confirms this view by genetically analysing ancient British soldiers from the
+Roman time, and found that there was overall genetic continuity during the Roman
+occupation.</p>
+<hr />
+<p>I think the Anglo-Saxon migration period is a prime example for a relatively
+recent event in human history that is now made accessible to genetic studies. In
+this post I have summarized some of the main results of our work on that subject
+using ancient DNA. In the next post I will cover our new method <em>rarecoal</em>,
+which allows us to infer population history more explicitly from rare mutations,
+and also to pin down the relationship of the ancient samples with modern
+Europeans more quantitatively.</p>
+<h4 id="further-reading">Further reading:</h4>
+<p>Coverage on BBC News: <a href="http://www.bbc.com/news/science-environment-35344663">English DNA ‘one-third’
+Anglo-Saxon</a></p>
+<p>Our original article: <a href="http://www.nature.com/ncomms/2016/160119/ncomms10408/full/ncomms10408.html">Schiffels, S. et al. Iron Age and Anglo-Saxon genomes
+from East England reveal British migration history. Nat. Commun. 7:10408 doi:
+10.1038/ncomms10408
+(2016).</a></p>
+<p>The other article on ancient British DNA: <a href="http://www.nature.com/ncomms/2016/160119/ncomms10326/full/ncomms10326.html">Martiniano, R. et al. Genomic signals
+of migration and continuity in Britain before the Anglo-Saxons. Nat. Commun.
+7:10326 doi: 10.1038/ncomms10326
+(2016).</a></p>
+</article>
+
+                        </div>
+                    </main>
+                </div>
+                <div class="column">
+                    <aside class="section">
+    <h2 class="title is-3">News</h2>
+    <ul>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>May 24, 2023</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Gibbon2023-in.html">
+                            <b>Confronting historical legacies of biological anthropology in
+              South Africa-Restitution, redress and community-centered
+              science: The Sutherland Nine</b>
+                        </a> by Victoria E Gibbon et al.. <i>PloS one</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Gibbon2023-in.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>February 28, 2023</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Schmid2023-um.html">
+                            <b>Estimating human mobility in Holocene Western Eurasia with
+              large-scale ancient genomic data</b>
+                        </a> by Clemens Schmid and <u>Stephan Schiffels</u>. <i>Proceedings of the National Academy of Sciences of the United
+              States of America</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Schmid2023-um.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>December 3, 2022</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Wang2022-cv.html">
+                            <b>4000-year-old hair from the Middle Nile highlights unusual
+              ancient DNA degradation pattern and a potential source of early
+              eastern Africa pastoralists</b>
+                        </a> by Ke Wang et al.. <i>Scientific reports</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Wang2022-cv.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                    
+                        <u>December  2, 2022</u><br />
+                        
+                            <span class="tag is-warning">New Announcement</span><br />
+                            
+                                <a href="../posts/2022-12-02-cavote.html">Current Archaeology Project of the Year - Vote now!</a>
+                            
+                        
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="../images/cavote.png">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>November 22, 2022</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Waldman2022-hw.html">
+                            <b>Genome-wide data from medieval German Jews show that the
+              Ashkenazi founder event pre-dated the 14th century</b>
+                        </a> by Shamam Waldman et al.. <i>Cell</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Waldman2022-hw.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>November 5, 2022</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Gretzinger2022-wf.html">
+                            <b>Transformations in early medieval England</b>
+                        </a> by Joscha Gretzinger and <u>Stephan Schiffels</u>. <i>Current Archaeology</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Gretzinger2022-wf.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                    
+                        <u>November  5, 2022</u><br />
+                        
+                            <span class="tag is-warning">New Announcement</span><br />
+                            
+                                <a href="../posts/2022-11-05-caissue.html">Current Archaeology Special Issue</a>
+                            
+                        
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="../images/publications/Gretzinger2022-wf.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>November, 2022</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Gretzinger2022-et.html">
+                            <b>A glimpse into darkness: Population genetics of the European
+               middle ages</b>
+                        </a> by Joscha Gretzinger and <u>Stephan Schiffels</u>. <i>New Narratives for the First Millennium {AD}? : Alte und neue
+               Perspektiven der archäologischen Forschung zum 1. Jahrtausend n.
+               Chr.</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Gretzinger2022-et.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>November 1, 2022</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Gower2022-px.html">
+                            <b>Demes: a standard format for demographic models</b>
+                        </a> by Graham Gower et al.. <i>Genetics</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Gower2022-px.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>September 21, 2022</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Gretzinger2022-cg.html">
+                            <b>The {Anglo-Saxon} migration and the formation of the early
+               English gene pool</b>
+                        </a> by Joscha Gretzinger et al.. <i>Nature</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Gretzinger2022-cg.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>March, 2022</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Warnberg2022-xr.html">
+                            <b>Missing lactase persistence in Late Iron Age Central Europe</b>
+                        </a> by Ole Warnberg et al.. <i>Archäologisches Korrespondenzblatt</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Warnberg2022-xr.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>October 20, 2021</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Alpaslan-Roodenberg2021-rw.html">
+                            <b>Ethics of {DNA} research on human remains: five globally
+              applicable guidelines</b>
+                        </a> by Songül Alpaslan-Roodenberg et al.. <i>Nature</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Alpaslan-Roodenberg2021-rw.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>October 8, 2021</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Kocher2021-zq.html">
+                            <b>Ten millennia of hepatitis {B} virus evolution</b>
+                        </a> by Arthur Kocher et al.. <i>Science</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Kocher2021-zq.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>August 25, 2021</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Papac2021-up.html">
+                            <b>Dynamic changes in genomic and social structures in third
+              millennium {BCE} central Europe</b>
+                        </a> by Luka Papac et al.. <i>Science advances</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Papac2021-up.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>August 18, 2021</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Freilich2021-wm.html">
+                            <b>Reconstructing genetic histories and social organisation in
+               Neolithic and Bronze Age Croatia</b>
+                        </a> by Suzanne Freilich et al.. <i>Scientific reports</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Freilich2021-wm.jpg">
+                    
+                </div>
+            </li>
+        
+    </ul>
+</aside>
+                </div>
+            </div>
+
+            <footer class="footer has-text-centered">
+                Powered by
+                <a href="http://jaspervdj.be/hakyll">Hakyll</a> and <a href="https://bulma.io">Bulma</a>. Sourcecode available on
+                <a href="https://github.com/stschiff/homepage">github</a>.
+            </footer>
+        </div>
+    </div>
+    </body>
+</html>

@@ -1,0 +1,524 @@
+<!doctype html>
+
+<script src="https://kit.fontawesome.com/d7cf9532bd.js" crossorigin="anonymous"></script>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Stephan Schiffels - Designing Command Line Interfaces in Haskell</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+        <!-- <link rel="stylesheet" href="/css/default.css" /> -->
+    </head>
+    <body>
+        <div class="container">
+        <header class="section">
+            <h1 class="title is-1">
+                <a href="../">Stephan Schiffels</a>
+            </h1>
+            <h2 class="subtitle">
+                Population Genetics – Computational Methods - Human History
+            </h2>
+            <nav class="navbar">
+                <div class="navbar-brand">
+                    <a role="button" class="navbar-burger">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+                <div class="navbar-menu">
+                    <div class="navbar-start">
+                        <a href="../" class="navbar-item">Home</a>
+                        <a href="../research.html" class="navbar-item">Research</a>
+                        <a href="../publications.html" class="navbar-item">Publications</a>
+                        <a href="../talks.html" class="navbar-item">Talks</a>
+                        <a href="../resources.html" class="navbar-item">Resources</a>
+                        <a href="../contact.html" class="navbar-item">Contact</a>
+                        <a href="../blog.html" class="navbar-item">Blog</a>
+                    </div>
+                    <div class="navbar end">
+                        <a class="navbar-item" href="https://www.eva.mpg.de/archaeogenetics/staff/stephan-schiffels/"><img src="../images/mpi_logo.jpg"></a>
+                        <a class="navbar-item" href="https://twitter.com/stschiff"><span class="icon is-large"><i class="fa-brands fa-twitter fa-2xl"></i></span></a>
+                        <a class="navbar-item" href="https://github.com/stschiff"><span class="icon is-large"><i class="fa-brands fa-github fa-2xl"></i></span></a>
+                        <a class="navbar-item" href="https://medium.com/stephan-schiffels"><span class="icon is-large"><i class="fa-brands fa-medium fa-2xl"></i></span></a>
+                        <a class="navbar-item" href="https://www.researchgate.net/profile/Stephan_Schiffels"><span class="icon is-large"><i class="fa-brands fa-researchgate fa-2xl"></i></span></a>
+                        <a class="navbar-item" rel="me" href="https://ecoevo.social/@stschiff"><span class="icon is-large"><i class="fa-brands fa-mastodon fa-2xl"></i></span></a>
+                    </div>
+                </div>
+            </nav>
+
+        </header>
+
+            <div class="columns">
+                <div class="column is-two-thirds">
+                    <main class="section">
+                        <h1 class="title is-2">Designing Command Line Interfaces in Haskell</h1>
+                        <div class="content">
+                            <div class="mb-5"><a href="../blog.html"><i>← All Blog Posts</i></a></div>
+<article>
+    <header>
+        Posted on March 24, 2021
+        
+    </header>
+    <p><img src="../images/controller.jpg" /></p>
+<p>Command line tools are essential in many computational fields of science, not the least because command lines are often the only interface on a high-performance compute cluster or server. Particularly critical in command-line tools is a well-defined interface between the user and the program, the command line interface (CLI). A command line interface is like a contract. The user promises to provide input parameters in the right shape and type, and the tool promises to work with this input the way it is expected to. A breach of contract from the caller may result - at best - in a refusal of the program to run, and at worst in undefined behavior.</p>
+<p>A well-defined command line interface helps ensuring loyalty to contract for a user. Moreover, a well-defined interface exposes to the user just the right amount of power to control the program. This is more tricky than it sounds: It is not enough to expose dozens of options and flags for the user to set, there also has to be some evaluation logic to ensure the combination of options and flags makes sense. As I hope to be able to convince you in this post, a strict and expressive typing system like in Haskell is a huge help with that.</p>
+<p>There’s going to be quite some Haskell code in this post, and I’ve written it in part to get people interested in the language and the advantages of strong types. If you find this post interesting enough to give Haskell a chance, I recommend the freely available book and tutorial <a href="http://learnyouahaskell.com">Learn You a Haskell for Great Good</a>. The sourcecode described here can also be viewed in full in a <a href="https://github.com/stschiff/haskell-cli-example">dedicated github-repository</a>.</p>
+<h2 id="specifying-the-interface-through-types">Specifying the interface through types</h2>
+<p>OK, let’s dive in. Let’s consider a program that reads in a file and computes and outputs summary statistics from that file. Even though we’re not coding anything beyond the CLI, consider for the sake of concreteness a bioinformatic program that reads genotypes for a number of individuals and outputs summary statistics for each individual.</p>
+<p>In Haskell, the first step to designing a CLI is to define a data structure that captures all possible options for our program:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Options</span> <span class="ot">=</span> <span class="dt">Options</span> {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ot">	missingnessThreshold ::</span> <span class="dt">Double</span>,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ot">	verbose              ::</span> <span class="dt">Bool</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ot">	summaryStat          ::</span> <span class="dt">SummaryStatSpec</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ot">	inputFormat          ::</span> <span class="dt">FormatSpec</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ot">	individuals          ::</span> <span class="dt">IndividualsSpec</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">SummaryStatSpec</span> <span class="ot">=</span> <span class="dt">Heterozygosity</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>					 <span class="op">|</span> <span class="dt">SegregatingSites</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>					 <span class="op">|</span> <span class="dt">HardyWeinbergDeviation</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">FormatSpec</span> <span class="ot">=</span> <span class="dt">PlinkFormat</span> <span class="dt">FilePath</span> <span class="dt">FilePath</span> <span class="dt">FilePath</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>			    <span class="op">|</span> <span class="dt">VCFFormat</span> <span class="dt">FilePath</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">IndividualsSpec</span> <span class="ot">=</span> <span class="dt">IndividualsByFile</span> <span class="dt">FilePath</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>					 <span class="op">|</span> <span class="dt">IndividualsByList</span> [<span class="dt">String</span>]</span></code></pre></div>
+<p>OK, so what’s going on here? First, we defined a record type called <code>Options</code>, which has five fields, called <code>missingnessThreshold</code>, <code>verbose</code>, and so on. Each record has a type. Some types should sound familiar, such as <code>Double</code> (a decimal number) or <code>Bool</code> (True or False), which here define a missingness cutoff filter (exclude individuals with too much missing genotypes) and a verbosity flag (if <code>True</code>, print out extra log messages).</p>
+<p>The three other types are themselves custom types, defined below the record type. <code>SummaryStatSpec</code> represents different genome-wide summary statistic types that the user might want to compute for the specified individuals. The type is a simple enumeration of different values(<code>Heterozygosity</code>, <code>SegregatingSites</code> and <code>HardyWeinbergDeviation</code>), separated in Haskell using the pipe (<code>|</code>) operator. A value of type <code>SummaryStatSpec</code> has to be strictly one of these three choices. Notice how the type itself already guarantees exclusivity: the <code>summaryStatSpec</code> field cannot be simultaneously <code>Heterozyosity</code> and <code>SegregatingSites</code>.</p>
+<p>Similarly, <code>FormatSpec</code> defines two alternatives <code>PlinkFormat</code> and <code>VCFFormat</code> (separated as above by the pipe operator <code>|</code>). However, now we have some additional values defined here. A <code>PlinkFormat</code> value is associated with three filenames of type <code>FilePath</code>. The alternative, <code>VCFFormat</code>, is associated with one filename. This may become clearer with an example:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ot">f ::</span> <span class="dt">FormatSpec</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>f <span class="ot">=</span> <span class="dt">PlinkFormat</span> <span class="st">&quot;file.geno&quot;</span> <span class="st">&quot;file.snp&quot;</span> <span class="st">&quot;file.ind&quot;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ot">g ::</span> <span class="dt">FormatSpec</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>g <span class="ot">=</span> <span class="dt">VCFFormat</span> <span class="st">&quot;file.vcf&quot;</span></span></code></pre></div>
+<p>This would declare <code>f</code> to be of type <code>FormatSpec</code>, and of value <code>PlinkFormat</code> with three filenames (Plink-formatted genotype data comes as three files). Similarly, <code>g</code> would be also be of type <code>FormatSpec</code>, but would have a <code>VCFFormat</code> value with one specified filename. So in Haskell we can easily define alternative branches of options at the type level. And the type system enforces these types at compile time. It would be a compiler error if we specify a value of type <code>FormatSpec</code> in any other shape as either of these two formats shown above. <code>PlinkFormat</code> and <code>VCFFormat</code> are called “Constructors” in Haskell. They act like a function that returns a type. Specifically, <code>PlinkFormat</code> is a function with three arguments (in Haskell, function arguments are just listed after the function name separated by whitespace), and <code>VCFFormat</code> a function with one argument. The equivalent in python would be</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> PlinkFormat(<span class="st">&quot;file.geno&quot;</span>, <span class="st">&quot;file.snp&quot;</span>, <span class="st">&quot;file.ind&quot;</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> VCFFormat(<span class="st">&quot;file.vcf&quot;</span>)</span></code></pre></div>
+<p>The final data type in the Options record is <code>IndividualsSpec</code>, which again has two alternatives. The first constructor <code>IndividualsByFile</code> takes a filename, and specifies that selected individuals should be given in a file (listed, say, with their IDs line by line). The second constructor <code>IndividualsByList</code> takes a list of strings, and specifies that individuals are given as a list of strings directly through the command line interface.</p>
+<p>I hope you can appreciate that this data structure makes it as clear as it can possibly be i) what is needed in terms of program input, and ii) what the options are for various parameters. You will also appreciate that this data structure is already of considerable complexity. It has nested elements, alternatives, custom data types… at the same time I don’t think it’s unrealistic. I happen to have such interfaces in my programs, and I would argue that many bioinformatics tools have comparably complex interfaces, many even more complex.</p>
+<p>So before we now dive into how to parse command line options into this structure, keep in mind that the type system is our friend: It will make sure that our parsing code will result in exactly the right shape for this data structure. Whatever our parsing code, the main program routine will simply take a value of type <code>Options</code> as input. So we can be fully relaxed when actually coding the main program logic later, because we know that all command-line input is passed - by construction - in the right shape, and our main program routine can simply query the main options value to process the different options.</p>
+<h2 id="building-a-parser-for-the-option-type-bottom-up">Building a parser for the Option type bottom-up</h2>
+<p>So clearly, parsing all these elements from the command line as arguments is challenging. For example, in python, using the popular and powerful package <a href="https://docs.python.org/3/library/argparse.html">argparse</a>, we surely can define an interface with command line options that allow for all the data needed to fill our nested data type <code>Options</code>, but there wouldn’t be much help ensuring that the shape of Options is correct. For example, there wouldn’t be any way (to my knowledge) to already ensure at the parsing level that the input file options either come with three files or with one, but not, say, with two or four.</p>
+<p>In <code>argparse</code>, and many other command line libraries in python and elsewhere, you can only specify whether a given option is required or optional, and whether the arguments parsed should be accumulated in lists or not. But you can’t easily automatically ensure that only one of each alternative, including specific additional arguments is allowed. So you’d end up coding with tons of if-statements making sure that only a specific combination of input choices is given, or you need to specify some logic of ignoring specific options if others are set. For example, you could parse both a filename and a list of strings for the <code>IndividualsSpec</code> type and then, say, ignore the list of strings once a filename is given. But that wouldn’t make it crystal clear to the user that she has done a mistake in specifying both alternatives simultaneously. The only way to do that is to add manual validation logic using if statements, which is verbose, error prone and hard to maintain at larger scale.</p>
+<p>Haskell has an absolutely beautiful library for this purpose, called <a href="https://hackage.haskell.org/package/optparse-applicative">optparse-applicative</a>. It defines functions to design <em>composable</em> command line option parsers, and it utilizes the power of Haskell’s strong type system to help ensuring the correct shapes of the input data structure.</p>
+<p>In <code>optparse-applicative</code> all the parsing logic for turning input from the command line into Haskell datatypes is encapsulated in a datatype called <code>Parser</code>. Specifically, in the end we need an object of type <code>Parser Options</code>, which then parses all input from the command line into our target datatype <code>Options</code> as defined above. So how do we build something of type <code>Parser Options</code>? The beauty of composable parsers is that you can create such a complex parser from much simpler and smaller components. To showcase this composability I’ll follow a bottom-up approach here. So let’s start with some basics. First, here is a command line parser for a value of type <code>Double</code>, for example for the missingness-threshold:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ot">missingnessParser ::</span> <span class="dt">Parser</span> <span class="dt">Double</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>missingnessParser <span class="ot">=</span> option auto (long <span class="st">&quot;missingness&quot;</span> <span class="op">&lt;&gt;</span> short <span class="ch">'m'</span>)</span></code></pre></div>
+<p>Here, <code>option auto</code> are functions from <code>optparse-applicative</code> and just declare a command line option with an automatic string-parser. The expression in the bracket using <code>long</code> and <code>short</code> gives specifics for the specified command line option. They define that this option can be called either in the long form, for example via <code>--missingness 0.99</code> or with the short form <code>-m 0.99</code>. The operator <code>&lt;&gt;</code> is just a concatenation operator for data types implementing the “Monoid” interface. You will see lots of inline operators in Haskell.</p>
+<p>We can similarly easily define a Parser for a <code>Bool</code> type:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ot">verboseParser ::</span> <span class="dt">Parser</span> <span class="dt">Bool</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>verboseParser <span class="ot">=</span> switch (long <span class="st">&quot;verbose&quot;</span> <span class="op">&lt;&gt;</span> short <span class="ch">'v'</span>)</span></code></pre></div>
+<p>where we define this option to be parsed as a switch that can be triggered either using <code>--verbose</code> or via <code>-v</code>, without any arguments. If the switch is set, parse this option as <code>True</code>, if not parse as <code>False</code>.</p>
+<p>Now it gets interesting. How do we parse a value of type <code>SummaryStatSpec</code>? As you see from above, <code>SummaryStatSpec</code> can take one of three possible constructions (<code>Heterozygosity</code>, <code>SegregatingSites</code> or <code>HardyWeinbergDeviation</code>). So we somehow need command line parsers that reflect these three alternatives. There are different ways to specify this, but here I would like the user to use flags <code>--heterozygosity</code> or <code>--segregatingSites</code> or <code>--hardyWeinbergDev</code>, and to parse these into the respective alternative values. To do this, we first define a parser for each value:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dt">HetParser</span><span class="ot"> ::</span> <span class="dt">Parser</span> <span class="dt">SummaryStatSpec</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="dt">HetParser</span> <span class="ot">=</span> flag' <span class="dt">Heterozygosity</span> (long <span class="st">&quot;heterozygosity&quot;</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="dt">SegSitesParser</span><span class="ot"> ::</span> <span class="dt">Parser</span> <span class="dt">SummaryStatSpec</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="dt">SegSitesParser</span> <span class="ot">=</span> flag' <span class="dt">SegregatingSites</span> (long <span class="st">&quot;segregatingSites&quot;</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="dt">HWParser</span><span class="ot"> ::</span> <span class="dt">Parser</span> <span class="dt">SummaryStatSpec</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="dt">HWParser</span> <span class="ot">=</span> flag' <span class="dt">HardyWeinbergDeviation</span> (long <span class="st">&quot;hardyWeinbergDev&quot;</span>)</span></code></pre></div>
+<p>where <code>flag'</code> is again a function defined in <code>Options.Applicative</code> which declares an option to be a simple flag returning a specific value when set. And here is now where the first composability magic starts: We can now compose these three parsers into one using the so-called applicative interface. Specifically, the operator <code>&lt;|&gt;</code> defined as “Alternative”, joins multiple parsers into one, trying one after another and yielding an error either if none of the alternatives fits (because the user has mis-spelled an option or forgot them) or if more than one fits (because the user has given multiple options).</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ot">summaryStatParser ::</span> <span class="dt">Parser</span> <span class="dt">SummaryStatSpec</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>summaryStatParser <span class="ot">=</span> <span class="dt">HetParser</span> <span class="op">&lt;|&gt;</span> <span class="dt">SegSitesParser</span> <span class="op">&lt;|&gt;</span> <span class="dt">HWParser</span></span></code></pre></div>
+<p>This kind of composition of objects to build more complex types of objects from simpler ones is at the heart of Haskell, and we’ll see it again further below. If you’re worried about verbosity, note that we could have written this much more compact using <code>where</code></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ot">summaryStatParser ::</span> <span class="dt">Parser</span> <span class="dt">SummaryStatSpec</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>summaryStatParser <span class="ot">=</span> hetParser <span class="op">&lt;|&gt;</span> segSitesParser <span class="op">&lt;|&gt;</span> hwParser</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">where</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>	hetParser      <span class="ot">=</span> flag' <span class="dt">Heterozygosity</span> (long <span class="st">&quot;heterozygosity&quot;</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    segSitesParser <span class="ot">=</span> flag' <span class="dt">SegregatingSites</span> (long <span class="st">&quot;segregatingSites&quot;</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>	hwParser       <span class="ot">=</span> flag' <span class="dt">HardyWeinbergDeviation</span> (long <span class="st">&quot;hardyWeinbergDev&quot;</span>)</span></code></pre></div>
+<p>and let Haskell infer types of the three sub-parsers automatically, saving us some boilerplate type declarations.</p>
+<p>Moving on, next on the list is parsing options into a <code>FormatSpec</code> type, which is more challenging, because we have two constructors (<code>PlinkFormat</code>, and <code>VCFFormat</code>) which in turn take additional arguments. We first deal with <code>PlinkFormat</code>. So, <code>PlinkFormat</code> is a constructor for type <code>FormatSpec</code>, which takes three filenames as arguments. It’s easy to define parsers for the three files:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>genoParser <span class="ot">=</span> strOption (long <span class="st">&quot;genoFile&quot;</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>snpParser  <span class="ot">=</span> strOption (long <span class="st">&quot;snpFile&quot;</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>indParser  <span class="ot">=</span> strOption (long <span class="st">&quot;indFile&quot;</span>)</span></code></pre></div>
+<p>which are all of type <code>Parser FilePath</code> (omitting the type declaration for brevity). So, now we have a problem. Our constructor takes three arguments of type <code>FilePath</code> and returns a <code>FormatSpec</code>. However, what we actually need is some way of consuming arguments of type <code>Parser FilePath</code> and returning a <code>Parser FormatSpec</code>. So we need some way of pulling the constructor inside the <code>Parser</code> type. That’s exactly what an “Applicative” type, like <code>Parser</code>, allows us to do. We have already made use of “Applicative” above using the operator <code>&lt;|&gt;</code>. We now see two further operators, <code>&lt;$&gt;</code> and <code>&lt;*&gt;</code>:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ot">plinkFormatParser ::</span> <span class="dt">Parser</span> <span class="dt">FormatSpec</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>plinkFormatParser <span class="ot">=</span> <span class="dt">PlinkFormat</span> <span class="op">&lt;$&gt;</span> genoParser <span class="op">&lt;*&gt;</span> snpParser <span class="op">&lt;*&gt;</span> indParser</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">where</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    genoParser <span class="ot">=</span> strOption (long <span class="st">&quot;genoFile&quot;</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>	snpParser  <span class="ot">=</span> strOption (long <span class="st">&quot;snpFile&quot;</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>	indParser  <span class="ot">=</span> strOption (long <span class="st">&quot;indFile&quot;</span>)</span></code></pre></div>
+<p>Notice how the resulting type is actually of type <code>Parser FormatSpec</code>, which is exactly what we want here. It’s a piece of cake to now add a parser of the same type but for the <code>VCFFormat</code> constructor:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ot">vcfFormatParser ::</span> <span class="dt">Parser</span> <span class="dt">FormatSpec</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>vcfFormatParser <span class="ot">=</span> <span class="dt">VCFFormat</span> <span class="op">&lt;$&gt;</span> vcfFileParser</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">where</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    vcfFileParser <span class="ot">=</span> strOption (long <span class="st">&quot;vcfFile&quot;</span>)</span></code></pre></div>
+<p>Now, we already know how to construct these two parsers into a single <code>FormatSpec</code> parser, using alternative composition:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ot">formatParser ::</span> <span class="dt">Parser</span> <span class="dt">FormatSpec</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>formatParser <span class="ot">=</span> <span class="dt">PlinkFormatParser</span> <span class="op">&lt;|&gt;</span> <span class="dt">VCFFormatParser</span></span></code></pre></div>
+<p>Here, <code>FormatParser</code> is a single parser for the complex datatype <code>FormatSpec</code>, which includes all branching options and comes with guaranteed correctness of parsing all arguments for both possible format branches. We don’t need to write evaluation code for this, the parser will ensure that the input is all type-correct. This specifically means that - without us having to implement anything special - this parser will automatically make sure that <em>if</em> the user would like to go via Plink input, all three options <code>--genoFile</code>, <code>--snpFile</code> and <code>--indFile</code> must be set, and simultaneously <code>--vcfFile</code> <em>must not</em> be set. Alternatively, if the user wants to specify input in VCF Format, they should use <code>--vcfFile</code>. So automatically, presence of either all three Plink file options or presence of only the single VCF file is guaranteed by the parser, or it will fail.</p>
+<p>The final ingredient for our full <code>Options</code> parser is a parser for <code>IndividualsSpec</code>. Again we have two constructors to deal with. The first one is something we already know, <code>IndividualsByFile</code> simply takes a <code>FilePath</code> argument, similarly to <code>VCFFormat</code>. But the other constructor, <code>IndividualsByList</code> takes a list of string values. One way to construct a command line parser for a list type is to simply allow multiple inputs of a given option. Here, perhaps we would like to support something like <code>--ind Individual1 --ind Individual2 --ind Individual3</code> to be parsed into a list <code>["Individual1", "Individual2", "Individual3"]</code>. This is possible, again through a special kind of composition. Specifically, there is the combinator function <code>some</code> in the <code>Control.Applicative</code> library, which has the following type signature in this case:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ot">some ::</span> <span class="dt">Parser</span> a <span class="ot">-&gt;</span> <span class="dt">Parser</span> [a]</span></code></pre></div>
+<p>So it’s a function that takes a Parser for an arbitrary type <code>a</code> and turns it into a parser for type <code>[a]</code>, which is a list type. Note that <code>some</code> requires the resulting list to have at least one element, whereas a very similar function, <code>many</code> would also parse zero input. We use <code>some</code> here, because we’d like the user to at least specify one input individual. So here is the complete parser for the <code>IndividualsSpec</code> Parser:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ot">individualsParser ::</span> <span class="dt">Parser</span> <span class="dt">IndividualsSpec</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>individualsParser <span class="ot">=</span> individualsFileParser <span class="op">&lt;|&gt;</span> individualsListParser</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">where</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    individualsFileParser <span class="ot">=</span> <span class="dt">IndividualsByFile</span> <span class="op">&lt;$&gt;</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>			                strOption (long <span class="st">&quot;individualsFile&quot;</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>	individualsListParser <span class="ot">=</span> <span class="dt">IndividualsByList</span> <span class="op">&lt;$&gt;</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>		                    some (strOption (long <span class="st">&quot;ind&quot;</span>))</span></code></pre></div>
+<h2 id="putting-it-all-together">Putting it all together</h2>
+<p>Now for the final piece of magic, we will construct the full parser for the entire <code>Options</code> type. We have already seen Applicative syntax using <code>&lt;$&gt;</code> and <code>&lt;*&gt;</code> to create structured data types. But how do we use that for <code>Options</code>, which is a record type? It turns out that in Haskell you can use record type constructors also by providing all record fields as ordered arguments. So, say we wanted to construct an object called <code>opts</code> of type <code>Options</code>, instead of writing</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ot">opts ::</span> <span class="dt">Options</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>opts <span class="ot">=</span> <span class="dt">Options</span> {</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>	missingnessThreshold <span class="ot">=</span> <span class="fl">0.9</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>	verbose <span class="ot">=</span> <span class="dt">True</span>,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>	summaryStat <span class="ot">=</span> <span class="dt">Heterozygosity</span>,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>	inputFormat <span class="ot">=</span> <span class="dt">VCFFormat</span> <span class="st">&quot;input.vcf&quot;</span>,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>	individuals <span class="ot">=</span> <span class="dt">IndividualsByList</span> [<span class="st">&quot;Ind1&quot;</span>, <span class="st">&quot;Ind2&quot;</span>]</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>which would be clear - if slightly verbose - record construction, we can also write</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ot">opts ::</span> <span class="dt">Options</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>opts <span class="ot">=</span> <span class="dt">Options</span> <span class="fl">0.9</span> <span class="dt">True</span> <span class="dt">Heterozygosity</span> (<span class="dt">VCFFormat</span> <span class="st">&quot;input.vcf&quot;</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>	   (<span class="dt">IndividualsByList</span> [<span class="st">&quot;Ind1&quot;</span>, <span class="st">&quot;Ind2&quot;</span>])</span></code></pre></div>
+<p>where we simply have listed all the record entries as arguments to the <code>Options</code> constructor. This kind of ordered-argument syntax is not always clearer than using explicit record-construction, but here we need it to use Applicative syntax. Watch:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ot">optionsParser ::</span> <span class="dt">Parser</span> <span class="dt">Options</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>optionsParser <span class="ot">=</span> <span class="dt">Options</span> <span class="op">&lt;$&gt;</span> missingnessParser <span class="op">&lt;*&gt;</span> verboseParser <span class="op">&lt;*&gt;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>	 			summaryStatParser <span class="op">&lt;*&gt;</span> formatParser <span class="op">&lt;*&gt;</span> individualsParser</span></code></pre></div>
+<p>Notice how this looks structurally almost exactly the same as the code block before. The only difference is that i) the argument types are not <code>Double</code>, <code>Bool</code>, … but <code>Parser Double</code>, <code>Parser Bool</code>, … ii) the return type isn’t <code>Options</code> but <code>Parser Options</code>, and iii) the constructor and arguments are connected via <code>&lt;$&gt;</code> and <code>&lt;*&gt;</code>. I cannot stress enough how elegantly this composition is being made possible using very generic type-class interfaces like Applicative (which is delivered through a base library, not through the core language itself), and how automatic this makes all the complex parsing logic. By construction, the overall parser of type <code>Parser Options</code> is guaranteed to return a valid <code>Options</code> type with all its internal branches parsed and set correctly. And we’ve built this by composing together simpler to intermediate to the final parser. Lastly, we didn’t even have to understand much about the <code>Parser</code> datatype, other than that it supports Applicative syntax.</p>
+<p>Of course, this parser comes with an integrated help message, and there are tons of extra options to tweak how that looks and how to invoke help, and so on, which I haven’t touched here. If you’re interested to see this complete example, check out <a href="https://github.com/stschiff/haskell-cli-example">this github repository</a> which contains the full example. The help output, automatically generated from <code>optparse-applicative</code> looks like this:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="dt">Usage</span><span class="op">:</span> haskell<span class="op">-</span>cli<span class="op">-</span>example<span class="op">-</span>exe [<span class="op">-</span>m<span class="op">|--</span>missingness <span class="dt">NUMBER</span>] [<span class="op">-</span>v<span class="op">|--</span>verbose] </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>                               (<span class="co">--heterozygosity | --segregatingSites | </span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>                                 <span class="co">--hardyWeinbergDev) </span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>                               (<span class="co">--genoFile FILE --snpFile FILE --indFile FILE | </span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>                                 <span class="co">--vcfFile FILE) </span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>                               (<span class="co">--individualsFile FILE | --ind NAME)</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Hello</span>, this is a toy example for how to design command line interfaces <span class="kw">in</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Haskell</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="dt">Available</span> options<span class="op">:</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="op">-</span>m,<span class="co">--missingness NUMBER  A missingness threshold (default: 0.5)</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>  <span class="op">-</span>v,<span class="co">--verbose             verbose output</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">--heterozygosity         compute the rate of heterozygosity for each</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>                           individual</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>  <span class="co">--segregatingSites       compute the rate of segregating sites for each</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>                           individual</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>  <span class="co">--hardyWeinbergDev       compute the average deviation from Hardy-Weinberg</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>                           equilibrium for each individual</span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>  <span class="co">--genoFile FILE          the input genotype file</span></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>  <span class="co">--snpFile FILE           the input snp file</span></span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>  <span class="co">--indFile FILE           the input individual file</span></span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>  <span class="co">--vcfFile FILE           the input VCF file</span></span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>  <span class="co">--individualsFile FILE   list individuals in the file given</span></span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>  <span class="co">--ind NAME               list individuals directly on the command line. Option</span></span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>                           can be given multiple times, once for each individual</span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>  <span class="op">-</span>h,<span class="co">--help                Show this help text</span></span></code></pre></div>
+<p>Of course, I’ve put in more help text into the parsers, but I’d like to emphasize that the layout of the command line usage on top contains all the conditioning that we’ve designed. For example, the bit <code>(--genoFile FILE --snpFile FILE --indFile FILE | --vcfFile FILE)</code> makes it clear to the user that <em>either</em> the first triple of options <em>or</em> the last option <code>--vcfFile</code> can be given. Those are strict alternatives, automatically generated by the Compiler, and the parser will fail if the user violates this.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>I know this was likely a bit more of Haskell than what I promised at the beginning, sorry. But I hope you got a glimpse into its power, expressiveness and composability. This ultimately allows programming by specification, which means that the programmer can focus more on specifying <em>what</em> should happen rather than <em>how</em> it happens. We started out by <em>specifying</em> the interface through a data structure that already contained much of the logic we need for parsing options. This - together with a powerful compiler that guarantees type-correctness throughout - leaves very little room for bugs and ultimately makes the program safer and its interface clearer.</p>
+</article>
+
+                        </div>
+                    </main>
+                </div>
+                <div class="column">
+                    <aside class="section">
+    <h2 class="title is-3">News</h2>
+    <ul>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>May 24, 2023</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Gibbon2023-in.html">
+                            <b>Confronting historical legacies of biological anthropology in
+              South Africa-Restitution, redress and community-centered
+              science: The Sutherland Nine</b>
+                        </a> by Victoria E Gibbon et al.. <i>PloS one</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Gibbon2023-in.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>February 28, 2023</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Schmid2023-um.html">
+                            <b>Estimating human mobility in Holocene Western Eurasia with
+              large-scale ancient genomic data</b>
+                        </a> by Clemens Schmid and <u>Stephan Schiffels</u>. <i>Proceedings of the National Academy of Sciences of the United
+              States of America</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Schmid2023-um.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>December 3, 2022</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Wang2022-cv.html">
+                            <b>4000-year-old hair from the Middle Nile highlights unusual
+              ancient DNA degradation pattern and a potential source of early
+              eastern Africa pastoralists</b>
+                        </a> by Ke Wang et al.. <i>Scientific reports</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Wang2022-cv.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                    
+                        <u>December  2, 2022</u><br />
+                        
+                            <span class="tag is-warning">New Announcement</span><br />
+                            
+                                <a href="../posts/2022-12-02-cavote.html">Current Archaeology Project of the Year - Vote now!</a>
+                            
+                        
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="../images/cavote.png">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>November 22, 2022</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Waldman2022-hw.html">
+                            <b>Genome-wide data from medieval German Jews show that the
+              Ashkenazi founder event pre-dated the 14th century</b>
+                        </a> by Shamam Waldman et al.. <i>Cell</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Waldman2022-hw.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>November 5, 2022</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Gretzinger2022-wf.html">
+                            <b>Transformations in early medieval England</b>
+                        </a> by Joscha Gretzinger and <u>Stephan Schiffels</u>. <i>Current Archaeology</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Gretzinger2022-wf.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                    
+                        <u>November  5, 2022</u><br />
+                        
+                            <span class="tag is-warning">New Announcement</span><br />
+                            
+                                <a href="../posts/2022-11-05-caissue.html">Current Archaeology Special Issue</a>
+                            
+                        
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="../images/publications/Gretzinger2022-wf.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>November, 2022</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Gretzinger2022-et.html">
+                            <b>A glimpse into darkness: Population genetics of the European
+               middle ages</b>
+                        </a> by Joscha Gretzinger and <u>Stephan Schiffels</u>. <i>New Narratives for the First Millennium {AD}? : Alte und neue
+               Perspektiven der archäologischen Forschung zum 1. Jahrtausend n.
+               Chr.</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Gretzinger2022-et.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>November 1, 2022</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Gower2022-px.html">
+                            <b>Demes: a standard format for demographic models</b>
+                        </a> by Graham Gower et al.. <i>Genetics</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Gower2022-px.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>September 21, 2022</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Gretzinger2022-cg.html">
+                            <b>The {Anglo-Saxon} migration and the formation of the early
+               English gene pool</b>
+                        </a> by Joscha Gretzinger et al.. <i>Nature</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Gretzinger2022-cg.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>March, 2022</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Warnberg2022-xr.html">
+                            <b>Missing lactase persistence in Late Iron Age Central Europe</b>
+                        </a> by Ole Warnberg et al.. <i>Archäologisches Korrespondenzblatt</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Warnberg2022-xr.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>October 20, 2021</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Alpaslan-Roodenberg2021-rw.html">
+                            <b>Ethics of {DNA} research on human remains: five globally
+              applicable guidelines</b>
+                        </a> by Songül Alpaslan-Roodenberg et al.. <i>Nature</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Alpaslan-Roodenberg2021-rw.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>October 8, 2021</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Kocher2021-zq.html">
+                            <b>Ten millennia of hepatitis {B} virus evolution</b>
+                        </a> by Arthur Kocher et al.. <i>Science</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Kocher2021-zq.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>August 25, 2021</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Papac2021-up.html">
+                            <b>Dynamic changes in genomic and social structures in third
+              millennium {BCE} central Europe</b>
+                        </a> by Luka Papac et al.. <i>Science advances</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Papac2021-up.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>August 18, 2021</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Freilich2021-wm.html">
+                            <b>Reconstructing genetic histories and social organisation in
+               Neolithic and Bronze Age Croatia</b>
+                        </a> by Suzanne Freilich et al.. <i>Scientific reports</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Freilich2021-wm.jpg">
+                    
+                </div>
+            </li>
+        
+    </ul>
+</aside>
+                </div>
+            </div>
+
+            <footer class="footer has-text-centered">
+                Powered by
+                <a href="http://jaspervdj.be/hakyll">Hakyll</a> and <a href="https://bulma.io">Bulma</a>. Sourcecode available on
+                <a href="https://github.com/stschiff/homepage">github</a>.
+            </footer>
+        </div>
+    </div>
+    </body>
+</html>

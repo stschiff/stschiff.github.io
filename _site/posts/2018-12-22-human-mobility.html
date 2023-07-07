@@ -1,0 +1,473 @@
+<!doctype html>
+
+<script src="https://kit.fontawesome.com/d7cf9532bd.js" crossorigin="anonymous"></script>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Stephan Schiffels - On human mobility and language dispersal</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+        <!-- <link rel="stylesheet" href="/css/default.css" /> -->
+    </head>
+    <body>
+        <div class="container">
+        <header class="section">
+            <h1 class="title is-1">
+                <a href="../">Stephan Schiffels</a>
+            </h1>
+            <h2 class="subtitle">
+                Population Genetics – Computational Methods - Human History
+            </h2>
+            <nav class="navbar">
+                <div class="navbar-brand">
+                    <a role="button" class="navbar-burger">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+                <div class="navbar-menu">
+                    <div class="navbar-start">
+                        <a href="../" class="navbar-item">Home</a>
+                        <a href="../research.html" class="navbar-item">Research</a>
+                        <a href="../publications.html" class="navbar-item">Publications</a>
+                        <a href="../talks.html" class="navbar-item">Talks</a>
+                        <a href="../resources.html" class="navbar-item">Resources</a>
+                        <a href="../contact.html" class="navbar-item">Contact</a>
+                        <a href="../blog.html" class="navbar-item">Blog</a>
+                    </div>
+                    <div class="navbar end">
+                        <a class="navbar-item" href="https://www.eva.mpg.de/archaeogenetics/staff/stephan-schiffels/"><img src="../images/mpi_logo.jpg"></a>
+                        <a class="navbar-item" href="https://twitter.com/stschiff"><span class="icon is-large"><i class="fa-brands fa-twitter fa-2xl"></i></span></a>
+                        <a class="navbar-item" href="https://github.com/stschiff"><span class="icon is-large"><i class="fa-brands fa-github fa-2xl"></i></span></a>
+                        <a class="navbar-item" href="https://medium.com/stephan-schiffels"><span class="icon is-large"><i class="fa-brands fa-medium fa-2xl"></i></span></a>
+                        <a class="navbar-item" href="https://www.researchgate.net/profile/Stephan_Schiffels"><span class="icon is-large"><i class="fa-brands fa-researchgate fa-2xl"></i></span></a>
+                        <a class="navbar-item" rel="me" href="https://ecoevo.social/@stschiff"><span class="icon is-large"><i class="fa-brands fa-mastodon fa-2xl"></i></span></a>
+                    </div>
+                </div>
+            </nav>
+
+        </header>
+
+            <div class="columns">
+                <div class="column is-two-thirds">
+                    <main class="section">
+                        <h1 class="title is-2">On human mobility and language dispersal</h1>
+                        <div class="content">
+                            <div class="mb-5"><a href="../blog.html"><i>← All Blog Posts</i></a></div>
+<article>
+    <header>
+        Posted on December 22, 2018
+        
+    </header>
+    <figure>
+<img src="../images/IMPRS-Jena-Logo3.jpg" style="width:50.0%" />
+</figure>
+<p>We recently advertised <a href="https://imprs.shh.mpg.de/index.php/applications/open-positions/">16 new PhD
+positions</a>
+within our newly founded <a href="https://imprs.shh.mpg.de">Max Planck Research School for the Science of Human
+History</a><em>, </em>an institution tied both to the
+<a href="https://www.uni-jena.de/en/">University of Jena</a> and the <a href="https://www.shh.mpg.de/en">Max Planck Institute
+for the Science of Human History</a> in Jena.</p>
+<p>Within this call, I am seeking candidates for working on a new project in my
+group titled “<a href="https://imprs.shh.mpg.de/wp-content/uploads/2018/12/02-Co-estimating-Human-Mobility-and-Language-Dispersal-with-Ancient-DNA-and-Linguistic-Data.pdf">Co-estimating Human Mobility and Language Dispersal with Ancient
+DNA and Linguistic
+Data</a><em>”.</em>
+It is based on a <a href="https://www.pnas.org/content/114/46/12213">scientific article</a>
+that I learned about recently, by Lisa Loog and coworkers from University
+College London. In this paper, Loog and colleagues develop a new estimator for
+human mobility throug time, based on ancient genetic data. I want to briefly
+explain in this post how their estimation of human mobility works, and how I
+intend to extend it in this PhD project.</p>
+<hr />
+<p>The challenge of analysing ancient genetic data is that data is distributed
+sparsely both in space and in time. For example, we might have samples from 4000
+years ago from one region, and from 3000 years ago from another region, so what
+does their genetic relationship plausibly say about the movement of people
+through time and space?</p>
+<p>Loog and colleagues addressed this challenge in a new way. They realised the
+following simple principle: If people move around a lot, different ancestries
+tend to come together close in space. In contrast, if people tend to stay where
+they are born for many generations, neighbours tend to have similar ancestries.
+Put in their own words:</p>
+<blockquote>
+<p>If mobility was low (i.e., strong spatial structure), then we would expect
+differences between entities to be more strongly correlated with space, relative
+to time, whereas if mobility was high we would expect time to explain a
+relatively larger proportion of differences between entities (because of the
+homogenizing effects of high mobility across space).</p>
+</blockquote>
+<p>So it is clear that in general, the closer people are in space <em>and </em>time, the
+more genetically similar they should be. But the relative weights of how similar
+they are in space <em>versus</em> time is a direct estimator for human mobility.</p>
+<hr />
+<p>Loog and colleagues used this basic idea to develop a statistical method that
+tracks human mobility <em>through time</em>. Here is their main figure:</p>
+<figure>
+<img src="../images/loog_et_al.jpg" style="width:80.0%" />
+<figcaption>
+from Loog et al. “Estimating mobility using sparse data: Application to human
+genetic variation”, <em>PNAS</em>, 2017 (CC BY-NC-ND)
+</figcaption>
+</figure>
+<p>This analysis covers West Eurasia, and it shows an estimate of human mobility
+from 14,000 years ago until 2,000 years ago. The yellow band in panel A
+describes the uncertainty of their migration rate (mobility) estimator through
+time. The first decay between 14,000 and 12,000 years ago can be ignored for
+now, as it is not statistically significant. However there are three spikes of
+human mobility in more recent times that correspond strikingly to several key
+transformation periods in human history.</p>
+<p>The first time where human mobility peaked is between 8,000 and 6,000 years ago,
+which is the time when agriculture first spread through Europe, as a new way of
+life, and — as <a href="http://science.sciencemag.org/content/336/6080/466">genetic studies have
+shown</a> — as new people who
+descend from early Anatolian farmers and who first replaced and then intermixed
+with indigenous Hunter-Gatherers all throughout Europe. The second period of
+peaking human mobility was between around 5,000 and 3,500 years ago, according
+to this analysis, which corresponds to the onset of the Bronze Age and is the
+time of another <a href="https://www.nature.com/articles/nature14317">large migration</a>
+in Europe, this time with ancestry from the Pontic Caspian Steppe. The third
+peak in their analysis falls into the Iron Age and perhaps later.</p>
+<p>This striking description of human migration through time was quantified using
+human data directly, rather than from archaeological or historical sources,
+which in contrast to genetic data are somewhat more open to interpretation.</p>
+<hr />
+<p>OK, so what else is there to do in this PhD project? One thing that we are good
+at in our <a href="https://imprs.shh.mpg.de">IMPRS</a> is the combination of different
+disciplines, such as Linguistics and Genetics. In particular, I would like to
+use the Loog et al. framework to investigate language dispersal on top of human
+mobility.</p>
+<p>Of course, languages spread differently from genes, and while the spread of
+languages and genes is often correlated, it doesn’t have to. Takes as an example
+England: While England has undergone a 100% Language replacement in the early
+Medieval times (from Celtic to Germanic), there certainly was not a 100%
+replacement of people (<a href="../posts/2016-01-22-raremut1.html">our estimate of admixture is
+40%</a>,
+and that is actually already much higher than what many other scholars believe).</p>
+<p>So how can we combine linguistic and genetic data in a combined model inspired
+by Loog et al.? My idea is to introduce linguistic distances between samples,
+much as we have genetic distances. The simplest one could just be a probability
+for having spoken different languages. Such a metric is difficult to assign, but
+it could be done with some uncertainty.</p>
+<p>With a dataset consisting of pairwise genetic distances as well as linguistic
+distances, we can then try to jointly estimate human mobility and language
+dispersal. Of course, there are lots of caveats to be figured out, but with high
+risk comes high gain: We might learn <em>quantitatively, </em>how much people carried
+around their languages as they moved, or to what extent they adopted existing
+local languages.</p>
+<p>If you are looking to pursue a PhD, not afraid of mathematical modelling, some
+programming, and working with (very different kinds of) data, then consider
+applying to this project!</p>
+</article>
+
+                        </div>
+                    </main>
+                </div>
+                <div class="column">
+                    <aside class="section">
+    <h2 class="title is-3">News</h2>
+    <ul>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>May 24, 2023</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Gibbon2023-in.html">
+                            <b>Confronting historical legacies of biological anthropology in
+              South Africa-Restitution, redress and community-centered
+              science: The Sutherland Nine</b>
+                        </a> by Victoria E Gibbon et al.. <i>PloS one</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Gibbon2023-in.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>February 28, 2023</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Schmid2023-um.html">
+                            <b>Estimating human mobility in Holocene Western Eurasia with
+              large-scale ancient genomic data</b>
+                        </a> by Clemens Schmid and <u>Stephan Schiffels</u>. <i>Proceedings of the National Academy of Sciences of the United
+              States of America</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Schmid2023-um.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>December 3, 2022</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Wang2022-cv.html">
+                            <b>4000-year-old hair from the Middle Nile highlights unusual
+              ancient DNA degradation pattern and a potential source of early
+              eastern Africa pastoralists</b>
+                        </a> by Ke Wang et al.. <i>Scientific reports</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Wang2022-cv.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                    
+                        <u>December  2, 2022</u><br />
+                        
+                            <span class="tag is-warning">New Announcement</span><br />
+                            
+                                <a href="../posts/2022-12-02-cavote.html">Current Archaeology Project of the Year - Vote now!</a>
+                            
+                        
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="../images/cavote.png">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>November 22, 2022</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Waldman2022-hw.html">
+                            <b>Genome-wide data from medieval German Jews show that the
+              Ashkenazi founder event pre-dated the 14th century</b>
+                        </a> by Shamam Waldman et al.. <i>Cell</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Waldman2022-hw.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>November 5, 2022</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Gretzinger2022-wf.html">
+                            <b>Transformations in early medieval England</b>
+                        </a> by Joscha Gretzinger and <u>Stephan Schiffels</u>. <i>Current Archaeology</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Gretzinger2022-wf.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                    
+                        <u>November  5, 2022</u><br />
+                        
+                            <span class="tag is-warning">New Announcement</span><br />
+                            
+                                <a href="../posts/2022-11-05-caissue.html">Current Archaeology Special Issue</a>
+                            
+                        
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="../images/publications/Gretzinger2022-wf.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>November, 2022</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Gretzinger2022-et.html">
+                            <b>A glimpse into darkness: Population genetics of the European
+               middle ages</b>
+                        </a> by Joscha Gretzinger and <u>Stephan Schiffels</u>. <i>New Narratives for the First Millennium {AD}? : Alte und neue
+               Perspektiven der archäologischen Forschung zum 1. Jahrtausend n.
+               Chr.</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Gretzinger2022-et.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>November 1, 2022</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Gower2022-px.html">
+                            <b>Demes: a standard format for demographic models</b>
+                        </a> by Graham Gower et al.. <i>Genetics</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Gower2022-px.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>September 21, 2022</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Gretzinger2022-cg.html">
+                            <b>The {Anglo-Saxon} migration and the formation of the early
+               English gene pool</b>
+                        </a> by Joscha Gretzinger et al.. <i>Nature</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Gretzinger2022-cg.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>March, 2022</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Warnberg2022-xr.html">
+                            <b>Missing lactase persistence in Late Iron Age Central Europe</b>
+                        </a> by Ole Warnberg et al.. <i>Archäologisches Korrespondenzblatt</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Warnberg2022-xr.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>October 20, 2021</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Alpaslan-Roodenberg2021-rw.html">
+                            <b>Ethics of {DNA} research on human remains: five globally
+              applicable guidelines</b>
+                        </a> by Songül Alpaslan-Roodenberg et al.. <i>Nature</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Alpaslan-Roodenberg2021-rw.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>October 8, 2021</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Kocher2021-zq.html">
+                            <b>Ten millennia of hepatitis {B} virus evolution</b>
+                        </a> by Arthur Kocher et al.. <i>Science</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Kocher2021-zq.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>August 25, 2021</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Papac2021-up.html">
+                            <b>Dynamic changes in genomic and social structures in third
+              millennium {BCE} central Europe</b>
+                        </a> by Luka Papac et al.. <i>Science advances</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Papac2021-up.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>August 18, 2021</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Freilich2021-wm.html">
+                            <b>Reconstructing genetic histories and social organisation in
+               Neolithic and Bronze Age Croatia</b>
+                        </a> by Suzanne Freilich et al.. <i>Scientific reports</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Freilich2021-wm.jpg">
+                    
+                </div>
+            </li>
+        
+    </ul>
+</aside>
+                </div>
+            </div>
+
+            <footer class="footer has-text-centered">
+                Powered by
+                <a href="http://jaspervdj.be/hakyll">Hakyll</a> and <a href="https://bulma.io">Bulma</a>. Sourcecode available on
+                <a href="https://github.com/stschiff/homepage">github</a>.
+            </footer>
+        </div>
+    </div>
+    </body>
+</html>

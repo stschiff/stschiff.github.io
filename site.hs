@@ -7,16 +7,14 @@ import           BibTeX                        (BibEntry (..), BibTeX,
 import           Hakyll
 import           Hakyll.Core.Compiler.Internal (compilerThrow, compilerTry)
 
-import           Control.Monad                 (forM, liftM, void)
+import           Control.Monad                 (forM, liftM)
 import           Data.List                     (intercalate, sortBy)
 import           Data.List.Split               (splitOn)
 import           Data.Maybe                    (fromJust)
 import           Data.Ord                      (comparing)
-import           Data.String.Utils             (replace, strip)
+import           Data.String.Utils             (strip)
 import           Data.Time                     (UTCTime (..), defaultTimeLocale,
                                                 fromGregorian)
-import           System.FilePath.Posix         (replaceExtension, takeFileName)
-import           Text.Read                     (Lexeme (String))
 
 main :: IO ()
 main = readBibFile "data/publications.bib" >>= runHakyll
@@ -62,7 +60,6 @@ runHakyll bibEntries = hakyll $ do
         route $ setExtension "html"
         compile $ do
             sidebarCtx <- loadSidebarContext
-            id_ <- getUnderlying
             pandocCompiler
                 >>= loadAndApplyTemplate "templates/post.html" postCtx
                 >>= loadAndApplyTemplate "templates/base.html" sidebarCtx
@@ -157,7 +154,7 @@ pubCtx =
         citekey <- bibEntryId <$> getBibEntry item
         imgItem <- compilerTry (getImage citekey)
         case imgItem of
-            Left e -> noResult $ "no image for " ++ citekey
+            Left _ -> noResult $ "no image for " ++ citekey
             Right i -> do
                 mr <- getRoute . itemIdentifier $ i
                 return $ fromJust mr)
@@ -166,7 +163,7 @@ pubCtx =
         citekey <- bibEntryId <$> getBibEntry item
         pdfItem <- compilerTry (getPDF citekey)
         case pdfItem of
-            Left e -> noResult $ "no PDF for " ++ citekey
+            Left _ -> noResult $ "no PDF for " ++ citekey
             Right i -> do
                 mr <- getRoute . itemIdentifier $ i
                 return $ fromJust mr)

@@ -1,0 +1,437 @@
+<!doctype html>
+
+<script src="https://kit.fontawesome.com/d7cf9532bd.js" crossorigin="anonymous"></script>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Stephan Schiffels - A brief introduction to neutral theory</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+        <!-- <link rel="stylesheet" href="/css/default.css" /> -->
+    </head>
+    <body>
+        <div class="container">
+        <header class="section">
+            <h1 class="title is-1">
+                <a href="../">Stephan Schiffels</a>
+            </h1>
+            <h2 class="subtitle">
+                Population Genetics – Computational Methods - Human History
+            </h2>
+            <nav class="navbar">
+                <div class="navbar-brand">
+                    <a role="button" class="navbar-burger">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+                <div class="navbar-menu">
+                    <div class="navbar-start">
+                        <a href="../" class="navbar-item">Home</a>
+                        <a href="../research.html" class="navbar-item">Research</a>
+                        <a href="../publications.html" class="navbar-item">Publications</a>
+                        <a href="../talks.html" class="navbar-item">Talks</a>
+                        <a href="../resources.html" class="navbar-item">Resources</a>
+                        <a href="../contact.html" class="navbar-item">Contact</a>
+                        <a href="../blog.html" class="navbar-item">Blog</a>
+                    </div>
+                    <div class="navbar end">
+                        <a class="navbar-item" href="https://www.eva.mpg.de/archaeogenetics/staff/stephan-schiffels/"><img src="../images/mpi_logo.jpg"></a>
+                        <a class="navbar-item" href="https://twitter.com/stschiff"><span class="icon is-large"><i class="fa-brands fa-twitter fa-2xl"></i></span></a>
+                        <a class="navbar-item" href="https://github.com/stschiff"><span class="icon is-large"><i class="fa-brands fa-github fa-2xl"></i></span></a>
+                        <a class="navbar-item" href="https://medium.com/stephan-schiffels"><span class="icon is-large"><i class="fa-brands fa-medium fa-2xl"></i></span></a>
+                        <a class="navbar-item" href="https://www.researchgate.net/profile/Stephan_Schiffels"><span class="icon is-large"><i class="fa-brands fa-researchgate fa-2xl"></i></span></a>
+                        <a class="navbar-item" rel="me" href="https://ecoevo.social/@stschiff"><span class="icon is-large"><i class="fa-brands fa-mastodon fa-2xl"></i></span></a>
+                    </div>
+                </div>
+            </nav>
+
+        </header>
+
+            <div class="columns">
+                <div class="column is-two-thirds">
+                    <main class="section">
+                        <h1 class="title is-2">A brief introduction to neutral theory</h1>
+                        <div class="content">
+                            <div class="mb-5"><a href="../blog.html"><i>← All Blog Posts</i></a></div>
+<article>
+    <header>
+        Posted on January  6, 2016
+        
+    </header>
+    <h3 id="a-brief-introduction-to-neutral-theory">A brief introduction to neutral theory</h3>
+<p>This is a response to a creationist’s post on Human evolution (see quote above),
+in which I found so many flaws that I have to at least correct the most obvious
+factual errors for general readers. At the same time, this may serve as a quick
+primer into neutral theory.</p>
+<p>First, in every sperm or egg there are about 40 novel single nucleotide
+mutations (conservative estimate) that are passed from parent to offspring. We
+know this because we can sequence children and their parents and simply count
+the differences. So in the example in the post, with only one surviving couple
+each generation, the numbers of mutations passed on to the next generation is
+not 1 but 40.</p>
+<p>If you now do the math (and still take the example in the post where only one
+couple survives each generation) and assume 500,000 generations since the common
+ancestor of chimps and humans, you get 20,000,000 substitutions on the human
+lineage, and 20,000,000 substitutions on the chimp lineage, amounting to a total
+of 40,000,000 differences between humans and chimps. That gives 1.3% sequence
+divergence and is very close to what has been reported in the Chimp Genome paper
+from 2005. <strong>So there is no dilemma!</strong></p>
+<hr />
+<p>But do we even need natural selection to explain the sequence divergence between
+humans and chimps? Let’s look at a scenario <em>without natural selection</em>, where
+<em>all</em> individuals in each generation survive and where there is no effect on
+fitness of any mutation whatsoever.</p>
+<p>In this scenario, if there are <em>N</em> individuals, how many new mutations are there
+in the entire population each generation? Well, there should be 2<em>N </em>✕* <em>40 new
+mutations in total, because there are 2</em>N* sets of chromosomes in all diploid
+individuals (excluding X and Y chromosomes). What is the probability that any
+one of those mutations eventually becomes a substitution, so gets fixed in the
+population? For a neutral mutation, the answer is 1/2N, which can be seen from
+basic coalescence theory:</p>
+<figure>
+<img src="../images/neutralTheory.jpg" style="width:60.0%" />
+<figcaption>
+All 2<em>N</em> genes in the present generation (top) are derived from one ancestor who
+lived in the past (bottom). Every gene has an equal probability to be the one
+that gets ancestral to all subsequent generations, so the fixation probability
+for a neutral mutation is 1/2N. Figure adopted from Bamshad and Wooding, Nat.
+Rev. Gen. 2003
+</figcaption>
+</figure>
+<p>Every gene in the present generation has an equal chance of eventually becoming
+the sole ancestor for all genes many generations later, so every gene has a
+chance of 1/2N of being that ancestor. Let us look at how many mutations
+eventually get fixed each generation: we have 2<em>N </em>✕* *40 ✕ 1/2N = 40.</p>
+<p>So we find that in neutral evolution (where mutations have no fitness effects),
+the substitution rate equals the mutation rate. This remarkable result was
+derived by Motoo Kimura, who developed the neutral theory.</p>
+<p>We find that even under strict neutrality, evolution progresses with a rate of
+40 mutations per generation, <strong>so there is no need to invoke natural selection
+at all</strong>. Haldane’s paper from 1957 is therefore irrelevant if you want to
+explain human-chimp sequence divergence.</p>
+<hr />
+<p>You should not confuse evolution with natural selection. Hardly any population
+geneticist believes today that a substantial fraction of substitutions between
+humans and chimps have been fixed by natural selection. In fact, we have to look
+pretty hard to find evidence for positive selection on the molecular level,
+because with few exceptions the phenotypic effects of mutations are typically
+small.</p>
+<p>If you want to engage with science, you cannot just pick one paper from 1957 and
+ignore the large body of scientific work that came after it. Either you believe
+that science tells us something about the truth, or you don’t. If you do, you
+need to read and learn more than what is published in the <em>Journal of Creation!</em></p>
+</article>
+
+                        </div>
+                    </main>
+                </div>
+                <div class="column">
+                    <aside class="section">
+    <h2 class="title is-3">News</h2>
+    <ul>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>May 24, 2023</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Gibbon2023-in.html">
+                            <b>Confronting historical legacies of biological anthropology in
+              South Africa-Restitution, redress and community-centered
+              science: The Sutherland Nine</b>
+                        </a> by Victoria E Gibbon et al.. <i>PloS one</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Gibbon2023-in.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>February 28, 2023</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Schmid2023-um.html">
+                            <b>Estimating human mobility in Holocene Western Eurasia with
+              large-scale ancient genomic data</b>
+                        </a> by Clemens Schmid and <u>Stephan Schiffels</u>. <i>Proceedings of the National Academy of Sciences of the United
+              States of America</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Schmid2023-um.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>December 3, 2022</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Wang2022-cv.html">
+                            <b>4000-year-old hair from the Middle Nile highlights unusual
+              ancient DNA degradation pattern and a potential source of early
+              eastern Africa pastoralists</b>
+                        </a> by Ke Wang et al.. <i>Scientific reports</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Wang2022-cv.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                    
+                        <u>December  2, 2022</u><br />
+                        
+                            <span class="tag is-warning">New Announcement</span><br />
+                            
+                                <a href="../posts/2022-12-02-cavote.html">Current Archaeology Project of the Year - Vote now!</a>
+                            
+                        
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="../images/cavote.png">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>November 22, 2022</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Waldman2022-hw.html">
+                            <b>Genome-wide data from medieval German Jews show that the
+              Ashkenazi founder event pre-dated the 14th century</b>
+                        </a> by Shamam Waldman et al.. <i>Cell</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Waldman2022-hw.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>November 5, 2022</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Gretzinger2022-wf.html">
+                            <b>Transformations in early medieval England</b>
+                        </a> by Joscha Gretzinger and <u>Stephan Schiffels</u>. <i>Current Archaeology</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Gretzinger2022-wf.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                    
+                        <u>November  5, 2022</u><br />
+                        
+                            <span class="tag is-warning">New Announcement</span><br />
+                            
+                                <a href="../posts/2022-11-05-caissue.html">Current Archaeology Special Issue</a>
+                            
+                        
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="../images/publications/Gretzinger2022-wf.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>November, 2022</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Gretzinger2022-et.html">
+                            <b>A glimpse into darkness: Population genetics of the European
+               middle ages</b>
+                        </a> by Joscha Gretzinger and <u>Stephan Schiffels</u>. <i>New Narratives for the First Millennium {AD}? : Alte und neue
+               Perspektiven der archäologischen Forschung zum 1. Jahrtausend n.
+               Chr.</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Gretzinger2022-et.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>November 1, 2022</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Gower2022-px.html">
+                            <b>Demes: a standard format for demographic models</b>
+                        </a> by Graham Gower et al.. <i>Genetics</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Gower2022-px.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>September 21, 2022</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Gretzinger2022-cg.html">
+                            <b>The {Anglo-Saxon} migration and the formation of the early
+               English gene pool</b>
+                        </a> by Joscha Gretzinger et al.. <i>Nature</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Gretzinger2022-cg.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>March, 2022</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Warnberg2022-xr.html">
+                            <b>Missing lactase persistence in Late Iron Age Central Europe</b>
+                        </a> by Ole Warnberg et al.. <i>Archäologisches Korrespondenzblatt</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Warnberg2022-xr.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>October 20, 2021</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Alpaslan-Roodenberg2021-rw.html">
+                            <b>Ethics of {DNA} research on human remains: five globally
+              applicable guidelines</b>
+                        </a> by Songül Alpaslan-Roodenberg et al.. <i>Nature</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Alpaslan-Roodenberg2021-rw.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>October 8, 2021</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Kocher2021-zq.html">
+                            <b>Ten millennia of hepatitis {B} virus evolution</b>
+                        </a> by Arthur Kocher et al.. <i>Science</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Kocher2021-zq.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>August 25, 2021</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Papac2021-up.html">
+                            <b>Dynamic changes in genomic and social structures in third
+              millennium {BCE} central Europe</b>
+                        </a> by Luka Papac et al.. <i>Science advances</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Papac2021-up.jpg">
+                    
+                </div>
+            </li>
+        
+            <li class="columns">
+                <div class="column is-two-third">
+                    
+                        <u>August 18, 2021</u><br />
+                        <span class="tag is-success">New Publication</span><br />
+                        <a href="../pubs/Freilich2021-wm.html">
+                            <b>Reconstructing genetic histories and social organisation in
+               Neolithic and Bronze Age Croatia</b>
+                        </a> by Suzanne Freilich et al.. <i>Scientific reports</i>.
+                    
+                    
+                </div>
+                <div class="column">
+                    
+                        <img src="images/publications/Freilich2021-wm.jpg">
+                    
+                </div>
+            </li>
+        
+    </ul>
+</aside>
+                </div>
+            </div>
+
+            <footer class="footer has-text-centered">
+                Powered by
+                <a href="http://jaspervdj.be/hakyll">Hakyll</a> and <a href="https://bulma.io">Bulma</a>. Sourcecode available on
+                <a href="https://github.com/stschiff/homepage">github</a>.
+            </footer>
+        </div>
+    </div>
+    </body>
+</html>
