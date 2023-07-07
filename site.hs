@@ -27,6 +27,10 @@ main = readBibFile "data/publications.bib" >>= runHakyll
 runHakyll :: BibTeX -> IO ()
 runHakyll bibEntries = hakyllWith config $ do
 
+    match "CNAME" $ do
+        route idRoute
+        compile copyFileCompiler
+
     match "images/*" $ do
         route   idRoute
         compile copyFileCompiler
