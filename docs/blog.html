@@ -1,6 +1,7 @@
 <!doctype html>
 
 <script src="https://kit.fontawesome.com/d7cf9532bd.js" crossorigin="anonymous"></script>
+<script src="./js/toggle.js"></script>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -21,13 +22,13 @@
             </h2>
             <nav class="navbar">
                 <div class="navbar-brand">
-                    <a role="button" class="navbar-burger">
+                    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
                         <span aria-hidden="true"></span>
                         <span aria-hidden="true"></span>
                         <span aria-hidden="true"></span>
                     </a>
                 </div>
-                <div class="navbar-menu">
+                <div class="navbar-menu" id="navMenu">
                     <div class="navbar-start">
                         <a href="./" class="navbar-item">Home</a>
                         <a href="./research.html" class="navbar-item">Research</a>
@@ -59,163 +60,161 @@
     Most Blog posts also appear on my <a href="https://medium.com/stephan-schiffels">Medium Blog</a>
 </p>
 
-<ul class="publist">
+
     
-        
+
     
-        
+
     
-        
-        <li class="columns">
-            <div class="column is-one-quarter">
-                
-                    <img src="./images/controller.jpg">
-                
-            </div>
-            <div class="column">
-                <b><a href="./posts/2021-03-24-Haskell-CLI.html">Designing Command Line Interfaces in Haskell</a></b><br>March 24, 2021
-            </div>
-        </li>
-        
+    <li class="columns">
+        <div class="column is-one-quarter">
+            
+                <img src="./images/controller.jpg">
+            
+        </div>
+        <div class="column">
+            <b><a href="./posts/2021-03-24-Haskell-CLI.html">Designing Command Line Interfaces in Haskell</a></b><br>March 24, 2021
+        </div>
+    </li>
     
-        
+
     
-        
+
     
-        
+
     
-        
+
     
-        
+
     
-        
-        <li class="columns">
-            <div class="column is-one-quarter">
-                
-            </div>
-            <div class="column">
-                <b><a href="./posts/2019-10-16-wordpress.html">Bye bye Wordpress</a></b><br>October 16, 2019
-            </div>
-        </li>
-        
+
     
-        
+    <li class="columns">
+        <div class="column is-one-quarter">
+            
+        </div>
+        <div class="column">
+            <b><a href="./posts/2019-10-16-wordpress.html">Bye bye Wordpress</a></b><br>October 16, 2019
+        </div>
+    </li>
     
-        
-        <li class="columns">
-            <div class="column is-one-quarter">
-                
-                    <img src="./images/clock.jpg">
-                
-            </div>
-            <div class="column">
-                <b><a href="./posts/2019-08-29-time-tracking.html">Tracking your time helps you stay mentally sane.</a></b><br>August 29, 2019
-            </div>
-        </li>
-        
+
     
-        
+
     
-        
+    <li class="columns">
+        <div class="column is-one-quarter">
+            
+                <img src="./images/clock.jpg">
+            
+        </div>
+        <div class="column">
+            <b><a href="./posts/2019-08-29-time-tracking.html">Tracking your time helps you stay mentally sane.</a></b><br>August 29, 2019
+        </div>
+    </li>
     
-        
-        <li class="columns">
-            <div class="column is-one-quarter">
-                
-                    <img src="./images/PaleoEskimoCover-small.jpg">
-                
-            </div>
-            <div class="column">
-                <b><a href="./posts/2019-06-05-paleo-eskimo.html">Behind the paper: Paleo-Eskimo ancestry in North America</a></b><br>June  5, 2019
-            </div>
-        </li>
-        
+
     
-        
+
     
-        
+
     
-        
-        <li class="columns">
-            <div class="column is-one-quarter">
-                
-                    <img src="./images/loog_et_al.jpg">
-                
-            </div>
-            <div class="column">
-                <b><a href="./posts/2018-12-22-human-mobility.html">On human mobility and language dispersal</a></b><br>December 22, 2018
-            </div>
-        </li>
-        
+    <li class="columns">
+        <div class="column is-one-quarter">
+            
+                <img src="./images/PaleoEskimoCover-small.jpg">
+            
+        </div>
+        <div class="column">
+            <b><a href="./posts/2019-06-05-paleo-eskimo.html">Behind the paper: Paleo-Eskimo ancestry in North America</a></b><br>June  5, 2019
+        </div>
+    </li>
     
-        
+
     
-        
-        <li class="columns">
-            <div class="column is-one-quarter">
-                
-                    <img src="./images/wahlblick_diffusion.jpg">
-                
-            </div>
-            <div class="column">
-                <b><a href="./posts/2017-08-12-Wahlvorhersage.html">Und nun die Wahlvorhersage...</a></b><br>August 12, 2017
-            </div>
-        </li>
-        
+
     
-        
-        <li class="columns">
-            <div class="column is-one-quarter">
-                
-                    <img src="./images/hypTest2.jpg">
-                
-            </div>
-            <div class="column">
-                <b><a href="./posts/2017-06-09-hypothesis-testing.html">Hypothesis testing without Alternatives</a></b><br>June  9, 2017
-            </div>
-        </li>
-        
+
     
-        
-        <li class="columns">
-            <div class="column is-one-quarter">
-                
-                    <img src="./images/rarecoal-schematic.jpg">
-                
-            </div>
-            <div class="column">
-                <b><a href="./posts/2017-05-24-raremut2.html">How rare genetic mutations help us understand human history (Part II)</a></b><br>May 24, 2017
-            </div>
-        </li>
-        
+    <li class="columns">
+        <div class="column is-one-quarter">
+            
+                <img src="./images/loog_et_al.jpg">
+            
+        </div>
+        <div class="column">
+            <b><a href="./posts/2018-12-22-human-mobility.html">On human mobility and language dispersal</a></b><br>December 22, 2018
+        </div>
+    </li>
     
-        
-        <li class="columns">
-            <div class="column is-one-quarter">
-                
-                    <img src="./images/anglo-saxon-skeleton.jpg">
-                
-            </div>
-            <div class="column">
-                <b><a href="./posts/2016-01-22-raremut1.html">How rare genetic mutations help us understand human history (Part I)</a></b><br>January 22, 2016
-            </div>
-        </li>
-        
+
     
-        
-        <li class="columns">
-            <div class="column is-one-quarter">
-                
-                    <img src="./images/neutralTheory.jpg">
-                
-            </div>
-            <div class="column">
-                <b><a href="./posts/2016-01-06-neutraltheory.html">A brief introduction to neutral theory</a></b><br>January  6, 2016
-            </div>
-        </li>
-        
+
     
-</ul>
+    <li class="columns">
+        <div class="column is-one-quarter">
+            
+                <img src="./images/wahlblick_diffusion.jpg">
+            
+        </div>
+        <div class="column">
+            <b><a href="./posts/2017-08-12-Wahlvorhersage.html">Und nun die Wahlvorhersage...</a></b><br>August 12, 2017
+        </div>
+    </li>
+    
+
+    
+    <li class="columns">
+        <div class="column is-one-quarter">
+            
+                <img src="./images/hypTest2.jpg">
+            
+        </div>
+        <div class="column">
+            <b><a href="./posts/2017-06-09-hypothesis-testing.html">Hypothesis testing without Alternatives</a></b><br>June  9, 2017
+        </div>
+    </li>
+    
+
+    
+    <li class="columns">
+        <div class="column is-one-quarter">
+            
+                <img src="./images/rarecoal-schematic.jpg">
+            
+        </div>
+        <div class="column">
+            <b><a href="./posts/2017-05-24-raremut2.html">How rare genetic mutations help us understand human history (Part II)</a></b><br>May 24, 2017
+        </div>
+    </li>
+    
+
+    
+    <li class="columns">
+        <div class="column is-one-quarter">
+            
+                <img src="./images/anglo-saxon-skeleton.jpg">
+            
+        </div>
+        <div class="column">
+            <b><a href="./posts/2016-01-22-raremut1.html">How rare genetic mutations help us understand human history (Part I)</a></b><br>January 22, 2016
+        </div>
+    </li>
+    
+
+    
+    <li class="columns">
+        <div class="column is-one-quarter">
+            
+                <img src="./images/neutralTheory.jpg">
+            
+        </div>
+        <div class="column">
+            <b><a href="./posts/2016-01-06-neutraltheory.html">A brief introduction to neutral theory</a></b><br>January  6, 2016
+        </div>
+    </li>
+    
+
         
                         </div>
                     </main>

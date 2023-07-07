@@ -1,6 +1,7 @@
 <!doctype html>
 
 <script src="https://kit.fontawesome.com/d7cf9532bd.js" crossorigin="anonymous"></script>
+<script src="./js/toggle.js"></script>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -21,13 +22,13 @@
             </h2>
             <nav class="navbar">
                 <div class="navbar-brand">
-                    <a role="button" class="navbar-burger">
+                    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
                         <span aria-hidden="true"></span>
                         <span aria-hidden="true"></span>
                         <span aria-hidden="true"></span>
                     </a>
                 </div>
-                <div class="navbar-menu">
+                <div class="navbar-menu" id="navMenu">
                     <div class="navbar-start">
                         <a href="./" class="navbar-item">Home</a>
                         <a href="./research.html" class="navbar-item">Research</a>

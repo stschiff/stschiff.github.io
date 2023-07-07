@@ -2,20 +2,18 @@
     Most Blog posts also appear on my <a href="https://medium.com/stephan-schiffels">Medium Blog</a>
 </p>
 
-<ul class="publist">
-    $for(posts)$
-        $if(isBlogPost)$
-        <li class="columns">
-            <div class="column is-one-quarter">
-                $if(image)$
-                    <img src="$image$">
-                $endif$
-            </div>
-            <div class="column">
-                <b><a href="/$url$">$title$</a></b><br>$date$
-            </div>
-        </li>
-        $endif$
-    $endfor$
-</ul>
+$for(posts)$
+    $if(isBlogPost)$
+    <li class="columns">
+        <div class="column is-one-quarter">
+            $if(image)$
+                <img src="$image$">
+            $endif$
+        </div>
+        <div class="column">
+            <b><a href="/$url$">$title$</a></b><br>$date$
+        </div>
+    </li>
+    $endif$
+$endfor$
         
