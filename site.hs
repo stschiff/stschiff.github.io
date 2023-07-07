@@ -39,7 +39,7 @@ runHakyll bibEntries = hakyll $ do
     create ["sidebar"] . compile $ do
         posts <- loadAll ("posts/*" .&&. hasVersion "raw")
         pubs <- loadAll ("pubs/*" .&&. hasVersion "raw")
-        items <- recentFirst' (posts <> pubs)
+        items <- take 15 <$> recentFirst' (posts <> pubs)
 
         let sidebarField = listField "sidebarItems" jointPubPostContext (return items)
         makeItem "" >>= loadAndApplyTemplate "templates/sidebar.html" sidebarField
@@ -187,27 +187,21 @@ pubCtx =
                     " does not have fields journal or booktitle")
     makeAuthorField :: Context String
     makeAuthorField = functionField "authors" (\args item -> do
-        BibEntry _ citekey bibFields <- getBibEntry item
-        case lookup "author" bibFields of
-            Just allAuthorsStr -> do
-                authorTuples <- forM (splitOn " and " (intercalate " " . map strip . lines $ allAuthorsStr)) $ \singleAuthorStr -> do
-                    case splitOn ", " singleAuthorStr of
-                        [lastName, firstName] -> return (firstName, lastName)
-                        [firstName] -> return (firstName, "") -- in some cultures there are single first names, e.g. "Nini"
-                        _ -> compilerThrow $ ["cannot parse author" ++ singleAuthorStr]
-                case args of
-                    ["short"] -> case authorTuples of
-                        [firstAuthor] -> return $ snd firstAuthor
-                        [firstAuthor, secondAuthor] -> return $ snd firstAuthor ++ " and " ++ snd secondAuthor
-                        (firstAuthor : _) -> return $ snd firstAuthor ++ " et al."
-                    ["full"] -> case authorTuples of
-                        [firstAuthor] -> return $ renderAuthor firstAuthor
-                        [firstAuthor, secondAuthor] -> return $ renderAuthor firstAuthor ++ " and " ++ renderAuthor secondAuthor
-                        (firstAuthor : _)  ->
-                            return $ intercalate ", " [renderAuthor a | a <- init authorTuples] ++ " and " ++
-                                    renderAuthor (last authorTuples)
-            Nothing -> noResult $ "bibEntry for " ++ citekey ++
-                    " does not have fields journal or booktitle")
+        authors <- getAuthors item
+        case args of
+            ["abbrv"] -> case authors of
+                [firstAuthor]               -> return $ snd firstAuthor
+                [firstAuthor, secondAuthor] -> return $ snd firstAuthor ++ " and " ++ snd secondAuthor
+                (firstAuthor : _)           -> return $ snd firstAuthor ++ " et al."
+            _ -> case authors of
+                [firstAuthor] -> return $ renderAuthor firstAuthor
+                [firstAuthor, secondAuthor] -> return $ renderAuthor firstAuthor ++ " and " ++ renderAuthor secondAuthor
+                (firstAuthor : _)  ->
+                    case args of
+                        ["short"] -> return $ renderAuthor firstAuthor ++ " et al."
+                        ["full"] -> return $ intercalate ", " [renderAuthor a | a <- init authors] ++ " and " ++
+                                        renderAuthor (last authors)
+        )
     renderAuthor :: (String, String) -> String
     renderAuthor ("Stephan", "Schiffels") = "<u>Stephan Schiffels</u>"
     renderAuthor (firstName, lastName) = firstName ++ " " ++ lastName
@@ -216,6 +210,18 @@ getBibEntry :: Item String -> Compiler BibEntry
 getBibEntry item = do
     (bibType, bibKey, bibFields) <- itemBody <$> loadSnapshot (setVersion (Just "raw") $ itemIdentifier item) "bibEntry"
     return $ BibEntry bibType bibKey bibFields
+
+getAuthors :: Item String -> Compiler [(String, String)]
+getAuthors item = do
+    BibEntry _ citekey bibFields <- getBibEntry item
+    case lookup "author" bibFields of
+        Just allAuthorsStr -> do
+            forM (splitOn " and " (intercalate " " . map strip . lines $ allAuthorsStr)) $ \singleAuthorStr -> do
+                case splitOn ", " singleAuthorStr of
+                    [lastName, firstName] -> return (firstName, lastName)
+                    [firstName] -> return (firstName, "") -- in some cultures there are single first names, e.g. "Nini"
+                    _ -> compilerThrow $ ["cannot parse author" ++ singleAuthorStr]
+        Nothing -> noResult $ "bibEntry for " ++ citekey ++ " does not have field author"
 
 makeBibTexDate :: BibEntry -> UTCTime
 makeBibTexDate b =

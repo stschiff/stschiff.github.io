@@ -5,15 +5,15 @@
 $for(publications)$
 <div class="columns">
     <div class="column is-one-third">
-        $if(image)$<a href="$internal_url$"><img src="$image$"></a>$endif$
+        $if(image)$<a href="/$internal_url$"><img src="$image$"></a>$endif$
     </div>
     <div class="column">
-        <a href="$internal_url$"><b>$title$</b>.</a> <i>$source$</i>. Published $published$.
+        <a href="/$internal_url$"><b>$title$</b>.</a> <i>$source$</i>. Published $published$.
         <p>Authors: $authors("full")$</p>
         <p>
             <a href="$url$">[Website]</a>
             $if(pdf)$<a href="$pdf$">[PDF]</a>$endif$
-            <a href="$internal_url$">[Details]</a>
+            <a href="/$internal_url$">[Details]</a>
         </p>
     </div>
 </div>

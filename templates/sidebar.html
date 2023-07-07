@@ -7,7 +7,7 @@
                     $if(is_pub)$
                         <u>$published$</u><br />
                         <span class="tag is-success">New Publication</span><br />
-                        <a href="$internal_url$">
+                        <a href="/$internal_url$">
                             <b>$title$</b>
                         </a> by $authors("short")$. <i>$source$</i>.
                     $endif$
@@ -15,7 +15,7 @@
                         <u>$date$</u><br />
                         $if(isBlogPost)$
                             <span class="tag is-info">New Blog Post</span><br />
-                            <a href="$url$">    
+                            <a href="/$url$">    
                                 <b>$title$</b>
                             </a>
                         $else$
@@ -23,7 +23,7 @@
                             $if(link)$
                                 <a href="$link$">$title$</a>
                             $else$
-                                <a href="$url$">$title$</a>
+                                <a href="/$url$">$title$</a>
                             $endif$
                         $endif$
                     $endif$
