@@ -20,6 +20,18 @@ Turkey, recorded on December 12, 2018:
 
 # All talks
 
+Talk at a Conference at the Heidelberg Academy of Sciences, Heidelberg, **November 2-4, 2023**
+
+Teaching on a Workshop in Zagreb, **October 25, 2023**
+
+Seminar talk at the University of Bern, **October 23, 2023**
+
+Lecture at the University of Cologne, Cologne, **July 14, 2023**
+
+[Online-Lecture at the Children's College of Karlsruhe University](https://www.karlsruhe.dhbw.de/kindercollege.html), **July 12, 2023** 
+
+Talk at the [yearly meeting of the Society of German Archaeologists (Deutscher Archäologenverband) in Leipzig](https://www.darv.de/fileadmin/user_upload/Verwaltung/01_DArV/03_Jahrestagung/DArV_Programm_2023.pdf), **June 18, 2023**
+
 Participation in panel discussion and evening on "What is saxonian?" at the *Deutsches Hygiene-Museum Dresden*, **March 16, 2023**
 
 Colloquium at *Humboldt University, Berlin* "Eine neue archäogenetische Studie zur angelsächsischen Migration im Frühmittelalter", **Jan 23, 2023**
