@@ -16,11 +16,16 @@ import           Data.String.Utils             (strip)
 import           Data.Time                     (UTCTime (..), defaultTimeLocale,
                                                 fromGregorian)
 
+config :: Configuration
+config = defaultConfiguration
+  { destinationDirectory = "docs"
+  }
+
 main :: IO ()
 main = readBibFile "data/publications.bib" >>= runHakyll
 
 runHakyll :: BibTeX -> IO ()
-runHakyll bibEntries = hakyll $ do
+runHakyll bibEntries = hakyllWith config $ do
 
     match "images/*" $ do
         route   idRoute
