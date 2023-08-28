@@ -169,7 +169,6 @@ pubCtx =
         BibEntry _ citekey bibFields <- getBibEntry i
         let keywordsStr = fromMaybe "" (lookup "keywords" bibFields)
         let keywords = map strip . splitOn ";" $ keywordsStr
-        unsafeCompiler $ print keywords
         if k `elem` keywords then
             return EmptyField
         else
