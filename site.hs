@@ -10,11 +10,12 @@ import           Hakyll.Core.Compiler.Internal (compilerThrow, compilerTry)
 import           Control.Monad                 (forM, liftM)
 import           Data.List                     (intercalate, sortBy)
 import           Data.List.Split               (splitOn)
-import           Data.Maybe                    (fromJust)
+import           Data.Maybe                    (fromJust, fromMaybe)
 import           Data.Ord                      (comparing)
 import           Data.String.Utils             (strip)
 import           Data.Time                     (UTCTime (..), defaultTimeLocale,
                                                 fromGregorian)
+import Text.Read (Lexeme(String))
 
 config :: Configuration
 config = defaultConfiguration
@@ -154,6 +155,7 @@ pubCtx =
     makeImageField <>
     makePDFfield <>
     makeUrlField <>
+    makeKeywordFields <>
     makeBibFields
   where
     makeBibFields :: Context String
@@ -162,6 +164,16 @@ pubCtx =
         case lookup k bibFields of
             Just res -> return $ StringField res
             Nothing -> noResult $ "bibEntry for " ++ citekey ++ " does not have field " ++ k
+    makeKeywordFields :: Context String
+    makeKeywordFields = Context $ \k _ i -> do
+        BibEntry _ citekey bibFields <- getBibEntry i
+        let keywordsStr = fromMaybe "" (lookup "keywords" bibFields)
+        let keywords = map strip . splitOn ";" $ keywordsStr
+        unsafeCompiler $ print keywords
+        if k `elem` keywords then
+            return EmptyField
+        else
+            noResult $ "keyword " ++ k ++ " not present in keywords " ++ keywordsStr
     makeImageField :: Context String
     makeImageField = field "image" (\item -> do
         citekey <- bibEntryId <$> getBibEntry item

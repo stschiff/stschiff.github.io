@@ -8,6 +8,18 @@ $for(publications)$
         $if(image)$<a href="/$internal_url$"><img src="$image$"></a>$endif$
     </div>
     <div class="column">
+        $if(role_lead)$
+            <span class="tag is-success">Lead</span>
+        $endif$
+        $if(role_major)$
+            <span class="tag is-warning">Major</span>
+        $endif$
+        $if(role_minor)$
+            <span class="tag is-info">Minor</span>
+        $endif$
+        $if(role_highlight)$
+            <span class="tag is-primary">Highlight</span>
+        $endif$
         <a href="/$internal_url$"><b>$title$</b>.</a> <i>$source$</i>. Published $published$.
         <p>Authors: $authors("full")$</p>
         <p>

@@ -6,6 +6,18 @@
     </div>
     <div class="column">
         <b>$title$</b>. <i>$source$</i>. Published $published$.
+        $if(role_lead)$
+            <span class="tag is-success">Lead</span>
+        $endif$
+        $if(role_major)$
+            <span class="tag is-warning">Major</span>
+        $endif$
+        $if(role_minor)$
+            <span class="tag is-info">Minor</span>
+        $endif$
+        $if(role_highlight)$
+            <span class="tag is-primary">Highlight</span>
+        $endif$
         <p>Authors: $authors("full")$</p>
         <p>
             <a href="$url$">[Website]</a>
