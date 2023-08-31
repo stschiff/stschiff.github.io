@@ -6,7 +6,7 @@ menu_Home: True
 ::: {.columns}
 
 :::: {.column .is-one-third}
-![](images/stephan-portrait.jpg)
+![](images/Portrait_2023.jpg)
 ::::
 
 :::: {.column}
