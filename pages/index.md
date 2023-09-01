@@ -5,8 +5,11 @@ menu_Home: True
 
 ::: {.columns}
 
-:::: {.column .is-one-third}
+:::: {.column .is-one-half}
+<figure>
 ![](images/Portrait_2023.jpg)
+<figcaption><small>Image © MPI for Evolutionary Anthropology</small></figcaption>
+</figure>
 ::::
 
 :::: {.column}
