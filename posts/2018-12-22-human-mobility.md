@@ -1,6 +1,6 @@
 ---
 title: On human mobility and language dispersal
-isBlogPost: True
+category: blog
 image: /images/loog_et_al.jpg
 ---
 
@@ -8,17 +8,15 @@ image: /images/loog_et_al.jpg
 ![](/images/IMPRS-Jena-Logo3.jpg){ width=50% }
 </figure>
 
-We recently advertised [16 new PhD
-positions](https://imprs.shh.mpg.de/index.php/applications/open-positions/)
+We recently advertised [16 new PhD positions](/posts/2018-12-18-imprs-positions.html)
 within our newly founded [Max Planck Research School for the Science of Human
 History](https://imprs.shh.mpg.de)*, *an institution tied both to the
 [University of Jena](https://www.uni-jena.de/en/) and the [Max Planck Institute
 for the Science of Human History](https://www.shh.mpg.de/en) in Jena.
 
 Within this call, I am seeking candidates for working on a new project in my
-group titled “[Co-estimating Human Mobility and Language Dispersal with Ancient
-DNA and Linguistic
-Data](https://imprs.shh.mpg.de/wp-content/uploads/2018/12/02-Co-estimating-Human-Mobility-and-Language-Dispersal-with-Ancient-DNA-and-Linguistic-Data.pdf)*”.*
+group titled ["Co-estimating Human Mobility and Language Dispersal with Ancient DNA and Linguistic Data"](https://imprs.shh.mpg.de/wp-content/uploads/2018/12/02-Co-estimating-Human-Mobility-and-Language-Dispersal-with-Ancient-DNA-and-Linguistic-Data.pdf)
+
 It is based on a [scientific article](https://www.pnas.org/content/114/46/12213)
 that I learned about recently, by Lisa Loog and coworkers from University
 College London. In this paper, Loog and colleagues develop a new estimator for

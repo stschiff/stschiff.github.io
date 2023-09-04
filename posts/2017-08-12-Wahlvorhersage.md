@@ -1,6 +1,6 @@
 ---
 title: Und nun die Wahlvorhersage...
-isBlogPost: True
+category: blog, german
 image: /images/wahlblick_diffusion.jpg
 ---
 
