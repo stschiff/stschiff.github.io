@@ -11,6 +11,8 @@ in which I found so many flaws that I have to at least correct the most obvious
 factual errors for general readers. At the same time, this may serve as a quick
 primer into neutral theory.
 
+<!--more-->
+
 First, in every sperm or egg there are about 40 novel single nucleotide
 mutations (conservative estimate) that are passed from parent to offspring. We
 know this because we can sequence children and their parents and simply count

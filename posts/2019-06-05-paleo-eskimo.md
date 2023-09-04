@@ -3,29 +3,27 @@ title: "Behind the paper: Paleo-Eskimo ancestry in North America"
 category: blog
 image: /images/PaleoEskimoCover-small.jpg
 ---
-
-*This post appeared originally on the *[Nature Ecology & Evolution Community
-blog](https://natureecoevocommunity.nature.com/users/253326-stephan-schiffels/posts/49657-paleo-eskimo-ancestry-in-north-america-or-how-to-grow-a-paper-from-6-to-35-authors)*.*
+ 
+*This post appeared originally on the *[Nature Ecology & Evolution Community blog](https://natureecoevocommunity.nature.com/users/253326-stephan-schiffels/posts/49657-paleo-eskimo-ancestry-in-north-america-or-how-to-grow-a-paper-from-6-to-35-authors)*.*
 
 *Reference:
 *[https://www.nature.com/articles/s41586-019-1251-y](https://www.nature.com/articles/s41586-019-1251-y)
 
 In October 2015 — I had just started my new job as Group Leader at the newly
-founded [Max Planck Institute for the Science of Human
-History](https://www.shh.mpg.de) in Jena, Germany — we were visited by a young
+founded [Max Planck Institute for the Science of Human History](https://www.shh.mpg.de) in Jena, Germany — we were visited by a young
 researcher, Pavel Flegontov, from Ostrava University in Czech Republic. Pavel is
 a computational biologist who a few years ago got himself interested in human
 population genetics and prehistory. I was at the time about to publish our paper
-on [Anglo-Saxon ancient DNA from
-England](/posts/2016-01-22-raremut1.html),
+on [Anglo-Saxon ancient DNA from England](/posts/2016-01-22-raremut1.html),
 for which we developed new methodology to investigate fine-scale population
 structure based on rare genetic variation. Pavel wanted to apply this new
 methodology to an open genetic question in the literature about Athabaskans, an
 ethnic group from North America. David Reich, a geneticist from Harvard
-University, had shown previously in a [paper in
-2012](https://www.nature.com/articles/nature11258) that Athabaskans have a
+University, had shown previously in a [paper in 2012](https://www.nature.com/articles/nature11258) that Athabaskans have a
 distinct ancestry component not shared with many other Native Americans and
 which could be related to Paleo-Eskimos.
+
+<!--more-->
 
 <figure>
     ![](/images/PaleoEskimoCover-wide.jpg)

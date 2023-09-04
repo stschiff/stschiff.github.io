@@ -5,6 +5,8 @@ category: blog
 
 I recently rebuilt my website. I had previously used [Wordpress](https://wordpress.org), and while that was perfect to get started, I soon got annoyed by its relative inflexibility. While Wordpress has a huge community with tons of free templates for nicely designed websites, the templates themselves are often very opinionated in a sense that they encourage certain archetypes, like Blogging sites, or magazine-style sites. Customization is possible, but it comes in the form of plugins (again, thousands are available for free), and the more customization you want, the more plugins you end up using. This at some point makes the whole system a bit bloated, and still not quite right in the end.
 
+<!--more-->
+
 The issue with an academic homepage such as mine is that it doesn't quite fit a classical Blogging website, but that I also want support for listing publications, talks, and for presenting my research group. I also want a News sidebar that lists not only recent Blog posts but also recent publications and generally announcements. While all this is _somehow_ possible also with Wordpress, it wasn't fun anymore to play with all these different plugins, and in the end have massive functionality available which overlaps only to a very small extent with what I actually wanted.
 
 There is another thing that annoyed me about Wordpress: It is actually quite slow. The reason is that it creates pages dynamically from a database-backend, in which blog posts, pages and simply all content is stored. I wanted something simpler and faster, and having a dynamic fully-fledged content-management-system as a backend for my personal homepage was simply not something I actually needed.

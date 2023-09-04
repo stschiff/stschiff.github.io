@@ -14,6 +14,8 @@ History](https://imprs.shh.mpg.de)*, *an institution tied both to the
 [University of Jena](https://www.uni-jena.de/en/) and the [Max Planck Institute
 for the Science of Human History](https://www.shh.mpg.de/en) in Jena.
 
+<!--more-->
+
 Within this call, I am seeking candidates for working on a new project in my
 group titled ["Co-estimating Human Mobility and Language Dispersal with Ancient DNA and Linguistic Data"](https://imprs.shh.mpg.de/wp-content/uploads/2018/12/02-Co-estimating-Human-Mobility-and-Language-Dispersal-with-Ancient-DNA-and-Linguistic-Data.pdf)
 

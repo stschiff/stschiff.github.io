@@ -11,6 +11,8 @@ Standardgeschäft des politischen Betriebes. Etwa wöchentlich veröffentlichen 
 großen Fernsehsender Umfragen, zum Beispiel zur sogenannten “Sonntagsfrage”:
 “Wenn am nächsten Sonntag Bundestagswahl wäre, wen würden Sie wählen?”
 
+<!--more-->
+
 Die Ergebnisse dieser Umfragen sind eine recht umfangreiche Menge Daten, die
 zusammengenommen einen Einblick in die Stimmung im Land geben und auch in
 gewissem Maße eine Vorhersage für ein Wahlergebnis geben.

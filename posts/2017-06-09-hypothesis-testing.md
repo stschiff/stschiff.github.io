@@ -16,6 +16,7 @@ eye-opener to me in terms of understanding statistics and data analysis from
 first principles. Here I am sharing a few particularly interesting insights from
 chapter 9.11 (“Significance Tests”, p. 293).
 
+<!--more-->
 *****
 
 #### A simple experiment

@@ -67,7 +67,8 @@ runHakyll bibEntries = hakyllWith config $ do
     -- dummy pages to have raw layouted blog posts for loading.
     match "posts/*" $ version "raw" $
         compile $ do
-            pandocCompiler >>= loadAndApplyTemplate "templates/post.html" postCtx
+            pandocCompiler >>= saveSnapshot "content" >>=                
+                loadAndApplyTemplate "templates/post.html" postCtx
 
     -- finalising posts including navigation and sidebar
     match "posts/*" $ do
@@ -282,9 +283,7 @@ makeBibTexDateField bibEntry =
 
 postCtx :: Context String
 postCtx =
-    boolField "is_post" isPost <>
     dateField "date" "%B %e, %Y" <>
+    teaserField "teaser" "content" <>
     field "url" (fmap fromJust . getRoute . setVersion Nothing . itemIdentifier) <>
     defaultContext
-  where
-    isPost = (=="posts/") . take 6 . toFilePath . itemIdentifier

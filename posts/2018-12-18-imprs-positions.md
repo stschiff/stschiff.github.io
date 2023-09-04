@@ -4,9 +4,11 @@ image: /images/imprs-shh-banner.jpg
 category: news
 ---
 
-### PhD positions at the Max Planck Institute for the Science of Human History (MPI-SHH)
+(Cross-posting from the original ad at the MPI-SHH Webpage, offline now)
 
 The MPI-SHH pursues an integrative approach to the study of human history. “Hard” facts as bones, teeth, plants, stones and “soft” facts as languages, history, or religions can say a lot about human history. It is our task to understand and interpret them. The International Max Planck Research School for the Science of Human History (IMPRS-SHH) is seeking for researchers knowing well how to decode such facts and data and looking for new ways of decoding them. The IMPRS-SHH is a cooperation of the Max Planck Institute for the Science of Human History and Friedrich Schiller University, both situated in Jena, a traditional as well as a modern university town in the heart of Germany. The IMPRS-SHH is offering 16 PhD positions for 14 projects.
+
+<!--more-->
 
 Being integrated into state-of-the art ongoing research at the MPI-SHH and FSU, the IMPRS- SHH provides doctoral researchers a stimulating environment and optimal conditions for their PhD projects and custom-made preparation for the time thereafter, both with regard to aca- demic and non-academic careers. We offer a clearly structured doctoral program with three pillars: a mentoring program for individual supervision by outstanding scientists, a scientific program of high academic standard, and a transferable skills program.
 

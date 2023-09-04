@@ -8,6 +8,8 @@ image: /images/controller.jpg
 
 Command line tools are essential in many computational fields of science, not the least because command lines are often the only interface on a high-performance compute cluster or server. Particularly critical in command-line tools is a well-defined interface between the user and the program, the command line interface (CLI). A command line interface is like a contract. The user promises to provide input parameters in the right shape and type, and the tool promises to work with this input the way it is expected to. A breach of contract from the caller may result - at best - in a refusal of the program to run, and at worst in undefined behavior. 
 
+<!--more-->
+
 A well-defined command line interface helps ensuring loyalty to contract for a user. Moreover, a well-defined interface exposes to the user just the right amount of power to control the program. This is more tricky than it sounds: It is not enough to expose dozens of options and flags for the user to set, there also has to be some evaluation logic to ensure the combination of options and flags makes sense. As I hope to be able to convince you in this post, a strict and expressive typing system like in Haskell is a huge help with that.
 
 There's going to be quite some Haskell code in this post, and I've written it in part to get people interested in the language and the advantages of strong types. If you find this post interesting enough to give Haskell a chance, I recommend the freely available book and tutorial [Learn You a Haskell for Great Good](http://learnyouahaskell.com). The sourcecode described here can also be viewed in full in a [dedicated github-repository](https://github.com/stschiff/haskell-cli-example).

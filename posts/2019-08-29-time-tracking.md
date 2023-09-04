@@ -13,6 +13,8 @@ want to work on, *how* to solve them, and in *what pace. *Even as a PhD student,
 in many cases there is a lot of freedom to choose projects and set your own
 goals and deadlines (this may not be the case for everybody, but it was for me).
 
+<!--more-->
+
 This is both a blessing and curse. While this kind of freedom may seem like
 paradise to people working in shifts or being frustrated by being told by their
 bosses what to do, it also bears a high risk to induce stress. One particular
