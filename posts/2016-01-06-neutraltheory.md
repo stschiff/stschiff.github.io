@@ -4,8 +4,6 @@ image: /images/neutralTheory.jpg
 category: blog
 ---
 
-### A brief introduction to neutral theory
-
 This is a response to a creationist’s post on Human evolution (see quote above),
 in which I found so many flaws that I have to at least correct the most obvious
 factual errors for general readers. At the same time, this may serve as a quick

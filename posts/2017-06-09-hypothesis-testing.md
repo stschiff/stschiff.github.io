@@ -5,11 +5,6 @@ needsMathJax: True
 image: /images/hypTest2.jpg
 ---
 
-#### P-values for Bayesians
-
-*This post originally appeared on
-*[www.stephanschiffels.de](http://www.stephanschiffels.de)*.*
-
 So, I am reading this book called “Probability Theory; The logic of Science” by
 E.T. Jaynes. It is an excellent read, highly recommended, and quite an
 eye-opener to me in terms of understanding statistics and data analysis from

@@ -67,7 +67,7 @@ runHakyll bibEntries = hakyllWith config $ do
     -- dummy pages to have raw layouted blog posts for loading.
     match "posts/*" $ version "raw" $
         compile $ do
-            pandocCompiler >>= saveSnapshot "content" >>=                
+            pandocCompiler >>= saveSnapshot "content" >>=
                 loadAndApplyTemplate "templates/post.html" postCtx
 
     -- finalising posts including navigation and sidebar
@@ -285,5 +285,6 @@ postCtx :: Context String
 postCtx =
     dateField "date" "%B %e, %Y" <>
     teaserField "teaser" "content" <>
+    field "content_body" (\item -> itemBody <$> loadSnapshot (itemIdentifier item) "content") <>
     field "url" (fmap fromJust . getRoute . setVersion Nothing . itemIdentifier) <>
     defaultContext

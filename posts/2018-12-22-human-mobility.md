@@ -71,8 +71,7 @@ transformation periods in human history.
 
 The first time where human mobility peaked is between 8,000 and 6,000 years ago,
 which is the time when agriculture first spread through Europe, as a new way of
-life, and — as [genetic studies have
-shown](http://science.sciencemag.org/content/336/6080/466) — as new people who
+life, and — as [genetic studies have shown](http://science.sciencemag.org/content/336/6080/466) — as new people who
 descend from early Anatolian farmers and who first replaced and then intermixed
 with indigenous Hunter-Gatherers all throughout Europe. The second period of
 peaking human mobility was between around 5,000 and 3,500 years ago, according
@@ -97,8 +96,7 @@ Of course, languages spread differently from genes, and while the spread of
 languages and genes is often correlated, it doesn’t have to. Takes as an example
 England: While England has undergone a 100% Language replacement in the early
 Medieval times (from Celtic to Germanic), there certainly was not a 100%
-replacement of people ([our estimate of admixture is
-40%](/posts/2016-01-22-raremut1.html),
+replacement of people ([our estimate of admixture is 40%](/posts/2016-01-22-raremut1.html),
 and that is actually already much higher than what many other scholars believe).
 
 So how can we combine linguistic and genetic data in a combined model inspired

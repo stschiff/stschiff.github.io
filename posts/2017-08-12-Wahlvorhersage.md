@@ -1,10 +1,9 @@
 ---
 title: Und nun die Wahlvorhersage...
-category: blog, german
+category: blog
 image: /images/wahlblick_diffusion.jpg
+authors: von Stephan Schiffels und Andrej Fischer
 ---
-
-von Stephan Schiffels und Andrej Fischer
 
 Vorhersagen von Wahlergebnissen aufgrund von Umfragen gehören zum
 Standardgeschäft des politischen Betriebes. Etwa wöchentlich veröffentlichen die

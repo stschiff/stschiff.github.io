@@ -1,10 +1,8 @@
 ---
 title: Tracking your time helps you stay mentally sane.
 category: blog
-image: /images/clock.jpg
+image: /images/clock_image.jpg
 ---
-
-![](/images/clock_image.jpg)
 
 Working in academia comes with unique freedoms and challenges. I would argue
 that in no other job we have so much freedom to define our own work. At least at

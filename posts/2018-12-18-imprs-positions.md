@@ -32,5 +32,3 @@ For further information on how to apply, please visit our website https://imprs.
 IMPRS-SHH is supporting equal opportunities and welcomes applications from all sections of the community. The Max Planck Society is committed to employ more handicapped individu- als and especially encourages them to apply.
 
 Reference to data protection: Your data protection rights, the purpose for which your data will be processed, as well as further information about data protection is available to you on the website https://imprs.shh.mpg.de.
-
-[banner of MPI-SHH, IMPRS-SHH and FSU Jena](/images/imprs-shh-banner.jpg)
