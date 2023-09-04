@@ -3,3 +3,4 @@ _cache/
 .vscode/
 *.lock
 deploy.sh
+.DS_Store
