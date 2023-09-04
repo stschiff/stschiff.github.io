@@ -3,7 +3,6 @@
 </p>
 
 $for(posts)$
-    $if(isBlogPost)$
     <li class="columns">
         <div class="column is-one-quarter">
             $if(image)$
@@ -11,9 +10,9 @@ $for(posts)$
             $endif$
         </div>
         <div class="column">
-            <b><a href="/$url$">$title$</a></b><br>$date$
+            <span class="tag is-light">$category$</span><b><a href="/$url$">$title$</a></b><br>$date$
         </div>
     </li>
-    $endif$
+    <hr />
 $endfor$
         

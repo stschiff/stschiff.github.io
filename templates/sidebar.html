@@ -13,19 +13,11 @@
                     $endif$
                     $if(is_post)$
                         <u>$date$</u><br />
-                        $if(isBlogPost)$
-                            <span class="tag is-info">New Blog Post</span><br />
-                            <a href="/$url$">    
-                                <b>$title$</b>
-                            </a>
-                        $else$
-                            <span class="tag is-warning">New Announcement</span><br />
-                            $if(link)$
-                                <a href="$link$"><b>$title$</b></a>
-                            $else$
-                                <a href="/$url$"><b>$title$</b></a>
-                            $endif$
-                        $endif$
+                        <span class="tag is-info">New Post</span><br />
+                        <a href="/$url$">    
+                            <b>$title$</b>
+                        </a>
+                        <a href="/$url$"><b>$title$</b></a>
                     $endif$
                 </div>
                 <div class="column">
@@ -34,6 +26,7 @@
                     $endif$
                 </div>
             </li>
+            <hr />
         $endfor$
     </ul>
 </aside>

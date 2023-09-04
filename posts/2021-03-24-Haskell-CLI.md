@@ -1,6 +1,6 @@
 ---
 title: Designing Command Line Interfaces in Haskell
-isBlogPost: True
+category: blog
 image: /images/controller.jpg
 ---
 
