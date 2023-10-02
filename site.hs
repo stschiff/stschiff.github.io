@@ -32,6 +32,10 @@ runHakyll bibEntries = hakyllWith config $ do
         route idRoute
         compile copyFileCompiler
 
+    match "data/events.json" $ do
+        route idRoute
+        compile copyFileCompiler
+
     match "images/*" $ do
         route   idRoute
         compile copyFileCompiler

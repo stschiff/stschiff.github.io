@@ -1,0 +1,34 @@
+[
+    {
+        "date": "2023-12-01",
+        "type": "Guest Lecture",
+        "title": "Inferring mobility from archaeogenetic data",
+        "institution": "University of Bonn",
+        "city": "Bonn",
+        "country": "Germany"
+    },
+    {
+        "date": "2023-11-15",
+        "type": "Invited seminar talk",
+        "title": "Population Genetic Inference",
+        "institution": "University of Cologne",
+        "city": "Cologne",
+        "country": "Germany"
+    },
+    {
+        "date": "2022-11-15",
+        "type": "Hihi",
+        "title": "Haha",
+        "institution": "University of Cologne",
+        "city": "Cologne",
+        "country": "Germany"
+    },
+    {
+        "date": "2022-02-08",
+        "type": "Panel discussion",
+        "title": "Bla bla",
+        "institution": "University of Berlin",
+        "city": "Berlin",
+        "country": "Germany"
+    }
+]
