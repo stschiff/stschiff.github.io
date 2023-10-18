@@ -5,9 +5,9 @@ menu_Talks: True
 
 # 2023
 
-Talk at a Conference at the Heidelberg Academy of Sciences, Heidelberg, **November 2-4, 2023**
+Invited talk at the [Nobel Week Dialoge](https://www.nobelprize.org/events/nobel-week-dialogue/gothenburg-2023/agenda) in Götheborg, **December 9, 2023**
 
-Teaching on a Workshop in Zagreb, **October 25, 2023**
+Talk at a Conference at the Heidelberg Academy of Sciences, Heidelberg, **November 2-4, 2023**
 
 Seminar talk at the University of Bern, **October 23, 2023**
 
