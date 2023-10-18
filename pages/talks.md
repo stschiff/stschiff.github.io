@@ -3,6 +3,9 @@ title: Talks
 menu_Talks: True
 ---
 
+<script type="module" src="./render_events.js"></script>
+<div id="container"></div>
+
 # 2023
 
 Talk at a Conference at the Heidelberg Academy of Sciences, Heidelberg, **November 2-4, 2023**
