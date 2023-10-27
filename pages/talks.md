@@ -29,7 +29,9 @@ Virtual seminar talk at the *Cologne Center for Genomics*, Cologne, Germany, **N
 
 Talk by Stephan Schiffels at the *Mitteldeutscher Archäologentag* at the State Museum for prehistory in Halle, Germany, **Oct 6-8, 2022**.
 
-Talk by Postdoc Thiseas Lamnidis at the upcoming EMBO conference "Reconstructing the Human Past" in Heidelberg, Germany, **September 13-16, 2022**
+Invited Talk at the EMBO conference "Reconstructing the Human Past" in Heidelberg, Germany, **September 13-16, 2022**
+
+Workshop for a Nano-Degree on Ancient DNA at the UNiversity of Siegen, **September 5-6, 2023**
 
 Joint virtual lecture "Die Prähistorie aus dem Blickwinkel der Gegenwart" with Dr. Alexander Herbig and Dr. Oliver Hochadel at the Master's course "Integrative Wissensperspektiven" at the University of Bielefeld, **January 10, 2022, Bielefeld, Germany**
 
