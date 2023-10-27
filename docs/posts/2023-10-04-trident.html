@@ -7,7 +7,7 @@
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Stephan Schiffels - Posth2018-qd</title>
+        <title>Stephan Schiffels - Trident's restaurant - your order please?</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
         <!-- <link rel="stylesheet" href="/css/default.css" /> -->
     </head>
@@ -54,43 +54,46 @@
             <div class="columns">
                 <div class="column is-two-thirds">
                     <main class="section">
-                         
+                        <h1 class="title is-2">Trident's restaurant - your order please?</h1>
                         <div class="content">
-                            <h1 class="title is-2">Posth et al. 2018</h1>
-<div class="mb-5"><a href="../publications.html"><i>← All Publications</i></a></div>
-<div class="columns">
-    <div class="column is-one-third">
-        <img src="../images/publications/Posth2018-qd.jpg">
-    </div>
-    <div class="column">
+                            <div class="mb-5"><a href="../blog.html"><i>← All Blog Posts</i></a></div>
+<article>
+    <header>
+        Posted on October  4, 2023
         
+            by Stephan Schiffels
         
-        
-        <b>Reconstructing the Deep Population History of Central and South
-              America</b>. <i>Cell</i>. Published November 15, 2018.
-        <p>Authors: Cosimo Posth, Nathan Nakatsuka, Iosif Lazaridis, Pontus Skoglund, Swapan Mallick, Thiseas C Lamnidis, Nadin Rohland, Kathrin Nägele, Nicole Adamski, Emilie Bertolini, Nasreen Broomandkhoshbacht, Alan Cooper, Brendan J Culleton, Tiago Ferraz, Matthew Ferry, Anja Furtwängler, Wolfgang Haak, Kelly Harkins, Thomas K Harper, Tábita Hünemeier, Ann Marie Lawson, Bastien Llamas, Megan Michel, Elizabeth Nelson, Jonas Oppenheimer, Nick Patterson, <u>Stephan Schiffels</u>, Jakob Sedig, Kristin Stewardson, Sahra Talamo, Chuan-Chao Wang, Jean-Jacques Hublin, Mark Hubbe, Katerina Harvati, Amalia Nuevo Delaunay, Judith Beier, Michael Francken, Peter Kaulicke, Hugo Reyes-Centeno, Kurt Rademaker, Willa R Trask, Mark Robinson, Said M Gutierrez, Keith M Prufer, Domingo C Salazar-García, Eliane N Chim, Lisiane Müller Plumm Gomes, Marcony L Alves, Andersen Liryo, Mariana Inglez, Rodrigo E Oliveira, Danilo V Bernardo, Alberto Barioni, Veronica Wesolowski, Nahuel A Scheifler, Mario A Rivera, Claudia R Plens, Pablo G Messineo, Levy Figuti, Daniel Corach, Clara Scabuzzo, Sabine Eggers, Paulo DeBlasis, Markus Reindel, César Méndez, Gustavo Politis, Elsa Tomasto-Cagigao, Douglas J Kennett, André Strauss, Lars Fehren-Schmitz, Johannes Krause and David Reich</p>
-        <p>
-            <a href="http://dx.doi.org/10.1016/j.cell.2018.10.027">[Website]</a>
-            <a href="../data/pdfs/Posth2018-qd.pdf">[PDF]</a>
-        </p>
-        <p class="mt-3"><small><i><b><u>Abstract: </u></b>We report genome-wide ancient DNA from 49 individuals forming
-              four parallel time transects in Belize, Brazil, the Central
-              Andes, and the Southern Cone, each dating to at least ∼9,000
-              years ago. The common ancestral population radiated rapidly from
-              just one of the two early branches that contributed to Native
-              Americans today. We document two previously unappreciated streams
-              of gene flow between North and South America. One affected the
-              Central Andes by ∼4,200 years ago, while the other explains an
-              affinity between the oldest North American genome associated with
-              the Clovis culture and the oldest Central and South Americans
-              from Chile, Brazil, and Belize. However, this was not the primary
-              source for later South Americans, as the other ancient
-              individuals derive from lineages without specific affinity to the
-              Clovis-associated genome, suggesting a population replacement
-              that began at least 9,000 years ago and was followed by
-              substantial population continuity in multiple regions.</i></small></p>
-    </div>
-</div>
+        Categories: blog
+    </header>
+    
+        <img src="../images/jay-wennington-N_Y88TWmGwA-unsplash.jpg">
+    
+    <p><em>This post was originally published on <a href="https://blog.poseidon-adna.org/posts/trident_14.html">the Poseidon Blog</a></em></p>
+<p><em>Image credit by Unsplash</em></p>
+<p>Today we’re releasing a new major release for trident, our command-line tool and workhorse for working with Poseidon packages.</p>
+<p>If you haven’t checked it out yet, take a look <a href="https://www.poseidon-adna.org/#/trident">at our documentation</a>. With <code>trident</code>, you can download packages from our web-server, initialise new packages, perform validations, list summaries of packages, and - most importantly - forge new packages out of existing ones. This functionality, <code>forge</code> is more than a merge, and more than a subset tool. It is both. Perhaps a working analogy for what it does is a restaurant. At a restaurant, you order a specific meal, but you don’t care how the ingredients have been packaged, and with which other ingredients they are stored. You just want the chefs to assmble the meal, no matter whether the beans are stored together with the peas or not.</p>
+<!--more-->
+<p>With <code>forge</code>, you just show the program where to find the storage room (that’s what we call a base-directory that contains packages), and you tell it which individuals or groups you would like to include or exclude. Forge will then automatically look through <em>all</em> packages and assemble exactly the set of samples that you need in your new package.</p>
+<p>Forge comes with a kind of mini-language to specify the ingredients that you need. This mini-language is something that we have clarified and subtly improved in this new release. There are four ways to ask forge to include entities in <code>forge</code>:</p>
+<ol type="1">
+<li>Include an individual by name: You can write <code>&lt;EAS006&gt;</code> (in angular brackets) to ask forge to look for the individual named “EAS006” (I’m glad you ask, it’s a male individual from Southern England who did 1500 years ago and was buried near a town called Eastry today.). If there are multiple versions of this individual, because there are multiple versions of packages, forge looks for this individual only on the latest version.</li>
+<li>Include an individual by name, group and package: Sometimes, there are several individuals with that same name in your package collection, perhaps because you have multiple versions of the same package, or because for some reason you have already previously forged packages all in the same collection. In such a case, there is a more specific way to define an individual, via the syntax <code>&lt;2022_Gretzinger_AngloSaxons-1.0.0:England_EMA:EAS006&gt;</code>, which now specifies a very specific individual that is found in the given package and in the given group.</li>
+<li>Include entire groups: You can write <code>England_EMA</code> to ask forge to look for <em>all</em> individuals that are associated with the group named “England_EMA” (I’m again glad you ask: EMA stands for “Early Middle Ages”). This again implicitly looks for the group only in the latest versions of packages.</li>
+<li>Include entire packages: You can write <code>*2022_Gretzinger_AngloSaxons*</code> to ask forge to select for <em>all</em> individuals in the entire package.</li>
+</ol>
+<p>Note that you can combine these requests to merge them into the final forge. So for example you could say <code>&lt;EAS006&gt;,&lt;EAS001&gt;,England_IronAge</code> or so, which would then result in a package consisting of the two specified individuls plus <em>all</em> individuals from group “England_IronAge”. So this provides you with a lot of power already to select large numbers of samples in a succinct way. But sometimes you need even more power, because you want to also specifically <em>exclude</em> some samples. In <code>forge</code>, you can do that by prepending a minus-sign to any entity:</p>
+<ol start="5" type="1">
+<li>Exclude an individual by name: Write <code>-&lt;EAS006&gt;</code> to ask forge to remove any sample with that name from the final selection, in case it has been selected before.</li>
+<li>Exclude an individual by name, group and package: Write <code>-&lt;2022_Gretzinger_AngloSaxons-0.1.0:England_EMA:EAS006&gt;</code> to not remove <em>all</em> individual with the name “EAS006”, but only the one in the specified package.</li>
+<li>Exclude an entire group: Write <code>-England_EMA</code> to remove all individuals that belong to that group.</li>
+<li>Exclude an entire package: Write <code>-*2022_Gretzinger_AngloSaxons*</code> to remove this package.</li>
+</ol>
+<p>So now you can accurately describe what you want to include and exclude. Note that the order matters, as you would expect: <code>*2022_Gretzinger_AngloSaxons*,-England_EMA,&lt;EAS006&gt;</code> will contain a selection that includes <code>&lt;EAS006&gt;</code>, since it was added back at the end. In contrast, <code>*2022_Gretzinger_AngloSaxons*,&lt;EAS006&gt;,-England_EMA</code> will <em>not</em> include the sample, as the entire group was removed after it was added, so it got removed again.</p>
+<p>There is one more gist: If your forge-list starts with an exclusion statement, so if you just write <code>-*2022_Gretzinger_AngloSaxons*</code>, then this implicitly means that you include <em>all</em> latest versions of packages in the base directory. So this is a way to forge everything <em>except</em> a given package or group or individual.</p>
+<p>The exact semantics of this forge-machinery are quite complex and powerful, and we have clarified how this works in the latest version, and made it specifically more consistent and intuitive. This in particular concerns a feature that we now built in for the first time: You can now append versions of packages explicitly to a package-name, to select a specific version of a package. This works both in package requests, and in individuals by name, group and package.</p>
+<p>So <code>*2022_Gretzinger_AngloSaxons-1.2.1*</code> works, and <code>&lt;2022_Gretzinger_AngloSaxons-1.2.1:England_EMA:EAS006&gt;</code> works as well.</p>
+<p>There was quite a bunch of refactoring of code that needed to happen under the hood to make this update possible, in particular in relation to supporting multiple versions of packages. This update will bring us a good step closer to making archaeoenetics analyses truly reproducible, as older versions of packages will continue to be served on our servers (which we will post about separately).</p>
+</article>
 
                         </div>
                     </main>

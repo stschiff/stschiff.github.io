@@ -283,6 +283,7 @@ makeBibTexDateField bibEntry =
 
 postCtx :: Context String
 postCtx =
+    constField "is_post" "True" <>
     dateField "date" "%B %e, %Y" <>
     teaserField "teaser" "content" <>
     field "content_body" (\item -> itemBody <$> loadSnapshot (itemIdentifier item) "content") <>
