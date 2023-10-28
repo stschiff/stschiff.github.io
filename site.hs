@@ -8,7 +8,7 @@ import           Hakyll
 import           Hakyll.Core.Compiler.Internal (compilerThrow, compilerTry)
 
 import           Control.Monad                 (forM, liftM)
-import           Data.List                     (intercalate, sortBy)
+import           Data.List                     (intercalate, sortBy, elemIndex)
 import           Data.List.Split               (splitOn)
 import           Data.Maybe                    (fromJust, fromMaybe)
 import           Data.Ord                      (comparing)
@@ -221,12 +221,28 @@ pubCtx =
                 (firstAuthor : _)  ->
                     case args of
                         ["short"] -> return $ renderAuthor firstAuthor ++ " et al."
+                        ["condensed"] ->
+                            case splitOnMe authors of
+                                ([], me, []) -> return $ renderAuthor me
+                                ([firstAuthor], me, []) -> return $ renderAuthor firstAuthor ++ " and " ++ renderAuthor me
+                                (firstAuthor : _, me, []) -> return $ renderAuthor firstAuthor ++ " ... and " ++ renderAuthor me
+                                ([], me, [lastAuthor]) -> return $ renderAuthor me ++ " and " ++ renderAuthor lastAuthor
+                                ([], me, rest) -> return $ renderAuthor me ++ " ... and " ++ renderAuthor (last rest)
+                                ([firstAuthor], me, [lastAuthor]) -> return $ renderAuthor firstAuthor ++ ", " ++ renderAuthor me ++ " and " ++ renderAuthor lastAuthor
+                                (firstAuthor : _, me, [lastAuthor]) -> return $ renderAuthor firstAuthor ++ ", ... " ++ renderAuthor me ++ " and " ++ renderAuthor lastAuthor
+                                ([firstAuthor], me, rest) -> return $ renderAuthor firstAuthor ++ ", " ++ renderAuthor me ++ " ... and " ++ renderAuthor (last rest)
+                                (firstAuthor : _, me, rest) -> return $ renderAuthor firstAuthor ++ ", ... " ++ renderAuthor me ++ " ... and " ++ renderAuthor (last rest)
                         ["full"] -> return $ intercalate ", " [renderAuthor a | a <- init authors] ++ " and " ++
                                         renderAuthor (last authors)
+
         )
     renderAuthor :: (String, String) -> String
     renderAuthor ("Stephan", "Schiffels") = "<u>Stephan Schiffels</u>"
     renderAuthor (firstName, lastName) = firstName ++ " " ++ lastName
+    splitOnMe :: [(String, String)] -> ([(String, String)], (String, String), [(String, String)])
+    splitOnMe authors = 
+        let Just meIndex = elemIndex ("Stephan", "Schiffels") authors
+        in  (take meIndex authors, authors !! meIndex, drop (meIndex + 1) authors)
 
 getBibEntry :: Item String -> Compiler BibEntry
 getBibEntry item = do

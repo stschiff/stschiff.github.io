@@ -4,7 +4,7 @@ image: /images/neutralTheory.jpg
 category: blog
 ---
 
-This is a response to a creationist’s post on Human evolution (see quote above),
+This is a response to [this creationist’s post on Human evolution](https://billnugent56.medium.com/haldane-s-dilemma-shows-impossibility-of-ape-to-human-evolution-93bc7edb4830),
 in which I found so many flaws that I have to at least correct the most obvious
 factual errors for general readers. At the same time, this may serve as a quick
 primer into neutral theory.
@@ -33,27 +33,27 @@ humans and chimps? Let’s look at a scenario *without natural selection*, where
 *all* individuals in each generation survive and where there is no effect on
 fitness of any mutation whatsoever.
 
-In this scenario, if there are *N* individuals, how many new mutations are there
-in the entire population each generation? Well, there should be 2*N *✕* *40 new
-mutations in total, because there are 2*N* sets of chromosomes in all diploid
+In this scenario, if there are $N$ individuals, how many new mutations are there
+in the entire population each generation? Well, there should be $2N \times 40$ new
+mutations in total, because there are $2N$ sets of chromosomes in all diploid
 individuals (excluding X and Y chromosomes). What is the probability that any
 one of those mutations eventually becomes a substitution, so gets fixed in the
-population? For a neutral mutation, the answer is 1/2N, which can be seen from
+population? For a neutral mutation, the answer is $1/2N$, which can be seen from
 basic coalescence theory:
 
 <figure>
 ![](/images/neutralTheory.jpg){ width=60% }
-<figcaption>All 2*N* genes in the present generation (top) are derived from one ancestor who
+<figcaption>All $2N$ genes in the present generation (top) are derived from one ancestor who
 lived in the past (bottom). Every gene has an equal probability to be the one
 that gets ancestral to all subsequent generations, so the fixation probability
-for a neutral mutation is 1/2N. Figure adopted from Bamshad and Wooding, Nat.
+for a neutral mutation is $1/2N$. Figure adopted from Bamshad and Wooding, Nat.
 Rev. Gen. 2003</figcaption>
 </figure>
 
 Every gene in the present generation has an equal chance of eventually becoming
 the sole ancestor for all genes many generations later, so every gene has a
-chance of 1/2N of being that ancestor. Let us look at how many mutations
-eventually get fixed each generation: we have 2*N *✕* *40 ✕ 1/2N = 40.
+chance of $1/2N$ of being that ancestor. Let us look at how many mutations
+eventually get fixed each generation: we have $2N \times 40 \times 1/2N = 40$.
 
 So we find that in neutral evolution (where mutations have no fitness effects),
 the substitution rate equals the mutation rate. This remarkable result was
