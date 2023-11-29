@@ -13,8 +13,7 @@ menu_Resources: True
 
 ### Teaching Material
 
-*Disclaimer: These courses are currently _not_ designed to "just work" if you run them at home. They are dependent on data that I provided to workshop participants at the time, and specific softare to be installed. Nevertheless, they may provide useful resources for some readers even outside of the original teaching context, that's why I'm posting them here.*
-
+-   November 2023: An [online book](https://mpi-eva-archaeogenetics.github.io/comp_human_adna_book/) with chapters contributed by various people including myself, on computational analysis in human archaeogenetics.
 -   September 2022: A two-day course on Ancient DNA at the University of Siegen. Practical sessions on [github](https://github.com/stschiff/Ancient_DNA_Workshop_Sept_2022)
 -   May 2019: Six-hour practical course on "Computational Population
     Genetics" at the University of Jena, Germany,
