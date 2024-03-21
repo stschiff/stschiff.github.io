@@ -2,28 +2,27 @@
     <h2 class="title is-3">News</h2>
     <ul>
         $for(sidebarItems)$
-            <li class="columns box my-4">
-                <div class="column is-two-thirds">
-                    $if(is_pub)$
-                        <u>$published$</u><br />
-                        <span class="tag is-success">New Publication</span><br />
-                        <a href="/$internal_url$">
-                            <b>$title$</b>
-                        </a> by $authors("short")$. <i>$source$</i>.
+            <li class="column box my-4">
+                $if(is_pub)$
+                    <u>$published$</u><br />
+                    $if(image)$
+                        <img src="/$image$">
                     $endif$
-                    $if(is_post)$
-                        <u>$date$</u><br />
-                        <span class="tag is-info">New Post</span><br />
-                        <a href="/$url$">    
-                            <b>$title$</b>
-                        </a>
-                    $endif$
-                </div>
-                <div class="column">
+                    <span class="tag is-success">New Publication</span><br />
+                    <a href="/$internal_url$">
+                    <b>$title$</b>
+                    </a> by $authors("short")$. <i>$source$</i>.
+                $endif$
+                $if(is_post)$
+                    <u>$date$</u><br />
                     $if(image)$
                         <img src="$image$">
                     $endif$
-                </div>
+                    <span class="tag is-info">New Post</span><br />
+                    <a href="/$url$">    
+                        <b>$title$</b>
+                    </a>
+                $endif$
             </li>
         $endfor$
     </ul>

@@ -5,11 +5,11 @@ menu_Resources: True
 
 ### Data
 
+* [BAM Files](http://cdna.eva.mpg.de/Gretzinger_et_al_2022_BAM_files/) for the ancient individuals described in [Gretzinger et al. 2022](https://www.nature.com/articles/s41586-022-05247-2).
 * [Genotype files](https://edmond.mpdl.mpg.de/imeji/collection/VYYcdabcr2gO5K3x?q=) for the 20 ancient African genomes generated in [Wang et al. 2020](https://advances.sciencemag.org/content/6/24/eaaz0183)
 * [BAM files](https://share.eva.mpg.de/index.php/s/3stgr9wNLAM8Bte) of the 10 ancient British genomes generated in [Schiffels et al. 2016](https://www.nature.com/articles/ncomms10408)
 * [BAM files](https://share.eva.mpg.de/index.php/s/cwaqWbMHR64Fr3Q) of the three individuals with genome-wide data analysed in [Schuenemann et al. 2017](https://www.nature.com/articles/ncomms15694)
 * [Genotype data](https://edmond.mpdl.mpg.de/imeji/collection/DZ77Fi_Dqj6TloxA) of the present-day Siberian individuals described in [Flegontov et al. 2019](https://www.nature.com/articles/s41586-019-1251-y)
-* [BAM Files](http://cdna.eva.mpg.de/Gretzinger_et_al_2022_BAM_files/) for the ancient individuals described in [Gretzinger et al. 2022](https://www.nature.com/articles/s41586-022-05247-2).
 
 ### Teaching Material
 
