@@ -1,8 +1,4 @@
 <!doctype html>
-$if(needsMathJax)$
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-$endif$
 <script src="https://kit.fontawesome.com/d7cf9532bd.js" crossorigin="anonymous"></script>
 <script src="/js/toggle.js"></script>
 <html lang="en">
@@ -11,12 +7,13 @@ $endif$
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Stephan Schiffels - $title$</title>
+        <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"> -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
         <!-- <link rel="stylesheet" href="/css/default.css" /> -->
     </head>
     <body>
         <div class="container">
-        <header class="section">
+            <header class="section">
             <h1 class="title is-1">
                 <a href="/">Stephan Schiffels</a>
             </h1>
@@ -34,12 +31,12 @@ $endif$
                 <div class="navbar-menu" id="navMenu">
                     <div class="navbar-start">
                         <a href="/" $if(menu_Home)$ class="navbar-item is-active"$else$ class="navbar-item"$endif$>Home</a>
-                        <a href="/research.html"$if(menu_Research)$ class="navbar-item is-active"$else$ class="navbar-item"$endif$>Research</a>
+                        <a href="/news.html"$if(menu_News)$ class="navbar-item is-active"$else$ class="navbar-item"$endif$>News</a>
                         <a href="/publications.html"$if(menu_Publications)$ class="navbar-item is-active"$else$ class="navbar-item"$endif$>Publications</a>
                         <a href="/talks.html"$if(menu_Talks)$ class="navbar-item is-active"$else$ class="navbar-item"$endif$>Talks</a>
                         <a href="/videos.html"$if(menu_Videos)$ class="navbar-item is-active"$else$ class="navbar-item"$endif$>Videos</a>
                         <a href="/resources.html"$if(menu_Resources)$ class="navbar-item is-active"$else$ class="navbar-item"$endif$>Resources</a>
-                        <a href="/blog.html"$if(menu_Blog)$ class="navbar-item is-active"$else$ class="navbar-item"$endif$>News/Blog</a>
+                        <a href="https://blog.stephanschiffels.de" class="navbar-item">Blog</a>
                     </div>
                     <div class="navbar end">
                         <a class="navbar-item" href="https://www.eva.mpg.de/archaeogenetics/staff/stephan-schiffels/"><img src="/images/mpi_logo.jpg"></a>
@@ -52,21 +49,14 @@ $endif$
                 </div>
             </nav>
 
-        </header>
+            </header>
 
-            <div class="columns">
-                <div class="column is-two-thirds">
-                    <main class="section">
-                        $if(showNoTitle)$ $else$<h1 class="title is-2">$title$</h1>$endif$
-                        <div class="content">
-                            $body$
-                        </div>
-                    </main>
+            <main class="section">
+                $if(showNoTitle)$ $else$<h1 class="title is-2">$title$</h1>$endif$
+                <div class="content">
+                    $body$
                 </div>
-                <div class="column">
-                    $sidebar$
-                </div>
-            </div>
+            </main>
 
             <footer class="footer has-text-centered">
                 Powered by
@@ -74,6 +64,5 @@ $endif$
                 <a href="https://github.com/stschiff/stschiff.github.io">github</a>.
             </footer>
         </div>
-    </div>
     </body>
 </html>

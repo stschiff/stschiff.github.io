@@ -3,6 +3,22 @@ title: Talks
 menu_Talks: True
 ---
 
+# 2025
+
+Plenary Lecture at the 69th Annual Meeting of the Society of Thrombosis and Haemostasis Research, Lausanne, **February 20, 2025**
+
+# 2024
+
+Organising a visit of the Archaeological Society of Saxony-Anhalt, at the MPI-EVA, **November 28, 2024**
+
+Meeting on Genetics and History at the University of Bonn, Center for Slavery and Dependency Studies, **June 6, 2024**
+
+Invited seminar talk at the MPI for Evolutionary Biology in Plön, **April 25, 2024**
+
+Seminar Talk at the Department of Primate Evolution at the MPI-EVA, **February 27, 2024**
+
+Invited seminar at the University of Cologne Population Genetics Interest Group, **January 16, 2024**
+
 # 2023
 
 Invited talk at the [Nobel Week Dialoge](https://www.nobelprize.org/events/nobel-week-dialogue/gothenburg-2023/agenda) in Götheborg, **December 9, 2023**
