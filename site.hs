@@ -105,13 +105,16 @@ pubCtx =
                 return $ fromJust mr)
     makePDFfield :: Context BibEntry
     makePDFfield = field "pdf" (\item -> do
-        let citekey = bibEntryId . itemBody $ item
-        pdfItem <- compilerTry (getPDF citekey)
-        case pdfItem of
-            Left _ -> noResult $ "no PDF for " ++ citekey
-            Right i -> do
-                mr <- getRoute . itemIdentifier $ i
-                return $ fromJust mr)
+        case lookup "pdf_url" . bibEntryFields . itemBody $ item of
+            Just url -> return url
+            Nothing -> do
+                let citekey = bibEntryId . itemBody $ item
+                pdfItem <- compilerTry (getPDF citekey)
+                case pdfItem of
+                    Left _ -> noResult $ "no PDF for " ++ citekey
+                    Right i -> do
+                        mr <- getRoute . itemIdentifier $ i
+                        return $ fromJust mr)
     getImage :: String -> Compiler (Item CopyFile)
     getImage ck = load . fromFilePath $ "images/publications/" ++ ck ++ ".jpg"
     getPDF :: String -> Compiler (Item CopyFile)
