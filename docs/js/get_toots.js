@@ -1,6 +1,7 @@
-export async function getToots(account_id) {
+export async function getToots(account_id, max_id) {
+  const max_id_str = max_id ? "&max_id=" + max_id : "";
   const url = "https://ecoevo.social/api/v1/accounts/" + account_id +
-    "/statuses?exclude_replies=true&exclude_reblogs=true";
+    "/statuses?exclude_replies=true&exclude_reblogs=true" + max_id_str;
   console.log("Sending request: " + url);
   try {
     const response = await fetch(url);
