@@ -1,6 +1,4 @@
-{-# LANGUAGE DeriveGeneric     #-}
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE TupleSections     #-}
 
 import           BibTeX                        (BibEntry (..), bibFileParser)
 import           Hakyll
