@@ -3,13 +3,14 @@ title: News
 menu_News: True
 ---
 
-<div id="toot_list"></div>
+<div id="toot_list"><p>Loading Feed<i id="dummy" class="fa-solid fa-spinner"></i></p></div>
 
 <script type="module">
     
 import { getToots } from "/js/get_toots.js";
 const toot_list = document.getElementById('toot_list');
 let max_id = null;
+let before_load = true;
 
 while(toot_list.childElementCount < 20) {
   const toots = await getToots("109301761847534867", max_id);
@@ -60,7 +61,11 @@ while(toot_list.childElementCount < 20) {
   </div>
   
 </div>
-</div>`
+</div>`;
+    if(before_load) {
+      toot_list.innerHTML = "";
+      before_load = false;
+    }
     toot_list.appendChild(toot_div);
     max_id = toot.id;
   }
