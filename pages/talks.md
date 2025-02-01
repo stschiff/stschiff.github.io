@@ -5,11 +5,18 @@ menu_Talks: True
 
 # 2025
 
-Plenary Lecture at the 69th Annual Meeting of the Society of Thrombosis and Haemostasis Research, Lausanne, **February 20, 2025**
+Invited Seminar Talk at the University of Vienna, Austria, **June 17, 2025**
+
+Accepted talk on "Connectivity, ancestry and mobility during the Iron Age - new evidence from ancient DNA" at [Kiel Conference](https://www.kielconference.uni-kiel.de), **24 - 29 May, 2025**
+
+Invited Seminar Talk at the Computational Biology Seminar series at the University of Lausanne, Switzerland, **February 20, 2025**.
+
+Plenary Lecture at the [69th Annual Meeting of the Society of Thrombosis and Haemostasis Research](https://www.gth2025.com/scientific-programme/), Lausanne, Switzerland, **February 20, 2025**
+
 
 # 2024
 
-Organising a visit of the Archaeological Society of Saxony-Anhalt, at the MPI-EVA, **November 28, 2024**
+Lecture for the Archaeological Society of Saxony-Anhalt, at the MPI-EVA, **November 28, 2024**
 
 Meeting on Genetics and History at the University of Bonn, Center for Slavery and Dependency Studies, **June 6, 2024**
 
