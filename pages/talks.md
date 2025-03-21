@@ -3,7 +3,42 @@ title: Talks
 menu_Talks: True
 ---
 
-# 2025
+# Videos
+
+<span class="tag is-success">English</span> Talk at the 2023 Nobel Week Dialogue in Gothenborg, Sweden on "Migration throughout Human History"
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ZVtZ9MCCKXg?si=xr3yBkvIRNh4Ylnk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+---
+
+<span class="tag is-warning">German</span> Talk together with [Alexander Herbig](https://www.eva.mpg.de/archaeogenetics/research-groups/computational-pathogenomics/) at the German Archaeology Society (Deutscher Archäologenverband): Erkenntnisse und Herausforderung der Archäogenetik
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/r5naPIzNjFI?si=2BpgseszZprDtswW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+---
+
+<span class="tag is-warning">German</span> Participation in panel discussion and evening on "What is saxonian?" at the *Deutsches Hygiene-Museum Dresden* on March 16, 2023:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/FVhjHga43YQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+---
+
+<span class="tag is-warning">German</span> Talk @TEDxTHBrandenburg, Germany recorded on December 6 2019:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/lPTuXosgUik" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+---
+
+<span class="tag is-success">English</span> Webinar for the International Society for Computational Biology, Regional Group in
+Turkey, recorded on December 12, 2018:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/qGW67OAbXD4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+---
+
+# List of talks
+
+## 2025
 
 Invited Seminar Talk at the University of Vienna, Austria, **June 17, 2025**
 
@@ -14,7 +49,7 @@ Invited Seminar Talk at the Computational Biology Seminar series at the Universi
 Plenary Lecture at the [69th Annual Meeting of the Society of Thrombosis and Haemostasis Research](https://www.gth2025.com/scientific-programme/), Lausanne, Switzerland, **February 20, 2025**
 
 
-# 2024
+## 2024
 
 Lecture for the Archaeological Society of Saxony-Anhalt, at the MPI-EVA, **November 28, 2024**
 
@@ -26,7 +61,7 @@ Seminar Talk at the Department of Primate Evolution at the MPI-EVA, **February 2
 
 Invited seminar at the University of Cologne Population Genetics Interest Group, **January 16, 2024**
 
-# 2023
+## 2023
 
 Invited talk at the [Nobel Week Dialoge](https://www.nobelprize.org/events/nobel-week-dialogue/gothenburg-2023/agenda) in Götheborg, **December 9, 2023**
 
@@ -44,7 +79,7 @@ Participation in panel discussion and evening on "What is saxonian?" at the *Deu
 
 Colloquium at *Humboldt University, Berlin* "Eine neue archäogenetische Studie zur angelsächsischen Migration im Frühmittelalter", **Jan 23, 2023**
 
-# 2022
+## 2022
 
 Zoom-Lecture at the *University of Jena* on "Human demographic history - From African origins to recent population structure", **Dec 8, 2022**
 
@@ -58,7 +93,7 @@ Workshop for a Nano-Degree on Ancient DNA at the UNiversity of Siegen, **Septemb
 
 Joint virtual lecture "Die Prähistorie aus dem Blickwinkel der Gegenwart" with Dr. Alexander Herbig and Dr. Oliver Hochadel at the Master's course "Integrative Wissensperspektiven" at the University of Bielefeld, **January 10, 2022, Bielefeld, Germany**
 
-# 2021
+## 2021
 
 Virtual talk "Die Archäogenetik als neue Quelle zur Untersuchung menschlicher Mobilität am Beispiel der Populationsgeschichte Europas" within discussion section "Die Herausforderung der Genetic History" at the *Deutscher Historikertag*, **October 6, 2021, Munich, Germany**
 
@@ -66,7 +101,7 @@ Participation in virtual Roundtable Discussion "Genetics, Genealogy, History" at
 
 Virtual Seminar "Die frühmittelalterliche Bevölkerungsgeschichte Europas aus Sicht der Paläogenetik." at *State Museum Hannover*, **February 11, 2021, Hannover, Germany**
 
-# 2020
+## 2020
 
 Virtual Seminar at *Stony Brook University*, **September 9, 2020, Stony Brook, NY, USA**
 
@@ -84,7 +119,7 @@ Vortrag "Eine kurze Geschichte Deiner DNA und ihrer bewegten Vergangenheit" at t
 
 Vortrag "Neue Methoden und Erkenntnisse zur Europäischen Eisenzeit und Frühmittelalter aus der Genetik" im Rahmen eines *Round Table* des MPI für Menschheitsgeschichte und des Historischen Instituts der Universität Jena. **January 9, 2020, Jena, Germany**
 
-# 2019
+## 2019
 
 Lecture on "Exploring deep human population history with genomic data: New methods and new insights" at the [MPI-SHH](https://www.shh.mpg.de), **December 19, 2019, Jena, Germany**
 
@@ -123,7 +158,7 @@ Workshop on
 "Computational Population Genetics",
 **January 22-24, 2019,  MPI-SHH in Jena, Germany.**
 
-# 2018
+## 2018
 
 Webinar with the student council of the Turkish regional group of the
 International Society for Computational Biology, Regional Group in
@@ -151,7 +186,7 @@ Lecture "Unlocking human history - Computational methods for inference of past
 demography and population structure from genome sequences.",
 **April 4, 2018, MPI for Plant Breeding Research, Cologne, Germany.**
 
-# 2017 and before
+## 2017 and before
 
 Talk by Thiseas Lamnidis "The origin and spread
 of Siberian ancestry in north-eastern Europe." Workshop
