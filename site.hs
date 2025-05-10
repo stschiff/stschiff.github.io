@@ -49,6 +49,29 @@ main = hakyllWith config $ do
                 >>= loadAndApplyTemplate "templates/base.html" defaultContext
                 >>= relativizeUrls
 
+    -- dummy pages to have raw layouted blog posts for loading.
+    match "posts/*" $ version "raw" $
+        compile $ do
+            pandocCompiler >>= saveSnapshot "content" >>=
+                loadAndApplyTemplate "templates/post.html" postCtx
+
+    match "posts/*" $ do
+        route $ setExtension "html"
+        compile $ do
+            pandocCompiler
+                >>= loadAndApplyTemplate "templates/post.html" postCtx
+                >>= relativizeUrls
+
+    create ["blog.html"] $ do
+        route idRoute
+        compile $ do
+            posts <- recentFirst =<< loadAll ("posts/*" .&&. hasVersion "raw")
+            let ctx = listField "posts" postCtx (return posts)
+            makeItem ""
+                >>= loadAndApplyTemplate "templates/blog.html" ctx
+                >>= loadAndApplyTemplate "templates/base.html" (constField "title" "Blog" <> constField "menu_Blog" "True" <> defaultContext)
+                >>= relativizeUrls
+
     match "pages/publications.bib" $ do
         route (constRoute "publications.html")
         compile $ do
@@ -60,7 +83,7 @@ main = hakyllWith config $ do
             let sortedBibEntries = sortOn (Down . makeBibTexDate) bibEntries
             makeItem "" >>= loadAndApplyTemplate "templates/publications.html" (pubListCtx sortedBibEntries)
                         >>= loadAndApplyTemplate "templates/base.html" defaultContext
-            
+
     match "templates/*" $ compile templateBodyCompiler
 
 pubListCtx :: [BibEntry] -> Context String
@@ -171,11 +194,11 @@ getAuthors item = do
     let BibEntry _ citekey bibFields = itemBody item
     case lookup "author" bibFields of
         Just allAuthorsStr -> do
-            forM (splitOn " and " (intercalate " " . map strip . lines $ allAuthorsStr)) $ \singleAuthorStr -> do
+            forM (splitOn " and " (unwords . map strip . lines $ allAuthorsStr)) $ \singleAuthorStr -> do
                 case splitOn ", " singleAuthorStr of
                     [lastName, firstName] -> return (firstName, lastName)
                     [firstName] -> return (firstName, "") -- in some cultures there are single first names, e.g. "Nini"
-                    _ -> compilerThrow $ ["cannot parse author" ++ singleAuthorStr]
+                    _ -> compilerThrow ["cannot parse author" ++ singleAuthorStr]
         Nothing -> noResult $ "bibEntry for " ++ citekey ++ " does not have field author"
 
 makeBibTexDate :: BibEntry -> UTCTime
@@ -213,3 +236,12 @@ makeBibTexDateField bibEntry =
         "nov" -> "November"
         "dec" -> "December"
         _     -> error $ "Could not parse BibTex month" ++ m
+
+postCtx :: Context String
+postCtx =
+    constField "is_post" "True" <>
+    dateField "date" "%B %e, %Y" <>
+    teaserField "teaser" "content" <>
+    field "content_body" (\item -> itemBody <$> loadSnapshot (itemIdentifier item) "content") <>
+    field "url" (fmap fromJust . getRoute . setVersion Nothing . itemIdentifier) <>
+    defaultContext
