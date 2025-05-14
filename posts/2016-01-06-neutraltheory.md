@@ -1,7 +1,6 @@
 ---
 title: A brief introduction to neutral theory
 image: /images/neutralTheory.jpg
-category: blog
 ---
 
 This is a response to [this creationist’s post on Human evolution](https://billnugent56.medium.com/haldane-s-dilemma-shows-impossibility-of-ape-to-human-evolution-93bc7edb4830),

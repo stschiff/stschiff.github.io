@@ -1,6 +1,5 @@
 ---
 title: Bye bye Wordpress
-category: blog
 ---
 
 I recently rebuilt my website. I had previously used [Wordpress](https://wordpress.org), and while that was perfect to get started, I soon got annoyed by its relative inflexibility. While Wordpress has a huge community with tons of free templates for nicely designed websites, the templates themselves are often very opinionated in a sense that they encourage certain archetypes, like Blogging sites, or magazine-style sites. Customization is possible, but it comes in the form of plugins (again, thousands are available for free), and the more customization you want, the more plugins you end up using. This at some point makes the whole system a bit bloated, and still not quite right in the end.

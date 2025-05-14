@@ -1,6 +1,5 @@
 ---
 title: Tracking your time helps you stay mentally sane.
-category: blog
 image: /images/clock_image.jpg
 ---
 

@@ -1,8 +1,6 @@
 ---
 title: Und nun die Wahlvorhersage...
-category: blog
 image: /images/wahlblick_diffusion.jpg
-authors: von Stephan Schiffels und Andrej Fischer
 ---
 
 Vorhersagen von Wahlergebnissen aufgrund von Umfragen gehören zum

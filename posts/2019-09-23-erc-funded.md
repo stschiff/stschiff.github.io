@@ -1,7 +1,6 @@
 ---
 title: Funded ERC Grant MICROSCOPE
 image: /images/erc-logo.jpg
-category: blog
 ---
 
 Stephan Schiffels’ project MICROSCOPE will investigate the pre-Roman European Iron Age with new genetic methods. The challenge in most periods of European prehistory since the Bronze Age is a high degree of genetic homogeneity among European populations. This is due to millennia of mixing and amalgamation of the originally diverse ancestry lines that make up Europeans today. In order to address this, a significant part of the project is devoted to the development of new statistical genomic methods, based on shared rare genetic variation, which will help investigating the subtle population dynamics needed to infer population movements in the past.

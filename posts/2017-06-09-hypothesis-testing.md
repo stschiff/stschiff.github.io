@@ -1,6 +1,5 @@
 ---
 title: Hypothesis testing without Alternatives
-category: blog
 needsMathJax: True
 image: /images/hypTest2.jpg
 ---

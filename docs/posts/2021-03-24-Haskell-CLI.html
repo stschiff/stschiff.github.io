@@ -1,4 +1,5 @@
 <!doctype html>
+
 <script src="https://kit.fontawesome.com/d7cf9532bd.js" crossorigin="anonymous"></script>
 <script src="../js/toggle.js"></script>
 <html lang="en">
@@ -12,7 +13,7 @@
         <!-- <link rel="stylesheet" href="/css/default.css" /> -->
     </head>
     <body>
-        <div class="container">
+        <div class="container is-max-desktop">
             <header class="section">
             <h1 class="title is-1">
                 <a href="../">Stephan Schiffels</a>
@@ -39,11 +40,10 @@
                     </div>
                     <div class="navbar end">
                         <a class="navbar-item" href="https://www.eva.mpg.de/archaeogenetics/staff/stephan-schiffels/"><img src="../images/mpi_logo.jpg"></a>
-                        <a class="navbar-item" href="https://twitter.com/stschiff"><span class="icon is-large"><i class="fa-brands fa-twitter fa-2xl"></i></span></a>
-                        <a class="navbar-item" href="https://github.com/stschiff"><span class="icon is-large"><i class="fa-brands fa-github fa-2xl"></i></span></a>
-                        <a class="navbar-item" href="https://medium.com/stephan-schiffels"><span class="icon is-large"><i class="fa-brands fa-medium fa-2xl"></i></span></a>
-                        <a class="navbar-item" href="https://www.researchgate.net/profile/Stephan_Schiffels"><span class="icon is-large"><i class="fa-brands fa-researchgate fa-2xl"></i></span></a>
-                        <a class="navbar-item" rel="me" href="https://ecoevo.social/@stschiff"><span class="icon is-large"><i class="fa-brands fa-mastodon fa-2xl"></i></span></a>
+                        <a class="navbar-item" href="https://github.com/stschiff"><span class="icon"><i class="fa-brands fa-github fa-2xl"></i></span></a>
+                        <a class="navbar-item" href="https://www.researchgate.net/profile/Stephan_Schiffels"><span class="icon"><i class="fa-brands fa-researchgate fa-2xl"></i></span></a>
+                        <a class="navbar-item" href="https://bsky.app/profile/stschiff.bsky.social"><span class="icon"><i class="fa-brands fa-bluesky fa-2xl"></i></span></a>
+                        <a class="navbar-item" rel="me" href="https://ecoevo.social/@stschiff"><span class="icon"><i class="fa-brands fa-mastodon fa-2xl"></i></span></a>
                     </div>
                 </div>
             </nav>
@@ -57,11 +57,11 @@
 <article>
     <header>
         Posted on March 24, 2021
-        
-        Categories: blog
     </header>
     
-        <img src="../images/controller.jpg">
+        <div class="column is-10 is-offset-1">
+            <img src="../images/controller.jpg">
+        </div>
     
     <p>Command line tools are essential in many computational fields of science, not the least because command lines are often the only interface on a high-performance compute cluster or server. Particularly critical in command-line tools is a well-defined interface between the user and the program, the command line interface (CLI). A command line interface is like a contract. The user promises to provide input parameters in the right shape and type, and the tool promises to work with this input the way it is expected to. A breach of contract from the caller may result - at best - in a refusal of the program to run, and at worst in undefined behavior.</p>
 <!--more-->

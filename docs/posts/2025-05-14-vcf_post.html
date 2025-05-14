@@ -1,0 +1,85 @@
+<!doctype html>
+
+<script src="https://kit.fontawesome.com/d7cf9532bd.js" crossorigin="anonymous"></script>
+<script src="../js/toggle.js"></script>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Stephan Schiffels - Embracing the Variant Call Format in Ancient Genomics</title>
+        <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"> -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+        <!-- <link rel="stylesheet" href="/css/default.css" /> -->
+    </head>
+    <body>
+        <div class="container is-max-desktop">
+            <header class="section">
+            <h1 class="title is-1">
+                <a href="../">Stephan Schiffels</a>
+            </h1>
+            <h2 class="subtitle">
+                Population Genetics – Computational Methods - Human History
+            </h2>
+            <nav class="navbar">
+                <div class="navbar-brand">
+                    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+                <div class="navbar-menu" id="navMenu">
+                    <div class="navbar-start">
+                        <a href="../news.html" class="navbar-item">News</a>
+                        <a href="../publications.html" class="navbar-item">Publications</a>
+                        <a href="../talks.html" class="navbar-item">Talks</a>
+                        <a href="../resources.html" class="navbar-item">Resources</a>
+                        <a target="_blank" rel="noopener noreferrer" href="https://www.eva.mpg.de/archaeogenetics/research-groups/population-genetics/" class="navbar-item">Research Group<i style="font-size:12px" class="ml-1 fa-solid fa-arrow-up-right-from-square"></i></a>
+                        <a href="../blog.html" class="navbar-item">Blog</a>
+                    </div>
+                    <div class="navbar end">
+                        <a class="navbar-item" href="https://www.eva.mpg.de/archaeogenetics/staff/stephan-schiffels/"><img src="../images/mpi_logo.jpg"></a>
+                        <a class="navbar-item" href="https://github.com/stschiff"><span class="icon"><i class="fa-brands fa-github fa-2xl"></i></span></a>
+                        <a class="navbar-item" href="https://www.researchgate.net/profile/Stephan_Schiffels"><span class="icon"><i class="fa-brands fa-researchgate fa-2xl"></i></span></a>
+                        <a class="navbar-item" href="https://bsky.app/profile/stschiff.bsky.social"><span class="icon"><i class="fa-brands fa-bluesky fa-2xl"></i></span></a>
+                        <a class="navbar-item" rel="me" href="https://ecoevo.social/@stschiff"><span class="icon"><i class="fa-brands fa-mastodon fa-2xl"></i></span></a>
+                    </div>
+                </div>
+            </nav>
+
+            </header>
+
+            <main class="section">
+                <h1 class="title is-2">Embracing the Variant Call Format in Ancient Genomics</h1>
+                <div class="content">
+                    <div class="mb-5"><a href="../blog.html"><i>← All Blog Posts</i></a></div>
+<article>
+    <header>
+        Posted on May 14, 2025
+    </header>
+    
+        <div class="column is-10 is-offset-1">
+            <img src="../images/vcf_sample.jpg">
+        </div>
+    
+    <p><em>This post was originally published on <a href="https://blog.poseidon-adna.org/posts/vcf_post.html">the Poseidon Blog</a></em></p>
+<p>A major request that emerged from the Peer Review process of our <a href="https://elifesciences.org/reviewed-preprints/98317">reviewed Poseidon preprint</a> was the support for the <a href="https://samtools.github.io/hts-specs/VCFv4.1.pdf">Variant Call Format</a>. This is the de-facto standard for how to store genetic variation data in the field of human and medical genetics. The Ancient DNA community has largely settled on simpler formats, perhaps most prominently due to support for EIGENSTRAT or PLINK formats of the popular software packages <a href="https://github.com/DReichLab/EIG">Eigensoft</a> and <a href="https://github.com/DReichLab/AdmixTools">Admixtools</a>.</p>
+<!--more-->
+<p>Nevertheless, in contrast to the above two formats, the VCF format is extremely well specified and allows to store some critical features of the data that Eigenstrat and Plink just cannot. One, in my view critical point, is the ability to distinguish between haploid and diploid genotype calls. For example, in the vast majority of cases in the field of ancient genomics, we typically don’t analyse diploid calls, but represent an individual’s genotype by single-reads mapping to a variant. This kind of single-read sampling approach is implemented in the popular software tool <a href="https://github.com/stschiff/sequenceTools">pileupCaller</a>.</p>
+<p>In VCF format, a diploid genotype call is encoded via entries such as <code>0/1</code> or <code>1/1</code>, while haploid calls are encoded as <code>0</code> or <code>1</code>. Even missing information has this feature: <code>./.</code> (diploid) and <code>.</code> (haploid). In contrast, in Eigenstrat and Plink, genotypes are always stored as diploids. This is OK for most analyses, but for some calculations that involve allele frequency estimates and their error, for example to compute FST or some F-Statistics, we need to know the total number of haplotypes underlying the data. That is way, for example, our <a href="https://www.poseidon-adna.org/#/xerxes">xerxes</a> analysis tool requires GenotypePloidy information from <a href="https://www.poseidon-adna.org/#/janno_details">Janno files</a>.</p>
+<p>Another interesting feature of the VCF format is its flexibility. There is a simple way to define new data fields to be specified per Variant or even per sample. Those fields can be numbers or strings, and even lists of numbers. This is being used by pileupCaller to report the number of reads for each of the four bases A,C,T,G on the forward and the backward strand (using the <a href="https://github.com/stschiff/sequenceTools?tab=readme-ov-file#vcf-output">custom-defined DP8 field</a>).</p>
+<p>I think the VCF format has been under-appreciated by the Ancient DNA Community and I think it’s time we use it more. Poseidon is now ready for it, and its flagship tool <code>trident</code> now supports VCF reading (introduced in [version 1.5.7.0]https://github.com/poseidon-framework/poseidon-hs/blob/master/CHANGELOGRELEASE.md#vcf-support-for-genotype-data)) and with the next upcoming release 1.6.7.0 also writing (for example using <code>trident genoconvert</code> or <code>trident forge</code>), but users should be aware that VCF files from trident will have only minimal features, since the underlying data often then comes from PLINK or EIGENSTRAT files, which do not support the kind of rich per-variant-per-sample information that many VCF users might expect. Nevertheless, the output is well-formed and valid VCF, and can be viewed for example using <a href="https://samtools.github.io/bcftools/bcftools.html">bcftools</a>. Although already implemented in trident, the <a href>Poseidon-Schema v 2.7.1</a> does not yet contain VCF. So this feature for now should be considered experimental. We are formally specifying VCF as official Poseidon Genotype-Format in the <a href="https://github.com/poseidon-framework/poseidon-schema/pull/93">upcoming 3.0.0 release</a>.</p>
+</article>
+
+                </div>
+            </main>
+
+            <footer class="footer has-text-centered">
+                Powered by
+                <a href="http://jaspervdj.be/hakyll">Hakyll</a> and <a href="https://bulma.io">Bulma</a>. Sourcecode available on
+                <a href="https://github.com/stschiff/stschiff.github.io">github</a>.
+            </footer>
+        </div>
+    </body>
+</html>

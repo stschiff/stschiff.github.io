@@ -1,6 +1,5 @@
 ---
 title: "Behind the paper: Paleo-Eskimo ancestry in North America"
-category: blog
 image: /images/PaleoEskimoCover-small.jpg
 ---
  
