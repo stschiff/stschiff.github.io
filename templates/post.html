@@ -2,13 +2,12 @@
 <article>
     <header>
         Posted on $date$
-        $if(author)$
-            by $author$
-        $endif$
         Categories: $category$
     </header>
     $if(image)$
-        <img src="$image$">
+        <div class="column is-10 is-offset-1">
+            <img src="$image$">
+        </div>
     $endif$
     $body$
 </article>

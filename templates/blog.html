@@ -4,16 +4,16 @@
 
 $for(posts)$
     <li class="columns">
+        <div class="column">
+            <b><a href="/$url$">$title$</a></b><br>$date$
+            $if(teaser)$<p>$teaser$ ... <a href="/$url$">Read more</a></p>
+            $else$<p>$content_body$</p>$endif$
+        </div>
         $if(image)$
             <div class="column is-one-quarter">
                 <img src="$image$">
             </div>
         $endif$
-        <div class="column">
-            <span class="tag is-light">$category$</span><b><a href="/$url$">$title$</a></b><br>$date$
-            $if(teaser)$<p>$teaser$ ... <a href="/$url$">Read more</a></p>
-            $else$<p>$content_body$</p>$endif$
-        </div>
     </li>
     <hr />
 $endfor$
