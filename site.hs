@@ -60,6 +60,7 @@ main = hakyllWith config $ do
         compile $ do
             pandocCompiler
                 >>= loadAndApplyTemplate "templates/post.html" postCtx
+                >>= loadAndApplyTemplate "templates/base.html" defaultContext
                 >>= relativizeUrls
 
     create ["blog.html"] $ do
