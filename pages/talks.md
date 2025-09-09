@@ -3,6 +3,25 @@ title: Talks
 menu_Talks: True
 ---
 
+<script>
+    const calendarId = 'YOUR_CALENDAR_ID';
+const apiKey = 'YOUR_API_KEY';
+const timeMin = new Date().toISOString(); // only future events
+
+const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?key=${apiKey}&timeMin=${timeMin}&singleEvents=true&orderBy=startTime`;
+
+fetch(url)
+  .then(response => response.json())
+  .then(data => {
+    data.items.forEach(event => {
+      console.log(event.start, event.summary, event.location);
+      // render to your page...
+    });
+  })
+  .catch(err => console.error(err));
+</script>
+
+
 # Videos
 
 <span class="tag is-success">English</span> Talk at the 2023 Nobel Week Dialogue in Gothenborg, Sweden on "Migration throughout Human History"
