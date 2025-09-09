@@ -3,22 +3,50 @@ title: Talks
 menu_Talks: True
 ---
 
+# Upcoming Talks
+
+<ul id="event_list">
+  <li>Loading events <i id="dummy" class="fa-solid fa-spinner"></i></li>
+</ul>
+
 <script>
-    const calendarId = 'YOUR_CALENDAR_ID';
-const apiKey = 'YOUR_API_KEY';
-const timeMin = new Date().toISOString(); // only future events
+  const calendarId = '75e8930f8c6e07d994d71a304b6e06dbd89780a5ee017b895073800aa7c47b58@group.calendar.google.com';
+  const apiKey = 'AIzaSyD2FDfjyBUXQfeozNiLukjAPAElRVUQO6c';
+  const timeMin = new Date().toISOString(); // only future events
+  const maxResults = 10;
 
-const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?key=${apiKey}&timeMin=${timeMin}&singleEvents=true&orderBy=startTime`;
+  const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?key=${apiKey}&timeMin=${timeMin}&singleEvents=true&orderBy=startTime`;
 
-fetch(url)
-  .then(response => response.json())
-  .then(data => {
-    data.items.forEach(event => {
-      console.log(event.start, event.summary, event.location);
-      // render to your page...
+  const eventList = document.getElementById('event_list');
+
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      eventList.innerHTML = '';
+      if (!data.items || data.items.length === 0) {
+        eventList.innerHTML = '<p>No upcoming events found.</p>';
+        return;
+      }
+      data.items.forEach(event => {
+        const li = document.createElement('li');
+        let dateStr;
+        if (event.start.date) {
+          dateStr = new Date(event.start.date).toLocaleDateString();
+        } else {
+          dateStr = new Date(event.start.dateTime).toLocaleString();
+        }
+
+        li.innerHTML = `
+          <strong>${dateStr}</strong>: <div>${event.summary || '(No title)'}</div>
+          ${event.location ? `<div><i class="fa-solid fa-location-dot"></i> ${event.location}</div>` : ''}
+          `;
+        eventList.appendChild(li);
+      });
+    })
+    .catch(err => {
+      console.error("Error fetching events: ", err);
+      eventList.innerHTML = '<p>Error loading events.</p>';
     });
-  })
-  .catch(err => console.error(err));
 </script>
 
 

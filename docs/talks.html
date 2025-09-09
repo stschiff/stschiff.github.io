@@ -53,7 +53,52 @@
             <main class="section">
                 <h1 class="title is-2">Talks</h1>
                 <div class="content">
-                    <h1 id="videos">Videos</h1>
+                    <h1 id="upcoming-talks">Upcoming Talks</h1>
+<ul id="event_list">
+<li>
+Loading events <i id="dummy" class="fa-solid fa-spinner"></i>
+</li>
+</ul>
+<script>
+  const calendarId = '75e8930f8c6e07d994d71a304b6e06dbd89780a5ee017b895073800aa7c47b58@group.calendar.google.com';
+  const apiKey = 'AIzaSyD2FDfjyBUXQfeozNiLukjAPAElRVUQO6c';
+  const timeMin = new Date().toISOString(); // only future events
+  const maxResults = 10;
+
+  const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?key=${apiKey}&timeMin=${timeMin}&singleEvents=true&orderBy=startTime`;
+
+  const eventList = document.getElementById('event_list');
+
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      eventList.innerHTML = '';
+      if (!data.items || data.items.length === 0) {
+        eventList.innerHTML = '<p>No upcoming events found.</p>';
+        return;
+      }
+      data.items.forEach(event => {
+        const li = document.createElement('li');
+        let dateStr;
+        if (event.start.date) {
+          dateStr = new Date(event.start.date).toLocaleDateString();
+        } else {
+          dateStr = new Date(event.start.dateTime).toLocaleString();
+        }
+
+        li.innerHTML = `
+          <strong>${dateStr}</strong>: <div>${event.summary || '(No title)'}</div>
+          ${event.location ? `<div><i class="fa-solid fa-location-dot"></i> ${event.location}</div>` : ''}
+          `;
+        eventList.appendChild(li);
+      });
+    })
+    .catch(err => {
+      console.error("Error fetching events: ", err);
+      eventList.innerHTML = '<p>Error loading events.</p>';
+    });
+</script>
+<h1 id="videos">Videos</h1>
 <p><span class="tag is-success">English</span> Talk at the 2023 Nobel Week Dialogue in Gothenborg, Sweden on “Migration throughout Human History”</p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/ZVtZ9MCCKXg?si=xr3yBkvIRNh4Ylnk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
 </iframe>
