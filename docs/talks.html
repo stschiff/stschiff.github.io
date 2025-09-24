@@ -13,7 +13,7 @@
         <!-- <link rel="stylesheet" href="/css/default.css" /> -->
     </head>
     <body>
-        <div class="container is-max-desktop">
+        <div class="container is-max-widescreen">
             <header class="section">
             <h1 class="title is-1">
                 <a href="./">Stephan Schiffels</a>
@@ -34,6 +34,7 @@
                         <a href="./news.html" class="navbar-item">News</a>
                         <a href="./publications.html" class="navbar-item">Publications</a>
                         <a href="./talks.html" class="navbar-item is-active">Talks</a>
+                        <a href="./videos.html" class="navbar-item">Videos</a>
                         <a href="./resources.html" class="navbar-item">Resources</a>
                         <a target="_blank" rel="noopener noreferrer" href="https://www.eva.mpg.de/archaeogenetics/research-groups/population-genetics/" class="navbar-item">Research Group<i style="font-size:12px" class="ml-1 fa-solid fa-arrow-up-right-from-square"></i></a>
                         <a href="./blog.html" class="navbar-item">Blog</a>
@@ -54,11 +55,11 @@
                 <h1 class="title is-2">Talks</h1>
                 <div class="content">
                     <h1 id="upcoming-talks">Upcoming Talks</h1>
-<ul id="event_list">
-<li>
+<div id="event_list">
+<p>
 Loading events <i id="dummy" class="fa-solid fa-spinner"></i>
-</li>
-</ul>
+</p>
+</div>
 <script>
   const calendarId = '75e8930f8c6e07d994d71a304b6e06dbd89780a5ee017b895073800aa7c47b58@group.calendar.google.com';
   const apiKey = 'AIzaSyD2FDfjyBUXQfeozNiLukjAPAElRVUQO6c';
@@ -78,18 +79,31 @@ Loading events <i id="dummy" class="fa-solid fa-spinner"></i>
         return;
       }
       data.items.forEach(event => {
-        const li = document.createElement('li');
+        const li = document.createElement('p');
+        console.log(event);
         let dateStr;
+        const options = {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        };
         if (event.start.date) {
-          dateStr = new Date(event.start.date).toLocaleDateString();
+          dateStr = new Date(event.start.date).toLocaleDateString(undefined, options);
         } else {
-          dateStr = new Date(event.start.dateTime).toLocaleString();
+          dateStr = new Date(event.start.dateTime).toLocaleDateString(undefined, options);
         }
-
-        li.innerHTML = `
-          <strong>${dateStr}</strong>: <div>${event.summary || '(No title)'}</div>
-          ${event.location ? `<div><i class="fa-solid fa-location-dot"></i> ${event.location}</div>` : ''}
-          `;
+        let linkStr;
+        if(event.description) {
+          const urlMatch = event.description.match(/https?:\/\/[^\s]+/);
+          if(urlMatch) {
+            linkStr = `<a href="${urlMatch[0]}" target="_blank" rel="noopener noreferrer">${event.summary || '(No title)'}</a>`;
+          } else {
+            linkStr = event.summary || '(No title)';
+          }
+        } else {
+          linkStr = event.summary || '(No title)';
+        }
+        li.innerHTML = `${linkStr}, ${event.location ? `${event.location}` : ''}, <strong>${dateStr}</strong>`;
         eventList.appendChild(li);
       });
     })
@@ -98,31 +112,8 @@ Loading events <i id="dummy" class="fa-solid fa-spinner"></i>
       eventList.innerHTML = '<p>Error loading events.</p>';
     });
 </script>
-<h1 id="videos">Videos</h1>
-<p><span class="tag is-success">English</span> Talk at the 2023 Nobel Week Dialogue in Gothenborg, Sweden on “Migration throughout Human History”</p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/ZVtZ9MCCKXg?si=xr3yBkvIRNh4Ylnk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
-</iframe>
-<hr />
-<p><span class="tag is-warning">German</span> Talk together with <a href="https://www.eva.mpg.de/archaeogenetics/research-groups/computational-pathogenomics/">Alexander Herbig</a> at the German Archaeology Society (Deutscher Archäologenverband): Erkenntnisse und Herausforderung der Archäogenetik</p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/r5naPIzNjFI?si=2BpgseszZprDtswW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
-</iframe>
-<hr />
-<p><span class="tag is-warning">German</span> Participation in panel discussion and evening on “What is saxonian?” at the <em>Deutsches Hygiene-Museum Dresden</em> on March 16, 2023:</p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/FVhjHga43YQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
-</iframe>
-<hr />
-<p><span class="tag is-warning">German</span> Talk <span class="citation" data-cites="TEDxTHBrandenburg">@TEDxTHBrandenburg</span>, Germany recorded on December 6 2019:</p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/lPTuXosgUik" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-</iframe>
-<hr />
-<p><span class="tag is-success">English</span> Webinar for the International Society for Computational Biology, Regional Group in
-Turkey, recorded on December 12, 2018:</p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/qGW67OAbXD4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-</iframe>
-<hr />
-<h1 id="list-of-talks">List of talks</h1>
 <h2 id="section">2025</h2>
-<p>Invited Seminar Talk at the University of Vienna, Austria, <strong>June 17, 2025</strong></p>
+<p>Invited Seminar Talk at the University of Veterinary Medicine, Vienna, Austria, <strong>June 17, 2025</strong></p>
 <p>Accepted talk on “Connectivity, ancestry and mobility during the Iron Age - new evidence from ancient DNA” at <a href="https://www.kielconference.uni-kiel.de">Kiel Conference</a>, <strong>24 - 29 May, 2025</strong></p>
 <p>Invited Seminar Talk at the Computational Biology Seminar series at the University of Lausanne, Switzerland, <strong>February 20, 2025</strong>.</p>
 <p>Plenary Lecture at the <a href="https://www.gth2025.com/scientific-programme/">69th Annual Meeting of the Society of Thrombosis and Haemostasis Research</a>, Lausanne, Switzerland, <strong>February 20, 2025</strong></p>

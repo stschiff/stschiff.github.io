@@ -5,9 +5,9 @@ menu_Talks: True
 
 # Upcoming Talks
 
-<ul id="event_list">
-  <li>Loading events <i id="dummy" class="fa-solid fa-spinner"></i></li>
-</ul>
+<div id="event_list">
+  <p>Loading events <i id="dummy" class="fa-solid fa-spinner"></i></p>
+</div>
 
 <script>
   const calendarId = '75e8930f8c6e07d994d71a304b6e06dbd89780a5ee017b895073800aa7c47b58@group.calendar.google.com';
@@ -28,18 +28,31 @@ menu_Talks: True
         return;
       }
       data.items.forEach(event => {
-        const li = document.createElement('li');
+        const li = document.createElement('p');
+        console.log(event);
         let dateStr;
+        const options = {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        };
         if (event.start.date) {
-          dateStr = new Date(event.start.date).toLocaleDateString();
+          dateStr = new Date(event.start.date).toLocaleDateString(undefined, options);
         } else {
-          dateStr = new Date(event.start.dateTime).toLocaleString();
+          dateStr = new Date(event.start.dateTime).toLocaleDateString(undefined, options);
         }
-
-        li.innerHTML = `
-          <strong>${dateStr}</strong>: <div>${event.summary || '(No title)'}</div>
-          ${event.location ? `<div><i class="fa-solid fa-location-dot"></i> ${event.location}</div>` : ''}
-          `;
+        let linkStr;
+        if(event.description) {
+          const urlMatch = event.description.match(/https?:\/\/[^\s]+/);
+          if(urlMatch) {
+            linkStr = `<a href="${urlMatch[0]}" target="_blank" rel="noopener noreferrer">${event.summary || '(No title)'}</a>`;
+          } else {
+            linkStr = event.summary || '(No title)';
+          }
+        } else {
+          linkStr = event.summary || '(No title)';
+        }
+        li.innerHTML = `${linkStr}, ${event.location ? `${event.location}` : ''}, <strong>${dateStr}</strong>`;
         eventList.appendChild(li);
       });
     })
@@ -49,13 +62,7 @@ menu_Talks: True
     });
 </script>
 
-## 2026
-
-Invited Seminar talk at the Universty of Vienna, Austria, **March 23, 2026**
-
 ## 2025
-
-Special Lecture at the [Aachen Heart Conference](https://www.aachen-cardiorenal-conference.de) on "Genetic History - how ancient DNA is revolutionising our view on the human past.", **November 13, 2025**
 
 Invited Seminar Talk at the University of Veterinary Medicine, Vienna, Austria, **June 17, 2025**
 

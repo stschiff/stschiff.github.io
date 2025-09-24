@@ -7,7 +7,7 @@
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Stephan Schiffels - News</title>
+        <title>Stephan Schiffels - Videos</title>
         <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"> -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
         <!-- <link rel="stylesheet" href="/css/default.css" /> -->
@@ -31,10 +31,10 @@
                 </div>
                 <div class="navbar-menu" id="navMenu">
                     <div class="navbar-start">
-                        <a href="./news.html" class="navbar-item is-active">News</a>
+                        <a href="./news.html" class="navbar-item">News</a>
                         <a href="./publications.html" class="navbar-item">Publications</a>
                         <a href="./talks.html" class="navbar-item">Talks</a>
-                        <a href="./videos.html" class="navbar-item">Videos</a>
+                        <a href="./videos.html" class="navbar-item is-active">Videos</a>
                         <a href="./resources.html" class="navbar-item">Resources</a>
                         <a target="_blank" rel="noopener noreferrer" href="https://www.eva.mpg.de/archaeogenetics/research-groups/population-genetics/" class="navbar-item">Research Group<i style="font-size:12px" class="ml-1 fa-solid fa-arrow-up-right-from-square"></i></a>
                         <a href="./blog.html" class="navbar-item">Blog</a>
@@ -52,80 +52,28 @@
             </header>
 
             <main class="section">
-                <h1 class="title is-2">News</h1>
+                <h1 class="title is-2">Videos</h1>
                 <div class="content">
-                    <div id="toot_list">
-<p>
-Loading Feed<i id="dummy" class="fa-solid fa-spinner"></i>
-</p>
-</div>
-<script type="module">
-    
-import { getToots } from "/js/get_toots.js";
-const toot_list = document.getElementById('toot_list');
-let max_id = null;
-let before_load = true;
-
-while(toot_list.childElementCount < 20) {
-  const toots = await getToots("109301761847534867", max_id);
-  console.log(toots);
-  for(const toot of toots) {
-    const toot_div = document.createElement('article')
-    let toot_img = "";
-    if(toot.media_attachments.length > 0) {
-      toot_img = `<img src="` + toot.media_attachments[0].preview_url + `" />`;
-    }
-    const toot_time = new Date(toot.created_at);
-    const now = new Date();
-    const diff_ms = now.getTime() - toot_time.getTime();
-    let time_string = "";
-    if(diff_ms < 60 * 60 * 1000) {
-      time_string = Math.round(diff_ms / (60 * 1000)) + "m ago";
-    }
-    else if(diff_ms < 24 * 60 * 60 * 1000) {
-      time_string = Math.round(diff_ms / (60 * 60 * 1000)) + "h ago";
-    }
-    else if(diff_ms < 7 * 24 * 60 * 60 * 1000) {
-      time_string = Math.round(diff_ms / (24 * 60 * 60 * 1000)) + "d ago";
-    }
-    else {
-      time_string = toot_time.toDateString();
-    }
-    toot_div.className = "media";
-    toot_div.innerHTML = `
-<figure class="media-left">
-<p class="image is-64x64">
-  <a href="` + toot.account.url + `"><img src="` + toot.account.avatar + `" /></a>
-</p>
-</figure>
-<div class="media-content">
-<div class="content">
-  <div class="columns">
-    <div class="column is-two-thirds">
-      <p>
-        <a href="` + toot.account.url + `"><strong>`+ toot.account.display_name + `</strong>
-        <small>@` + toot.account.username + `@ecoevo.social</small></a>
-        <small>` + time_string + `</small>
-        <br />
-` + toot.content + `        
-      </p>
-      <a href="` + toot.url + `"><small><i class="fa-solid fa-arrow-up-right-from-square"></i> Jump to Post</small></a>
-    </div>
-    <div class="column">` + toot_img + `</div>
-  </div>
-  
-</div>
-</div>`;
-    if(before_load) {
-      toot_list.innerHTML = "";
-      before_load = false;
-    }
-    toot_list.appendChild(toot_div);
-    max_id = toot.id;
-  }
-}    
-
-</script>
+                    <p><span class="tag is-success">English</span> Talk at the 2023 Nobel Week Dialogue in Gothenborg, Sweden on “Migration throughout Human History”</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ZVtZ9MCCKXg?si=xr3yBkvIRNh4Ylnk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
+</iframe>
+<hr />
+<p><span class="tag is-warning">German</span> Talk together with <a href="https://www.eva.mpg.de/archaeogenetics/research-groups/computational-pathogenomics/">Alexander Herbig</a> at the German Archaeology Society (Deutscher Archäologenverband): Erkenntnisse und Herausforderung der Archäogenetik</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/r5naPIzNjFI?si=2BpgseszZprDtswW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
+</iframe>
+<hr />
+<p><span class="tag is-warning">German</span> Participation in panel discussion and evening on “What is saxonian?” at the <em>Deutsches Hygiene-Museum Dresden</em> on March 16, 2023:</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/FVhjHga43YQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
+</iframe>
+<hr />
+<p><span class="tag is-warning">German</span> Talk <span class="citation" data-cites="TEDxTHBrandenburg">@TEDxTHBrandenburg</span>, Germany recorded on December 6 2019:</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/lPTuXosgUik" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe>
+<hr />
+<p><span class="tag is-success">English</span> Webinar for the International Society for Computational Biology, Regional Group in
+Turkey, recorded on December 12, 2018:</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/qGW67OAbXD4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe>
                 </div>
             </main>
 
