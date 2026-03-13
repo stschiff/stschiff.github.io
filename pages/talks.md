@@ -3,7 +3,6 @@ title: Talks
 menu_Talks: True
 ---
 
-# Upcoming Talks
 
 <div id="event_list">
   <p>Loading events <i id="dummy" class="fa-solid fa-spinner"></i></p>
@@ -12,8 +11,7 @@ menu_Talks: True
 <script>
   const calendarId = '75e8930f8c6e07d994d71a304b6e06dbd89780a5ee017b895073800aa7c47b58@group.calendar.google.com';
   const apiKey = 'AIzaSyD2FDfjyBUXQfeozNiLukjAPAElRVUQO6c';
-  const timeMin = new Date().toISOString(); // only future events
-  const maxResults = 10;
+  const timeMin = new Date('2025-07-01T00:00:00Z').toISOString(); // only events from Jul 1, 2026
 
   const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?key=${apiKey}&timeMin=${timeMin}&singleEvents=true&orderBy=startTime`;
 
@@ -24,10 +22,10 @@ menu_Talks: True
     .then(data => {
       eventList.innerHTML = '';
       if (!data.items || data.items.length === 0) {
-        eventList.innerHTML = '<p>No upcoming events found.</p>';
+        eventList.innerHTML = 'no events loaded';
         return;
       }
-      data.items.forEach(event => {
+      data.items.slice().reverse().forEach(event => {
         const li = document.createElement('p');
         console.log(event);
         let dateStr;
