@@ -34,6 +34,10 @@ main = hakyllWith config $ do
         route idRoute
         compile copyFileCompiler
 
+    match "purescript/index.js" $ do
+        route idRoute
+        compile copyFileCompiler
+
     match "images/publications/*" $ do
         route   idRoute
         compile copyFileCompiler

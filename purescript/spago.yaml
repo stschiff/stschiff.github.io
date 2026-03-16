@@ -3,8 +3,9 @@ package:
   dependencies:
     - console
     - effect
-    - prelude
     - fetch
+    - fetch-argonaut
+    - prelude
   test:
     main: Test.Main
     dependencies: []
