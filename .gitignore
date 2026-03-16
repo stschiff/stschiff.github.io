@@ -4,3 +4,4 @@ _cache/
 *.lock
 deploy.sh
 .DS_Store
+.psc-ide-port
