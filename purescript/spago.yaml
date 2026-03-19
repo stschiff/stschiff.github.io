@@ -5,7 +5,10 @@ package:
     - effect
     - fetch
     - fetch-argonaut
+    - halogen
     - prelude
+    - web-dom
+    - web-html
   test:
     main: Test.Main
     dependencies: []

@@ -2,16 +2,27 @@ module Main where
 
 import Prelude
 
--- import Data.Argonaut (Json)
 import Data.Array (length, filter)
 import Data.Maybe (Maybe(..))
-import Data.Traversable (for)
+import Data.Traversable (for_)
 import Effect (Effect)
+import Effect.Aff.Class (class MonadAff)
+import Effect.Class (liftEffect)
 import Effect.Class.Console (log, logShow)
 import Fetch (fetch)
 import Fetch.Argonaut.Json (fromJson)
 import Effect.Aff (Aff, launchAff_)
-import Web.DOM.Document (getElementById)
+import Halogen as H
+import Halogen.Aff (runHalogenAff)
+import Halogen.Aff.Util (selectElement)
+import Halogen.HTML as HH
+import Halogen.HTML.Properties as HP
+import Halogen.VDom.Driver (runUI)
+import Web.DOM.Element (setAttribute, toNode)
+import Web.DOM.Document (toNonElementParentNode, createElement)
+import Web.DOM.Node (appendChild)
+import Web.DOM.NonElementParentNode (getElementById)
+import Web.DOM.ParentNode (QuerySelector(..))
 import Web.HTML (window)
 import Web.HTML.HTMLDocument (toDocument)
 import Web.HTML.Window (document)
@@ -32,23 +43,67 @@ type Toot = {
   url :: String
 }
 
-main :: Effect Unit
-main = do
+type State = Array Toot
+
+data Action
+  = LoadToots
+
+mainNews :: Effect Unit
+mainNews = runHalogenAff do
+  mdiv <- selectElement $ QuerySelector "#newsdiv"
+  case mdiv of
+    Nothing -> pure unit
+    Just div -> do
+      void $ runUI component unit div
+
+component :: forall query input output m. MonadAff m => H.Component query input output m
+component =
+  H.mkComponent
+    { initialState
+    , render
+    , eval: H.mkEval $ H.defaultEval
+      { handleAction = handleAction
+      , initialize = Just LoadToots
+      }
+    }
+
+initialState :: forall input. input -> State
+initialState = const []
+
+
+render :: forall m. State -> H.ComponentHTML Action () m
+render [] = HH.p_
+  [ HH.text "Loading Feed"
+  , HH.i [ HP.classes [ HH.ClassName "fa-solid", HH.ClassName "fa-spinner" ] ] []
+  ]
+render toots = HH.ul_ $ map renderToot toots
+  where
+    renderToot toot = HH.li_ [ HH.text toot.content ]
+
+
+handleAction :: forall output m. MonadAff m => Action -> H.HalogenM State Action () output m Unit
+handleAction LoadToots = do
+  toots <- H.liftAff $ get_toots "109301761847534867"
+  H.put toots
+
+
+mainOld :: Effect Unit
+mainOld = launchAff_ $ do
   log "🍝"
-  r <- launchAff_ $ get_toots "109301761847534867"
-  logShow r
-  log $ "Found " <> show (length r) <> " toots"
-  win <- window
-  doc <- toDocument $ document win
-  maybeEl <- getElementById "toot-list" $ toNonElementParentNode doc
-  case maybeEl of
-    Nothing -> log "Could not find element with id 'toot-list'"
-    Just toot_list -> do
-      for r $ \toot -> do
-        let el = createElement "li" doc
-        el.innerHTML = toot.content
-        pure ()
-        appendChild (toNode el) (toNode toot_list)
+  r <- get_toots "109301761847534867"
+  liftEffect $ do
+    logShow r
+    log $ "Found " <> show (length r) <> " toots"
+    win <- window
+    doc <- toDocument <$> document win
+    maybeEl <- getElementById "toot_list" $ toNonElementParentNode doc
+    case maybeEl of
+      Nothing -> log "Could not find element with id 'toot-list'"
+      Just toot_list -> do
+        for_ r $ \toot -> do
+          el <- createElement "li" doc
+          setAttribute "innerHTML" toot.content el
+          appendChild (toNode el) (toNode toot_list)
 
 
 get_toots :: String -> Aff (Array Toot)

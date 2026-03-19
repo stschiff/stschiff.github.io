@@ -3,12 +3,12 @@ title: News
 menu_News: True
 ---
 
-<div id="toot_list"><p>Loading Feed<i id="dummy" class="fa-solid fa-spinner"></i></p></div>
+<div id="newsdiv"></div>
 
 <script type="module">
     
-import { main } from "/purescript/index.js";
-main();
+import { mainNews } from "/purescript/index.js";
+mainNews();
 // const toot_list = document.getElementById('toot_list');
 // let max_id = null;
 // let before_load = true;
