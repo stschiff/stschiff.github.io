@@ -79,25 +79,25 @@ render toots = HH.div_ $ map renderToot toots
           ]
           [ HH.img [ HP.src (toot.account.avatar) ] ]
         ]
-        , HH.div [ HP.classes [ HH.ClassName "media-content"] ]
-          [ HH.div [ HP.classes [ HH.ClassName "content"] ]
-            [ HH.div [ HP.classes [ HH.ClassName "columns"] ]
-              [ HH.div [ HP.classes [ HH.ClassName "column", HH.ClassName "is-two-thirds"] ]
-                [ HH.p_
-                  [ HH.a [ HP.href (toot.account.url) ]
-                    [ HH.strong_ [ HH.text (toot.account.display_name) ]
-                    , HH.text " "
-                    , HH.small_ [ HH.text ("@" <> toot.account.username <> "@ecoevo.social") ]
-                    , HH.text " "
-                    ]
-                  , HH.small_ [ HH.text "this should be the time" ]
-                  , HH.br_
+      , HH.div [ HP.classes [ HH.ClassName "media-content"] ]
+        [ HH.div [ HP.classes [ HH.ClassName "content"] ]
+          [ HH.div [ HP.classes [ HH.ClassName "columns"] ]
+            [ HH.div [ HP.classes [ HH.ClassName "column", HH.ClassName "is-two-thirds"] ]
+              [ HH.p_
+                [ HH.a [ HP.href (toot.account.url) ]
+                  [ HH.strong_ [ HH.text (toot.account.display_name) ]
+                  , HH.text " "
+                  , HH.small_ [ HH.text ("@" <> toot.account.username <> "@ecoevo.social") ]
+                  , HH.text " "
                   ]
-                , RH.render_ toot.content
+                , HH.small_ [ HH.text "this should be the time" ]
+                , HH.br_
                 ]
+              , RH.render_ toot.content
               ]
             ]
           ]
+        ]
       ]
 
 
