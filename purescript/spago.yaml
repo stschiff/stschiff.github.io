@@ -9,6 +9,7 @@ package:
     - prelude
     - web-dom
     - web-html
+    - html-parser-halogen
   test:
     main: Test.Main
     dependencies: []
