@@ -2,30 +2,22 @@ module Main where
 
 import Prelude
 
-import Data.Array (length, filter)
+import Data.Array (filter)
 import Data.Maybe (Maybe(..))
-import Data.Traversable (for_)
 import Effect (Effect)
+import Effect.Aff (Aff)
 import Effect.Aff.Class (class MonadAff)
-import Effect.Class (liftEffect)
-import Effect.Class.Console (log, logShow)
+import Effect.Class.Console (log)
 import Fetch (fetch)
 import Fetch.Argonaut.Json (fromJson)
-import Effect.Aff (Aff, launchAff_)
 import Halogen as H
 import Halogen.Aff (runHalogenAff)
 import Halogen.Aff.Util (selectElement)
 import Halogen.HTML as HH
 import Halogen.HTML.Properties as HP
 import Halogen.VDom.Driver (runUI)
-import Web.DOM.Element (setAttribute, toNode)
-import Web.DOM.Document (toNonElementParentNode, createElement)
-import Web.DOM.Node (appendChild)
-import Web.DOM.NonElementParentNode (getElementById)
+import Html.Renderer.Halogen as RH
 import Web.DOM.ParentNode (QuerySelector(..))
-import Web.HTML (window)
-import Web.HTML.HTMLDocument (toDocument)
-import Web.HTML.Window (document)
 
 type Toot = {
   in_reply_to_id :: Maybe String,
@@ -36,6 +28,7 @@ type Toot = {
   created_at :: String,
   account :: {
     url :: String,
+    avatar :: String,
     display_name :: String,
     username :: String
   },
@@ -76,34 +69,42 @@ render [] = HH.p_
   [ HH.text "Loading Feed"
   , HH.i [ HP.classes [ HH.ClassName "fa-solid", HH.ClassName "fa-spinner" ] ] []
   ]
-render toots = HH.ul_ $ map renderToot toots
+render toots = HH.div_ $ map renderToot toots
   where
-    renderToot toot = HH.li_ [ HH.text toot.content ]
+    renderToot toot = HH.article [ HP.classes [ HH.ClassName "media" ] ]
+      [ HH.figure [ HP.classes [ HH.ClassName "media-left" ] ]
+        [ HH.a
+          [ HP.href (toot.url)
+          , HP.classes [ HH.ClassName "image", HH.ClassName "is-64x64" ]
+          ]
+          [ HH.img [ HP.src (toot.account.avatar) ] ]
+        ]
+        , HH.div [ HP.classes [ HH.ClassName "media-content"] ]
+          [ HH.div [ HP.classes [ HH.ClassName "content"] ]
+            [ HH.div [ HP.classes [ HH.ClassName "columns"] ]
+              [ HH.div [ HP.classes [ HH.ClassName "column", HH.ClassName "is-two-thirds"] ]
+                [ HH.p_
+                  [ HH.a [ HP.href (toot.account.url) ]
+                    [ HH.strong_ [ HH.text (toot.account.display_name) ]
+                    , HH.text " "
+                    , HH.small_ [ HH.text ("@" <> toot.account.username <> "@ecoevo.social") ]
+                    , HH.text " "
+                    ]
+                  , HH.small_ [ HH.text "this should be the time" ]
+                  , HH.br_
+                  ]
+                , RH.render_ toot.content
+                ]
+              ]
+            ]
+          ]
+      ]
 
 
 handleAction :: forall output m. MonadAff m => Action -> H.HalogenM State Action () output m Unit
 handleAction LoadToots = do
   toots <- H.liftAff $ get_toots "109301761847534867"
   H.put toots
-
-
-mainOld :: Effect Unit
-mainOld = launchAff_ $ do
-  log "🍝"
-  r <- get_toots "109301761847534867"
-  liftEffect $ do
-    logShow r
-    log $ "Found " <> show (length r) <> " toots"
-    win <- window
-    doc <- toDocument <$> document win
-    maybeEl <- getElementById "toot_list" $ toNonElementParentNode doc
-    case maybeEl of
-      Nothing -> log "Could not find element with id 'toot-list'"
-      Just toot_list -> do
-        for_ r $ \toot -> do
-          el <- createElement "li" doc
-          setAttribute "innerHTML" toot.content el
-          appendChild (toNode el) (toNode toot_list)
 
 
 get_toots :: String -> Aff (Array Toot)

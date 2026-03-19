@@ -16,4 +16,18 @@ package:
 workspace:
   packageSet:
     registry: 73.3.0
-  extraPackages: {}
+  extraPackages:
+    html-parser-halogen:
+      git: https://github.com/rnons/purescript-html-parser-halogen
+      ref: 035a51d02ba9f8b70c3ffd9fe31a3f5bed19941c
+      dependencies:
+        - arrays
+        - control
+        - dom-indexed
+        - foldable-traversable
+        - effect
+        - halogen
+        - maybe
+        - prelude
+        - psci-support
+        - jest
