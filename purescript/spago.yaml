@@ -3,13 +3,16 @@ package:
   dependencies:
     - console
     - effect
+    - either
     - fetch
     - fetch-argonaut
+    - formatters
     - halogen
+    - html-parser-halogen
+    - js-date
     - prelude
     - web-dom
     - web-html
-    - html-parser-halogen
   test:
     main: Test.Main
     dependencies: []
