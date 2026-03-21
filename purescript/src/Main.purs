@@ -1,4 +1,15 @@
-module Main where
+module Main
+  ( Action(..)
+  , State
+  , Toot
+  , component
+  , handleAction
+  , initialState
+  , mainNews
+  , render
+  , renderToot
+  )
+  where
 
 import Prelude
 
@@ -7,7 +18,7 @@ import Data.DateTime (DateTime, diff)
 import Data.Either (Either(..))
 import Data.Formatter.DateTime (formatDateTime)
 import Data.Int (floor)
-import Data.JSDate (now, parse, toDateTime)
+import Data.JSDate (parse, toDateTime)
 import Data.Maybe (Maybe(..))
 import Data.Time.Duration (Days(..), Hours(..), Minutes(..), convertDuration)
 import Data.Traversable (for)
@@ -15,6 +26,7 @@ import Effect (Effect)
 import Effect.Aff (Aff)
 import Effect.Aff.Class (class MonadAff)
 import Effect.Class.Console (log)
+import Effect.Now (nowDateTime)
 import Fetch (fetch)
 import Fetch.Argonaut.Json (fromJson)
 import Halogen as H
@@ -144,8 +156,8 @@ handleAction LoadToots = do
   toots <- for toots_json $ \toot -> do
     toot_dt <- toDateTime <$> (H.liftEffect (parse toot.created_at))
     pure { toot, toot_dt }
-  now_dt <- H.liftEffect $ toDateTime <$> now
-  H.put { toots, now_dt }
+  now_dt <- H.liftEffect $ nowDateTime
+  H.put { toots, now_dt: Just now_dt }
 
 
 get_toots :: String -> Aff (Array Toot)

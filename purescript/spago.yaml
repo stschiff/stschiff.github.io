@@ -10,9 +10,8 @@ package:
     - halogen
     - html-parser-halogen
     - js-date
+    - now
     - prelude
-    - web-dom
-    - web-html
   test:
     main: Test.Main
     dependencies: []
