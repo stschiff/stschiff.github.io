@@ -1,1 +1,1 @@
-spago bundle --bundle-type module --minify
+spago bundle --bundle-type module
